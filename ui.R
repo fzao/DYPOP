@@ -3,7 +3,7 @@ library(plotly)
 
 # Define UI for application that draws a histogram
 pageWithSidebar(
-  headerPanel('Dynamique Population Truite'),
+  headerPanel('Dynamic Trout Population'),
   sidebarPanel(
     sliderInput("slider1", label = h3("T 10"), min = 9., 
                 max = 17., value = 10, step = 1.),
