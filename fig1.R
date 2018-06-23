@@ -1,16 +1,17 @@
 #########################################
-### Fonction de creation de la FIGURE 1 : TAUX DE SURVIE
-#### Prediction globale pour la station (quelle gamme de survie à attendre en fonction des %Caches et T50?
+###  FIGURE 1 : SURVIVAL RATE
+### Global prediction for the station
+### (what range of survival to expect based on
+### %Caches and T10/T50
 #########################################
-    # ids : nom de la station (utilisé pour le titre)
-    # FS : Données chargée (correspondant au set de paramètres en entrée)
-    # [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
+# ids : name of the station (used for the title)
+# FS : Data loaded (corresponding to the input parameter set)
 
 fig1 <- function(ids, FS, t_10, t_90, cache)
-{    
-    par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
-    disc=length(FS[["X0"]])
-    
+{
+    par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
+    disc <- length(FS[["X0"]])
+
     x0 <- FS[["X0"]]
     s0_025 <- FS[[par_name]][,'r1_025']/x0
     s0_25 <- FS[[par_name]][,'r1_25']/x0
@@ -32,11 +33,9 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
     sAd_75 <- FS[[par_name]][,'rAd_75']/xAd
     sAd_975 <- FS[[par_name]][,'rAd_975']/xAd
 
-
     dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975,
-        x1, s1_025,s1_25,s1_50,s1_75,s1_975, 
+        x1, s1_025,s1_25,s1_50,s1_75,s1_975,
         xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
-
 
     p0 <- plot_ly(dataF, x = ~x0, y = ~s0_975, type = 'scatter', mode = 'lines',
             line = list(color = 'black'),
@@ -107,7 +106,6 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
                           ticks = 'outside',
                           zeroline = FALSE))
 
-
     pAd <- plot_ly(dataF, x = ~xAd, y = ~sAd_975, type = 'scatter', mode = 'lines',
             line = list(color = 'black'),
             showlegend = FALSE, name = 'Percentile 97.5') %>%
@@ -148,7 +146,7 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
       t = 100,
       pad = 2
     )
-                      
+
     p <- subplot(p0, p1, pAd, nrows=3, margin=0.05, titleX = TRUE, titleY = TRUE) %>%
       layout(autosize = T, width = 1200, height = 1000, margin = m)
 
