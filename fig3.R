@@ -1,34 +1,36 @@
+###########################################
+### FIGURE 3 : 'SR' type relation: density
+### of a year-class year y according to
+### the densities of the age class
+### preceding the year y-1
+### Integration of a density level 1+
+### or Ad influencing survival
 #########################################
-### Fonction de creation de la FIGURE 3 : RELATION type 'SR' : densité d'une classe d'âge l'année y en fonction des densités de la classe d'âge précédente l'année y-1
-#### Integration d'un niveau de densité 1+ ou Ad influençant la survie
-#########################################
-    # ids : nom de la station (utilisé pour le titre)
-    # FS : Données chargée (correspondant au set de paramètres en entrée)
-    # T10, T90, C : Valeur des paramètres d'entrées du modèle (caractéristiques de la station T10 annuel, T90 annuel et % de S de caches)
-    # X1m, XAdm : Valeur de 
-    # [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
-    # Dso : Données a afficher
-    
+# ids : name of the station (used for the title)
+# FD : Data loaded (corresponding to the input parameter set)
+# t_10, t_90, cache : modelling parameter values (percentiles and % of cache)
+# X1m, XAdm : Abscissa range
+# Dso : Data to plot
+
 fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 {
-    par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
-    par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
-    disc=length(FS[["X0"]])
-    
-    
-    # Données à afficher?
+    par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
+    par_name_full <- paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
+    disc <- length(FS[["X0"]])
+
+    # Data to plot
     if (!is.null(Dso)){
-    ### On met en forme pour pouvoir faire rapidement appel aux années successives
+    ### We put in shape to be able to quickly call on successive years
     Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
     for (i in 1:nrow(Dso)){
-        yi<-as.numeric(Dso[i,'Year'])
+        yi <- as.numeric(Dso[i,'Year'])
         if(nrow(Dso[Dso$Year==(yi-1),])==1){
-            Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
+            Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')] <- Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
             }
         }
     }
-    
-    # Mise en forme données
+
+    # Formatting Data
     x0 <- FS[["X0"]]
     s0_025 <- FS[[par_name]][,'r1_025']
     s0_25 <- FS[[par_name]][,'r1_25']
@@ -51,9 +53,9 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
     sAd_975 <- FS[[par_name_full]][,'rAd_975_1m']
 
     dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975,
-        x1, s1_025,s1_25,s1_50,s1_75,s1_975, 
+        x1, s1_025,s1_25,s1_50,s1_75,s1_975,
         xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
-        
+
     ## Subplots
     p0 <- plot_ly(dataF, x = ~x0, y = ~s0_975, type = 'scatter', mode = 'lines',
             line = list(color = 'black'),
@@ -89,8 +91,7 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
                           ticks = 'outside',
                           zeroline = FALSE))
 
-        
-    ## Données dispo?
+    ## Available Data?
     if (!is.null(Dso)){
     p0 <- p0 %>% add_markers(x = c(10, 30, 25, 50), y = c(1, 2.5, 1.7, 0.9), mode='markers', showlegend = FALSE)
         }
@@ -170,10 +171,9 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
       t = 100,
       pad = 2
     )
-                      
+
     p <- subplot(p0, p1, pAd, nrows=3, margin=0.05, titleX=TRUE, titleY=TRUE) %>%
       layout(autosize = T, width = 1200, height = 1000, margin = m)
 
     return(p)
 }
-
