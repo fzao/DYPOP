@@ -1,7 +1,7 @@
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
 # Parameters
-disc <- 10 	# Discretization step
+disc <- 100 	# Discretization step
 X0x  <- 110	# Bounds for density axes (use of percentiles (0.999))
 X1x  <- 60
 XAdx <- 35
@@ -17,7 +17,66 @@ Crg <- c(0., 7., 0.5)
 Nm <- 12
 
 
-generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
+# Get moving average of a vector
+# x: the vector
+# n: the number of samples
+# centered: if FALSE, then average current sample and previous (n-1) samples
+#           if TRUE, then average symmetrically in past and future. (If n is even, use one more sample from future.)
+movingAverage <- function(x, n=1, centered=TRUE) {
+    
+    if (centered) {
+        before <- floor  ((n-1)/2)
+        after  <- ceiling((n-1)/2)
+    } else {
+        before <- n-1
+        after  <- 0
+    }
+
+    # Track the sum and count of number of non-NA items
+    s     <- rep(0, length(x))
+    count <- rep(0, length(x))
+    
+    # Add the centered data 
+    new <- x
+    # Add to count list wherever there isn't a 
+    count <- count + !is.na(new)
+    # Now replace NA_s with 0_s and add to total
+    new[is.na(new)] <- 0
+    s <- s + new
+    
+    # Add the data from before
+    i <- 1
+    while (i <= before) {
+        # This is the vector with offset values to add
+        new   <- c(rep(NA, i), x[1:(length(x)-i)])
+
+        count <- count + !is.na(new)
+        new[is.na(new)] <- 0
+        s <- s + new
+        
+        i <- i+1
+    }
+
+    # Add the data from after
+    i <- 1
+    while (i <= after) {
+        # This is the vector with offset values to add
+        new   <- c(x[(i+1):length(x)], rep(NA, i))
+       
+        count <- count + !is.na(new)
+        new[is.na(new)] <- 0
+        s <- s + new
+        
+        i <- i+1
+    }
+    
+    # return sum divided by count
+    s/count
+}
+
+
+
+generation_data <- function(disc, X0, X1, XAd, T10rg, T90rg, Crg, Nm){
 	# Loading model results
 	load(file=paste('data/MHB1_chains_dataframe.RData',sep=''))
 	# Output directories for the results
@@ -51,7 +110,7 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 
     # Hierarchical parameters
     ## Orders of parameters: 'hBarr','Caches','VHAad','L50','T10','T90'
-	alzha_g1 <- as.matrix(df.mcmc[,'alpha_g1'])
+	alpha_g1 <- as.matrix(df.mcmc[,'alpha_g1'])
 	beta_g1C <- as.matrix(df.mcmc[,'beta_g1[6]'])
 	beta_g1T <- as.matrix(df.mcmc[,'beta_g1[2]']) # T90
 
@@ -87,14 +146,14 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 	pb <- txtProgressBar(min=0, max=Nx, initial=0, title='Generation des données', label='Generation data', style=3)
 	nrun=0
 
-	for (T10 in seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])){
-		for (T90 in seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])){
-			for (C in seq(from=Crg[1], to=Crg[2], by=Crg[3])){
+	for (t_10 in seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])){
+		for (t_90 in seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])){
+			for (cache in seq(from=Crg[1], to=Crg[2], by=Crg[3])){
 				# Codification de la combinaison de parametres
-				par_name=paste('T10', T10,'T90', T90,'C', C, sep="_")
-				T10c<-scale(T10, center=12.99096, scale=1.6245)
-				T90c<-scale(T90, center=3.944858, scale=1.256369)
-				Cc<-scale(C, center=2.212839, scale=1.445699)
+				par_name=paste('T10', t_10,'T90', t_90,'C', cache, sep="_")
+				T10c<-scale(t_10, center=12.99096, scale=1.6245)
+				T90c<-scale(t_90, center=3.944858, scale=1.256369)
+				Cc<-scale(cache, center=2.212839, scale=1.445699)
 
 				# pred G1
 				lEG1<-alpha_g1 + rep(Cc,samples)*beta_g1C + rep(T90c,samples)*beta_g1T
@@ -145,15 +204,19 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 					FS[[par_name]][xi,'rAd_975'] <- quantile(DpeAd, 0.975)
 					}
 
-				## + moving average to smooth the curve?
-
+				
+				## Moving average to smooth the curve
+				if (disc>50){
+					FS[[par_name]]=data.frame(apply(FS[[par_name]], 2, movingAverage, n=ceiling(0.05*disc)))
+					}
+				
 				#########################################
 				### FIGURE 3 : Population level
 				#########################################
 				# Dependent on a value of X1m and XAdm (density of 1 + or Ad fixed for year y-1)
 				for (X1m in  X1){
 					for (XAdm in  XAd){
-						par_name_full <- paste('T10',T10,'T90',T90,'C',C,'X1m',X1m,'XAdm',XAdm, sep="_")
+						par_name_full <- paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
 
 						FS[[par_name_full]] <- as.data.frame(matrix(NA,ncol=10,nrow=length(X0)))
 						colnames(FS[[par_name_full]]) <- c('r2_025_Adm','r2_25_Adm','r2_50_Adm','r2_75_Adm','r2_975_Adm',
@@ -184,6 +247,11 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 							FS[[par_name_full]][xi,'rAd_75_1m'] <- quantile(DpeAd_1m, 0.75)
 							FS[[par_name_full]][xi,'rAd_975_1m'] <- quantile(DpeAd_1m, 0.975)
 							}
+							
+						## Moving average to smooth the curve
+						if (disc>50){
+							FS[[par_name_full]]=data.frame(apply(FS[[par_name_full]], 2, movingAverage, n=ceiling(0.05*disc)))
+							}
 						}
 					}
 
@@ -191,12 +259,14 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 				### FIGURE 2 : Population level
 				#########################################
 				## Distribution of densities of 0+ in input for the figure densities
-				X0pred <- rlnorm(samples, meanlog=2.2, sdlog=0.9)  # Distribution of recruitment levels globally observed on the 40 stations of the model
-				X0predl <- rnorm(samples, mean=3, sd=0.2)  # Distribution of low recruitments (E = 3.7 ind / 100m2)
-				X0predm <- rnorm(samples, mean=9, sd=0.2)  # Distribution of low to medium recruitment (E = 10.3 ind / 100m2)
-				X0predh <- rnorm(samples, mean=15, sd=0.2) # Distribution of medium to high recruitment (E = 27.7 ind / 100m2)
-
-				SEQ <- seq(from=0, to=1000, length.out=1000)
+				X0x=max(X0)
+				X0pred <-sapply(rlnorm(samples,meanlog=2.2, sdlog=0.9), function(x){max(0,min(x,X0x))})
+				X0predl<-sapply(rnorm(samples,mean=3, sd=1), function(x){max(0,min(x,X0x))})	# Distribution de recrutements faibles (E = 3.7 ind/100m-2)
+				X0predm<-sapply(rnorm(samples,mean=15, sd=1), function(x){max(0,min(x,X0x))})	# Distribution de recrutements faibles à moyens (E = 10.3 ind/100m-2)
+				X0predh<-sapply(rnorm(samples,mean=60, sd=1), function(x){max(0,min(x,X0x))})	# Distribution de recrutements moyens à forts (E = 27.7 ind/100m-2)
+				
+				
+				SEQ <- X0
 				FD[[par_name]] <- as.data.frame(matrix(NA, ncol=6, nrow=length(SEQ)-1))
 				colnames(FD[[par_name]]) <- c('D1l', 'D1m', 'D1h', 'DAdl', 'DAdm', 'DAdh')
 				FD[['xinf']] <- SEQ[-length(SEQ)]
@@ -239,6 +309,11 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 					if(k==4){FD[[par_name]]$D1h <- hist(Dpred$Dpe1,breaks=SEQ,plot=FALSE)$density; FD[[par_name]]$DAdh<-hist(Dpred[-c(1:10),'DpeAd'],breaks=SEQ,plot=FALSE)$density}
 					}
 
+				## Moving average to smooth the curve
+				if (disc>50){
+					FD[[par_name]]=data.frame(apply(FD[[par_name]], 2, movingAverage, n=ceiling(0.05*disc)))
+					}
+
 				#save(FS, file='data/FS.RData')
 				#save(FD, file='data/FD.RData')
 				nrun=nrun+1
@@ -251,4 +326,4 @@ generation_data <- function(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm){
 	close(pb)
 	}
 
-generation_data(disc, X0x, X1x, XAdx, T10rg, T90rg, Crg, Nm)
+generation_data(disc, X0, X1, XAd, T10rg, T90rg, Crg, Nm)
