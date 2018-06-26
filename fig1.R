@@ -7,10 +7,6 @@
 # ids : name of the station (used for the title)
 # FS : Data loaded (corresponding to the input parameter set)
 
-
-# Test pull
-
-
 fig1 <- function(ids, FS, t_10, t_90, cache)
 {
     par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
