@@ -366,10 +366,6 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 	}
 
 	
-T10rg <- c(9., 17., 0.5)
-T90rg <- c(1., 8., 0.5)
-Crg <- c(0., 7., 0.5)
-
 
 # All ranges
 #t_10_L = seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])
@@ -378,9 +374,10 @@ Crg <- c(0., 7., 0.5)
 
 # Testing new features of generation_data
 	# reducing ranges for quick results
-T10rg_reduced <- c(10., 13., 1.)
-T90rg_reduced <- c(4., 6., 1.)
-Crg_reduced <- c(0., 2., 1.)
+stepsize <- 1.
+T10rg_reduced <- c(10., 13., stepsize)
+T90rg_reduced <- c(4., 6., stepsize)
+Crg_reduced <- c(0., 2., stepsize)
 
 	# Run on custom ranges (only one T10 value)
 t_10_L = c(10.)
