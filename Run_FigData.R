@@ -16,9 +16,10 @@ X0 <- c(c(0.001), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), rou
 X1 <- c(c(0.001), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round))
 XAd <- c(c(0.001), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round))
 # Desired values c(<min>, <max>, <step>)
-T10rg <- c(9., 17., 0.5)
-T90rg <- c(1., 8., 0.5)
-Crg <- c(0., 7., 0.5)
+stepsize <- 0.5
+T10rg <- c(9., 17., stepsize)
+T90rg <- c(1., 8., stepsize)
+Crg <- c(0., 7., stepsize)
 # Number of months for the sampling
 Nm <- 12
 
