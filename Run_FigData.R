@@ -2,21 +2,21 @@
 #setwd("/home/I21149/Modeles/Victor/Archive/")
 #OSu='linux'
 
-#setwd("C:/Users/Victor/Documents/0 W/Interf_MHB/")	
+setwd("C:/Users/Victor/Documents/0 W/Interf_MHB_github/DynFish")	
 
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
 # Parameters
-disc <- 100 	# number of even-spaced x-axis ticks
+disc <- 30 	# number of even-spaced x-axis ticks
 X0x  <- 110	# Bounds for density axes (use of percentiles (0.999))
 X1x  <- 60
 XAdx <- 35
 # Scales for the visualization
-X0 <- c(c(0.001), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), round))
-X1 <- c(c(0.001), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round))
-XAd <- c(c(0.001), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round))
+X0 <- c(c(0.1), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), round))
+X1 <- c(c(0.1), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round))
+XAd <- c(c(0.1), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round))
 # Desired values c(<min>, <max>, <step>)
-stepsize <- 0.5
+stepsize <- 1.
 T10rg <- c(9., 17., stepsize)
 T90rg <- c(1., 8., stepsize)
 Crg <- c(0., 7., stepsize)
@@ -95,7 +95,8 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 	load(file=paste('data/MHB1_chains_dataframe.RData',sep=''))
 	# Output directories for the results
 	dir.create(path=paste('Outputs/plot/',sep=''), showWarnings = FALSE)
-	dir.create(path=paste('Outputs/OutputsCSV/',sep=''), showWarnings = FALSE)
+	#dir.create(path=paste('Outputs/OutputsCSV/',sep=''), showWarnings = FALSE)
+	dir.create(path=paste('data/FS_PopLvl/',sep=''), showWarnings = FALSE)
     # Periods
 	dmonthUS=3	# Mean number of months between fishing and spawning
 	dmonthAS=9	# Mean number of months between spawning and fishing
@@ -246,46 +247,81 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 					### FIGURE 3 : Population level
 					#########################################
 					# Dependent on a value of X1m and XAdm (density of 1 + or Ad fixed for year y-1)
+					# Saving detailled predictions of survival on FS_PopLvl
+					FS_PopLvl = NULL
 					for (X1m in  X1){
-						for (XAdm in  XAd){
-							par_name_full <- paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
+						par_PopLvl <- paste('X1m',X1m, sep="_")
+						
+						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
+						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
 
-							FS[[par_name_full]] <- as.data.frame(matrix(NA,ncol=10,nrow=length(X0)))
-							colnames(FS[[par_name_full]]) <- c('r2_025_Adm','r2_25_Adm','r2_50_Adm','r2_75_Adm','r2_975_Adm',
-													'rAd_025_1m','rAd_25_1m','rAd_50_1m','rAd_75_1m','rAd_975_1m'
-													)
-
-							Dp2_trans1m2m <- exp(-(Nm-dmonthAE)*d1)*X1m/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1m))
-							Dp2m <- Dp2_trans1m2m*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
-
-							DpAdm <- XAdm*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdm))
-
-							for(xi in 1:disc){
-								Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1[xi]))
-								Dp2 <- Dp2_trans12*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
-								DpAd <- XAd[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAd[xi]))
-
-								DpeAd_Adm <- (DpAdm+Dp2)*exp(rnorm(n=samples, mean=0,sd=StdAd))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
-								FS[[par_name_full]][xi,'r2_025_Adm'] <- quantile(DpeAd_Adm, 0.025)
-								FS[[par_name_full]][xi,'r2_25_Adm'] <- quantile(DpeAd_Adm, 0.25)
-								FS[[par_name_full]][xi,'r2_50_Adm'] <- quantile(DpeAd_Adm, 0.50)
-								FS[[par_name_full]][xi,'r2_75_Adm'] <- quantile(DpeAd_Adm, 0.75)
-								FS[[par_name_full]][xi,'r2_975_Adm'] <- quantile(DpeAd_Adm, 0.975)
-
-								DpeAd_1m<-(DpAd+Dp2m)*exp(rnorm(n=samples, mean=0,sd=StdAd))  # Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
-								FS[[par_name_full]][xi,'rAd_025_1m'] <- quantile(DpeAd_1m, 0.025)
-								FS[[par_name_full]][xi,'rAd_25_1m'] <- quantile(DpeAd_1m, 0.25)
-								FS[[par_name_full]][xi,'rAd_50_1m'] <- quantile(DpeAd_1m, 0.50)
-								FS[[par_name_full]][xi,'rAd_75_1m'] <- quantile(DpeAd_1m, 0.75)
-								FS[[par_name_full]][xi,'rAd_975_1m'] <- quantile(DpeAd_1m, 0.975)
-								}
+						
+						Dp2_trans1m2m <- exp(-(Nm-dmonthAE)*d1)*X1m/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1m))
+						Dp2m <- Dp2_trans1m2m*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans1m2m))
+						
+						for(xi in 1:disc){
+							DpAd <- XAd[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAd[xi]))
+							
+							DpeAd_1m<-(DpAd+Dp2m)*exp(rnorm(n=samples, mean=0,sd=StdAd))  # Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_025'] <- quantile(DpeAd_1m, 0.025)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_25'] <- quantile(DpeAd_1m, 0.25)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_50'] <- quantile(DpeAd_1m, 0.50)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_75'] <- quantile(DpeAd_1m, 0.75)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_975'] <- quantile(DpeAd_1m, 0.975)
 								
-							## Moving average to smooth the curve
-							if (disc>20){
-								FS[[par_name_full]]=data.frame(apply(FS[[par_name_full]], 2, movingAverage, n=ceiling(0.05*disc)))
-								}
+							}
+						## Moving average to smooth the curve
+						if (disc>20){
+							FS_PopLvl[[par_PopLvl]]=data.frame(apply(FS_PopLvl[[par_PopLvl]], 2, movingAverage, n=ceiling(0.05*disc)))
 							}
 						}
+								
+					for (XAdm in  XAd){
+						par_PopLvl <- paste('XAdm',XAdm, sep="_")
+							
+						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
+						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
+
+						DpAdm <- XAdm*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdm))
+
+						for(xi in 1:disc){
+							Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1[xi]))
+							Dp2 <- Dp2_trans12*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
+							
+							DpeAd_Adm <- (DpAdm+Dp2)*exp(rnorm(n=samples, mean=0,sd=StdAd))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_025'] <- quantile(DpeAd_Adm, 0.025)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_25'] <- quantile(DpeAd_Adm, 0.25)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_50'] <- quantile(DpeAd_Adm, 0.50)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_75'] <- quantile(DpeAd_Adm, 0.75)
+							FS_PopLvl[[par_PopLvl]][xi,'rAd_975'] <- quantile(DpeAd_Adm, 0.975)
+							
+								
+							}
+								
+						## Moving average to smooth the curve
+						if (disc>20){
+							FS_PopLvl[[par_PopLvl]]=data.frame(apply(FS_PopLvl[[par_PopLvl]], 2, movingAverage, n=ceiling(0.05*disc)))
+							}	
+						}
+						
+					# Summary of FS_PopLvl
+					sumFSPop=as.data.frame(matrix(0,ncol=length(XAd),nrow=length(X1)))
+					colnames(sumFSPop)=XAd
+					rownames(sumFSPop)=X1
+					
+					for(xi in 1:disc){
+						x1=X1[xi]
+						for(xj in 1:disc){
+							xAd=XAd[xj]
+							sumFSPop[xi,xj]=FS_PopLvl[[paste('XAdm',XAdm, sep="_")]][xi,'rAd_50']
+							}
+						}
+					
+					FS[[paste(par_name,'_2D',sep='')]]=sumFSPop
+					
+					## Saving detailled results in sub-folder
+					save(FS_PopLvl, file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'_',name_suff,'.RData', sep=''))
+							
 
 					#########################################
 					### FIGURE 2 : Population level
@@ -337,9 +373,9 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 
 						# Saving the distributions
 						#if(k==1){Dpredall <- Dpred}
-						if(k==2){FD[[par_name]]$D1l <- hist(sapply(Dpred$Dpe1, function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdl<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density}
-						if(k==3){FD[[par_name]]$D1m <- hist(sapply(Dpred$Dpe1, function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdm<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density}
-						if(k==4){FD[[par_name]]$D1h <- hist(sapply(Dpred$Dpe1, function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdh<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){max(min(SEQ0),min(x,SEQ0))}),breaks=SEQ0,plot=FALSE)$density}
+						if(k==2){FD[[par_name]]$D1l <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdl<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
+						if(k==3){FD[[par_name]]$D1m <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdm<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
+						if(k==4){FD[[par_name]]$D1h <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdh<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
 						}
 
 					## Moving average to smooth the curve
@@ -369,27 +405,12 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 
 # All ranges
 #t_10_L = seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])
-#t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
-#cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
+t_10_L = c(T10rg[3])
 
-# Testing new features of generation_data
-	# reducing ranges for quick results
-stepsize <- 1.
-T10rg_reduced <- c(10., 13., stepsize)
-T90rg_reduced <- c(4., 6., stepsize)
-Crg_reduced <- c(0., 2., stepsize)
+t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
+cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
 
-	# Run on custom ranges (only one T10 value)
-t_10_L = c(10.)
-t_90_L = seq(from=T90rg_reduced[1], to=T90rg_reduced[2], by=T90rg_reduced[3])
-cache_L= seq(from=Crg_reduced[1], to=Crg_reduced[2], by=Crg_reduced[3])
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_testT10')
-
-	# Run on wider range (including previous T10 value)
-
-t_10_L = c(10.,11.)
-
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path='data/FS_testT10.RData', name_suff='_testT10_2')
+generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_T103')
 
 
 
@@ -444,11 +465,8 @@ merge_data <- function(existing_FS_data_path_1, existing_FS_data_path_2, name_su
 	}
 
 	
-# Test : geting new data
-t_10_L = c(12.)
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_testT10_3')
 
 # Merging with previously built data
-merge_data('data/FS_testT10_2.RData','data/FS_testT10_3.RData', name_suff='_testT10_4')
+#merge_data('data/FS_testT10_2.RData','data/FS_testT10_3.RData', name_suff='_testT10_4')
 
 	
