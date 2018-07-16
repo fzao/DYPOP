@@ -7,7 +7,7 @@
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
 # Parameters
-disc <- 30 	# number of even-spaced x-axis ticks
+disc <- 75 	# number of even-spaced x-axis ticks
 X0x  <- 110	# Bounds for density axes (use of percentiles (0.999))
 X1x  <- 60
 XAdx <- 35
@@ -23,63 +23,6 @@ Crg <- c(0., 7., stepsize)
 # Number of months for the sampling
 Nm <- 12
 
-
-# Get moving average of a vector
-# x: the vector
-# n: the number of samples
-# centered: if FALSE, then average current sample and previous (n-1) samples
-#           if TRUE, then average symmetrically in past and future. (If n is even, use one more sample from future.)
-movingAverage <- function(x, n=1, centered=TRUE) {
-    
-    if (centered) {
-        before <- floor  ((n-1)/2)
-        after  <- ceiling((n-1)/2)
-    } else {
-        before <- n-1
-        after  <- 0
-    }
-
-    # Track the sum and count of number of non-NA items
-    s     <- rep(0, length(x))
-    count <- rep(0, length(x))
-    
-    # Add the centered data 
-    new <- x
-    # Add to count list wherever there isn't a 
-    count <- count + !is.na(new)
-    # Now replace NA_s with 0_s and add to total
-    new[is.na(new)] <- 0
-    s <- s + new
-    
-    # Add the data from before
-    i <- 1
-    while (i <= before) {
-        # This is the vector with offset values to add
-        new   <- c(rep(NA, i), x[1:(length(x)-i)])
-
-        count <- count + !is.na(new)
-        new[is.na(new)] <- 0
-        s <- s + new
-        
-        i <- i+1
-    }
-
-    # Add the data from after
-    i <- 1
-    while (i <= after) {
-        # This is the vector with offset values to add
-        new   <- c(x[(i+1):length(x)], rep(NA, i))
-       
-        count <- count + !is.na(new)
-        new[is.na(new)] <- 0
-        s <- s + new
-        
-        i <- i+1
-    }
-    
-    # return sum divided by count
-    s/count
-}
 
 # Creating data
 	# disc : number of even-spaced x-axis ticks
@@ -238,10 +181,6 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						}
 
 					
-					## Moving average to smooth the curve
-					if (disc>20){
-						FS[[par_name]]=data.frame(apply(FS[[par_name]], 2, movingAverage, n=ceiling(0.05*disc)))
-						}
 					
 					#########################################
 					### FIGURE 3 : Population level
@@ -270,10 +209,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 							FS_PopLvl[[par_PopLvl]][xi,'rAd_975'] <- quantile(DpeAd_1m, 0.975)
 								
 							}
-						## Moving average to smooth the curve
-						if (disc>20){
-							FS_PopLvl[[par_PopLvl]]=data.frame(apply(FS_PopLvl[[par_PopLvl]], 2, movingAverage, n=ceiling(0.05*disc)))
-							}
+
 						}
 								
 					for (XAdm in  XAd){
@@ -298,10 +234,6 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 								
 							}
 								
-						## Moving average to smooth the curve
-						if (disc>20){
-							FS_PopLvl[[par_PopLvl]]=data.frame(apply(FS_PopLvl[[par_PopLvl]], 2, movingAverage, n=ceiling(0.05*disc)))
-							}	
 						}
 						
 					# Summary of FS_PopLvl
@@ -313,7 +245,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						x1=X1[xi]
 						for(xj in 1:disc){
 							xAd=XAd[xj]
-							sumFSPop[xi,xj]=FS_PopLvl[[paste('XAdm',XAdm, sep="_")]][xi,'rAd_50']
+							sumFSPop[xi,xj]=FS_PopLvl[[paste('XAdm',xAd, sep="_")]][xi,'rAd_50']
 							}
 						}
 					
@@ -328,20 +260,20 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 					#########################################
 					## Distribution of densities of 0+ in input for the figure densities
 					X0x=max(X0)
+					
 					X0pred <-sapply(rlnorm(samples,meanlog=2.2, sdlog=0.9), function(x){max(min(X0),min(x,X0x))})
 					X0predl<-sapply(rnorm(samples,mean=3, sd=1), function(x){max(min(X0),min(x,X0x))})	# Distribution de recrutements faibles (E = 3.7 ind/100m-2)
 					X0predm<-sapply(rnorm(samples,mean=15, sd=1), function(x){max(min(X0),min(x,X0x))})	# Distribution de recrutements faibles à moyens (E = 10.3 ind/100m-2)
-					X0predh<-sapply(rnorm(samples,mean=60, sd=1), function(x){max(min(X0),min(x,X0x))})	# Distribution de recrutements moyens à forts (E = 27.7 ind/100m-2)
+					X0predh<-sapply(rnorm(samples,mean=50, sd=1), function(x){max(min(X0),min(x,X0x))})	# Distribution de recrutements moyens à forts (E = 27.7 ind/100m-2)
 					
 					
-					SEQ <- X0
-					SEQ0 <- c(0,X0[-1])
-					FD[[par_name]] <- as.data.frame(matrix(NA, ncol=6, nrow=length(SEQ)-1))
+					SEQ0 <- seq(0,max(X0), 0.5)
+					FD[[par_name]] <- as.data.frame(matrix(NA, ncol=6, nrow=length(SEQ0)-1))
 					colnames(FD[[par_name]]) <- c('D1l', 'D1m', 'D1h', 'DAdl', 'DAdm', 'DAdh')
-					FD[['xinf']] <- SEQ[-length(SEQ)]
-					FD[['X0l']] <- hist(X0predl, breaks=SEQ, plot=FALSE)$density
-					FD[['X0m']] <- hist(X0predm, breaks=SEQ, plot=FALSE)$density
-					FD[['X0h']] <- hist(X0predh, breaks=SEQ, plot=FALSE)$density
+					FD[['xinf']] <- SEQ0[-length(SEQ0)]
+					FD[['X0l']] <- hist(X0predl, breaks=SEQ0, plot=FALSE)$density
+					FD[['X0m']] <- hist(X0predm, breaks=SEQ0, plot=FALSE)$density
+					FD[['X0h']] <- hist(X0predh, breaks=SEQ0, plot=FALSE)$density
 
 					for(k in 2:4){
 						Dpred <- as.data.frame(matrix(0,ncol=9,nrow=samples))
@@ -376,11 +308,6 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						if(k==2){FD[[par_name]]$D1l <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdl<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
 						if(k==3){FD[[par_name]]$D1m <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdm<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
 						if(k==4){FD[[par_name]]$D1h <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdh<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
-						}
-
-					## Moving average to smooth the curve
-					if (disc>20){
-						FD[[par_name]]=data.frame(apply(FD[[par_name]], 2, movingAverage, n=ceiling(0.05*disc)))
 						}
 
 					#save(FS, file='data/FS.RData')
