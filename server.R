@@ -28,7 +28,10 @@ shinyServer(function(input, output, session) {
     fig2(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
   })
   
-  output$plot3 <- renderPlotly({
-    fig3(ids, FS, input$slider1, input$slider2, input$slider3, X1m=13, XAdm=23, Dso=NULL)
+  output$plot3_p0 <- renderPlotly({
+    fig3_p0(ids, FS, input$slider1, input$slider2, input$slider3, X1m=13, XAdm=23, Dso=NULL)
+  })
+  output$plot3_hm <- renderPlotly({
+    fig3_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=13, XAdm=23, Dso=NULL)
   })
 })

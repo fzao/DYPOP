@@ -9,7 +9,7 @@
 	# [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
 	# Dso : Données a afficher
 	
-fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
+fig3_p0 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 {
 	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
 	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
@@ -75,7 +75,7 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 	  add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25') %>%
-	  layout(title = paste('Survival : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+	  layout(title = paste('Expected densities of 1+ : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 			 xaxis = list(title = "D[0+, y-1]",
 						  gridcolor = 'rgb(255,255,255)',
@@ -102,8 +102,60 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 	p0 <- p0 %>% add_markers(x = c(10, 30, 25, 50), y = c(1, 2.5, 1.7, 0.9), mode='markers', showlegend = FALSE)
 		}
 		
+	return(p0)
+}
+
+
+fig3_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
+{
+	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
+	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
+	disc=length(FS[["X0"]])
 	
 	
+	# Données à afficher?
+	if (!is.null(Dso)){
+		### On met en forme pour pouvoir faire rapidement appel aux années successives
+		Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
+		for (i in 1:nrow(Dso)){
+			yi<-as.numeric(Dso[i,'Year'])
+			if(nrow(Dso[Dso$Year==(yi-1),])==1){
+				Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
+				}
+			}
+		}
+	
+	# Mise en forme données
+	x0 <- FS[["X0"]]
+	s0_025 <- FS[[par_name]][,'r1_025']
+	s0_25 <- FS[[par_name]][,'r1_25']
+	s0_50 <- FS[[par_name]][,'r1_50']
+	s0_75 <- FS[[par_name]][,'r1_75']
+	s0_975 <- FS[[par_name]][,'r1_975']
+	
+	
+	# loading FS_PopLvl
+	load(file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	
+	
+	x1 <- FS[["X1"]]
+	s1_025 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_025']
+	s1_25 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_25']
+	s1_50 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_50']
+	s1_75 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_75']
+	s1_975 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_975']
+
+	xAd <- FS[["XAd"]]
+	sAd_025 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_025']
+	sAd_25 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_25']
+	sAd_50 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_50']
+	sAd_75 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_75']
+	sAd_975 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_975']
+
+	dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975,
+		x1, s1_025,s1_25,s1_50,s1_75,s1_975, 
+		xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
+		
 	# Values of heatmap
 	HM <- plot_ly(z = as.matrix(FS[[paste(par_name,'_2D',sep='')]]),
 			x = colnames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
@@ -111,7 +163,7 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 			colors = "BuGn", type = "heatmap")%>%
 			add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'), name = 'Chosen D[>1+,y-1] for marginal view (right margin)')%>%
 			add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'), name = 'Chosen D[1+,y-1] for marginal view (top margin)')%>%
-	  layout(title = paste('Expected density of >1+ : ',ids,' (Shelter=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+	  layout(title = paste('Expected densities of >1+ : ',ids,' (Shelter=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 			 #legend = list(orientation = 'h'),
 			 legend = list(x = 0, y=-0.1),
@@ -173,9 +225,8 @@ fig3 <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 				
 	# Heat map combined with marginal views
 	HMcomb <- subplot(pAd, plotly_empty(), HM, p1, nrows = 2, shareX=TRUE, shareY=TRUE, heights = c(0.2, 0.8), widths = c(0.8,0.2))
-		
+	
 	
 	return(HMcomb)
-}
-
+	}
 

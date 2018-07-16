@@ -25,7 +25,8 @@ pageWithSidebar(
       ),
       # Fig. 3 ------------------------------------------------------
       tabPanel(HTML('<h4 style="color: #005BBB; "><b>Figure 3</b></h4>'),
-               plotlyOutput('plot3')
+               plotlyOutput('plot3_p0'),
+			   plotlyOutput('plot3_hm')
       )
   )
 )
