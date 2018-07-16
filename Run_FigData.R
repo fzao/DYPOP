@@ -2,7 +2,7 @@
 #setwd("/home/I21149/Modeles/Victor/Archive/")
 #OSu='linux'
 
-setwd("C:/Users/Victor/Documents/0 W/Interf_MHB_github/DynFish")	
+#setwd("C:/Users/Victor/Documents/0 W/Interf_MHB_github/DynFish")	
 
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
@@ -320,7 +320,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 					FS[[paste(par_name,'_2D',sep='')]]=sumFSPop
 					
 					## Saving detailled results in sub-folder
-					save(FS_PopLvl, file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'_',name_suff,'.RData', sep=''))
+					save(FS_PopLvl, file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'.RData', sep=''))
 							
 
 					#########################################
@@ -405,7 +405,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 
 # All ranges
 #t_10_L = seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])
-t_10_L = c(T10rg[3])
+t_10_L = c(12)
 
 t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
 cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
