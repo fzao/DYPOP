@@ -69,7 +69,8 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
                           showticklabels = TRUE,
                           tickcolor = 'rgb(127,127,127)',
                           ticks = 'outside',
-                          zeroline = FALSE))
+                          zeroline = FALSE,
+                          range=c(0,1)))
 
 
     p1 <- plot_ly(dataF, x = ~x1, y = ~s1_975, type = 'scatter', mode = 'lines',
@@ -104,7 +105,8 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
                           showticklabels = TRUE,
                           tickcolor = 'rgb(127,127,127)',
                           ticks = 'outside',
-                          zeroline = FALSE))
+                          zeroline = FALSE,
+                          range=c(0,1)))
 
     pAd <- plot_ly(dataF, x = ~xAd, y = ~sAd_975, type = 'scatter', mode = 'lines',
             line = list(color = 'black'),
@@ -138,7 +140,8 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
                           showticklabels = TRUE,
                           tickcolor = 'rgb(127,127,127)',
                           ticks = 'outside',
-                          zeroline = FALSE))
+                          zeroline = FALSE,
+                          range=c(0,1)))
     m <- list(
       l = 50,
       r = 50,
