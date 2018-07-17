@@ -12,9 +12,9 @@ X0x  <- 110	# Bounds for density axes (use of percentiles (0.999))
 X1x  <- 60
 XAdx <- 35
 # Scales for the visualization
-X0 <- c(c(0.1), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), round))
-X1 <- c(c(0.1), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round))
-XAd <- c(c(0.1), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round))
+X0 <- c(c(0.1), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), round,1))
+X1 <- c(c(0.1), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round,1))
+XAd <- c(c(0.1), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round,1))
 # Desired values c(<min>, <max>, <step>)
 stepsize <- 1.
 T10rg <- c(9., 17., stepsize)
@@ -211,7 +211,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 							}
 
 						}
-								
+					
 					for (XAdm in  XAd){
 						par_PopLvl <- paste('XAdm',XAdm, sep="_")
 							
@@ -303,11 +303,11 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 							Dpred[ii,'DpeAd'] <- Dpred[ii,'DpAd']*exp(rnorm(n=1, mean=0, sd=StdAd[ii]))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
 						}
 
-						# Saving the distributions
+						# Saving the distributions + smoothing curves
 						#if(k==1){Dpredall <- Dpred}
-						if(k==2){FD[[par_name]]$D1l <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdl<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
-						if(k==3){FD[[par_name]]$D1m <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdm<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
-						if(k==4){FD[[par_name]]$D1h <- hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density; FD[[par_name]]$DAdh<-hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density}
+						if(k==2){FD[[par_name]]$D1l <- rollmean(hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA); FD[[par_name]]$DAdl<-rollmean(hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA)}
+						if(k==3){FD[[par_name]]$D1m <- rollmean(hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA); FD[[par_name]]$DAdm<-rollmean(hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA)}
+						if(k==4){FD[[par_name]]$D1h <- rollmean(hist(sapply(Dpred$Dpe1, function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA); FD[[par_name]]$DAdh<-rollmean(hist(sapply(Dpred[-c(1:10),'DpeAd'], function(x){min(max(SEQ0),max(min(SEQ0),x))}),breaks=SEQ0,plot=FALSE)$density, 3, align='left', fill=NA)}
 						}
 
 					#save(FS, file='data/FS.RData')
