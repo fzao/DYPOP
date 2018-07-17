@@ -4,6 +4,8 @@
 
 #setwd("C:/Users/Victor/Documents/0 W/Interf_MHB_github/DynFish")	
 
+library(zoo)
+
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
 # Parameters
