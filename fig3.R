@@ -36,7 +36,7 @@ fig3_p0 <- function(ids, FS, t_10, t_90, cache, Dso=NULL)
 	s0_75 <- FS[[par_name]][,'r1_75']
 	s0_975 <- FS[[par_name]][,'r1_975']
 	
-	
+	x1 <- FS[["X1"]]
 
 	dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975)
 		
