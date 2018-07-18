@@ -9,14 +9,27 @@ library(zoo)
 # Data generation for the figures
 rm(list = ls())		# Remise à zéro mémoire de la session de R
 # Parameters
-disc <- 75 	# number of even-spaced x-axis ticks
-X0x  <- 110	# Bounds for density axes (use of percentiles (0.999))
-X1x  <- 60
-XAdx <- 35
+disc <- 35 # number of even-spaced x-axis ticks (MUST BE 350, 175, 140, 70 or 35)
+
+
+X0x  <- 105 # Max value of x-axis for 0+ densities (fixed from percentile 0.999 of observed data) (must be a multplier of XAdx)
+X1x  <- 70  # Max value of x-axis for 1+ densities (must be a multplier of XAdx)
+XAdx <- 35  # Max value of x-axis for >1+ densities
+
+X0step  <- X0x/disc
+X1step  <- X1x/disc
+XAdstep <- XAdx/disc
+
+
+
+
 # Scales for the visualization
-X0 <- c(c(0.1), sapply(seq(from=(X0x/(disc)),to=X0x, length.out=(disc-1)), round,1))
-X1 <- c(c(0.1), sapply(seq(from=(X1x/(disc)),to=X1x, length.out=(disc-1)), round,1))
-XAd <- c(c(0.1), sapply(seq(from=(XAdx/(disc)),to=XAdx, length.out=(disc-1)), round,1))
+X0 <- seq(from=0,to=X0x, by=X0step)
+X1 <- seq(from=0,to=X1x, by=X1step)
+XAd <- seq(from=0,to=XAdx, by=XAdstep)
+
+val0 <- 0.1 # Apparent survival for 0 trouts ~ Infinity ==> Prediction used val0 instead of 0
+
 # Desired values c(<min>, <max>, <step>)
 stepsize <- 1.
 T10rg <- c(9., 17., stepsize)
@@ -35,7 +48,7 @@ Nm <- 12
 		# FD data will also be loaded (path inferred from existing_FS_data_path)
 		# x-axis data (X0, X1; XAd) have to be equals. An Error will be returned otherwise.
 	# name_suff : string to paste at the end of 'FS' and 'FD' when saving the RData (output will be saved as 'FS<name_suff>.RData')
-generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, existing_FS_data_path=NULL, name_suff=''){
+generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1, Nm=12, existing_FS_data_path=NULL, name_suff=''){
 	# Loading model results
 	load(file=paste('data/MHB1_chains_dataframe.RData',sep=''))
 	# Output directories for the results
@@ -88,6 +101,11 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 	lEdAd <- alpha_dAd
 	DAd <- exp(rnorm(samples, mean=lEdAd, sd=sddAd))
 
+	# Setting 0 to val0 for first values of X0, X1, XAd
+	X0v<-c(val0, X0[c(2:length(X0))])
+	X1v<-c(val0, X1[c(2:length(X1))])
+	XAdv<-c(val0, XAd[c(2:length(XAd))])
+	
 	#############
 	## PARAMETERS
 	#############
@@ -152,8 +170,8 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 											)
 
 					# Initialization of prediction variables and probability domains
-					for(xi in 1:disc){
-						Dp1_trans01 <- exp(-(Nm-dmonthAE)*d0)*X0[xi]/(1+(g0/d0*(1-exp(-(Nm-dmonthAE)*d0))*X0[xi]))
+					for(xi in 1:length(X0v)){
+						Dp1_trans01 <- exp(-(Nm-dmonthAE)*d0)*X0v[xi]/(1+(g0/d0*(1-exp(-(Nm-dmonthAE)*d0))*X0v[xi]))
 						Dp1 <- Dp1_trans01*exp(-dmonthAE*d1)/(1+(G1/d1*(1-exp(-dmonthAE*d1))*Dp1_trans01))
 
 						Dpe1 <- Dp1*exp(rnorm(n=samples, mean=0,sd=Std1))
@@ -163,7 +181,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						FS[[par_name]][xi,'r1_75'] <- quantile(Dpe1, 0.75)
 						FS[[par_name]][xi,'r1_975'] <- quantile(Dpe1, 0.975)
 
-						Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1[xi]))
+						Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1v[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1v[xi]))
 						Dp2 <- Dp2_trans12*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
 
 						Dpe2 <- Dp2*exp(rnorm(n=samples, mean=0,sd=StdAd))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
@@ -173,7 +191,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						FS[[par_name]][xi,'r2_75'] <- quantile(Dpe2, 0.75)
 						FS[[par_name]][xi,'r2_975'] <- quantile(Dpe2, 0.975)
 
-						DpAd<-XAd[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAd[xi]))
+						DpAd<-XAdv[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdv[xi]))
 						DpeAd<-DpAd*exp(rnorm(n=samples, mean=0,sd=StdAd))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
 						FS[[par_name]][xi,'rAd_025'] <- quantile(DpeAd, 0.025)
 						FS[[par_name]][xi,'rAd_25'] <- quantile(DpeAd, 0.25)
@@ -196,12 +214,12 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
 						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
 
-						
+						if(X1m==0){X1m=val0}
 						Dp2_trans1m2m <- exp(-(Nm-dmonthAE)*d1)*X1m/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1m))
 						Dp2m <- Dp2_trans1m2m*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans1m2m))
 						
-						for(xi in 1:disc){
-							DpAd <- XAd[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAd[xi]))
+						for(xi in 1:(disc+1)){
+							DpAd <- XAdv[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdv[xi]))
 							
 							DpeAd_1m<-(DpAd+Dp2m)*exp(rnorm(n=samples, mean=0,sd=StdAd))  # Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
 							FS_PopLvl[[par_PopLvl]][xi,'rAd_025'] <- quantile(DpeAd_1m, 0.025)
@@ -219,11 +237,12 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 							
 						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
 						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
-
+						
+						if(XAdm==0){XAdm=val0}
 						DpAdm <- XAdm*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdm))
 
-						for(xi in 1:disc){
-							Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1[xi]))
+						for(xi in 1:(disc+1)){
+							Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1v[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1v[xi]))
 							Dp2 <- Dp2_trans12*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
 							
 							DpeAd_Adm <- (DpAdm+Dp2)*exp(rnorm(n=samples, mean=0,sd=StdAd))	# Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
@@ -243,9 +262,9 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 					colnames(sumFSPop)=XAd
 					rownames(sumFSPop)=X1
 					
-					for(xi in 1:disc){
+					for(xi in 1:(disc+1)){
 						x1=X1[xi]
-						for(xj in 1:disc){
+						for(xj in 1:(disc+1)){
 							xAd=XAd[xj]
 							sumFSPop[xi,xj]=FS_PopLvl[[paste('XAdm',xAd, sep="_")]][xi,'rAd_50']
 							}
