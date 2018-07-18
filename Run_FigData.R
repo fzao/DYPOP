@@ -288,7 +288,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 
 						Dpred[,'Dp1tr'] <- exp(-(Nm-dmonthAE)*d0)*Dpred[,'X0']/(1+(g0/d0*(1-exp(-(Nm-dmonthAE)*d0))*Dpred[,'X0']))
 						Dpred[,'Dp1'] <- Dpred[,'Dp1tr']*exp(-dmonthAE*d1)/(1+(G1/d1*(1-exp(-dmonthAE*d1))*Dpred[,'Dp1tr']))
-						Dpred[,'Dpe1'] <- Dpred[,'Dp1']*exp(rnorm(n=1, mean=0,sd=Std1))
+						Dpred[,'Dpe1'] <- Dpred[,'Dp1']*exp(sapply(Std1, rnorm, n=1, mean=0))
 						Dpred[,'Dp2tr'] <- exp(-(Nm-dmonthAE)*d1)*Dpred[,'Dp1']/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*Dpred[,'Dp1']))
 
 						# Adult estimates are initialized (initial arrivals of 2+ only, then use of successive cohorts (use of the first 20 lines to approach a DAd at equilibrium)
@@ -334,12 +334,12 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm=12, e
 
 # All ranges
 #t_10_L = seq(from=T10rg[1], to=T10rg[2], by=T10rg[3])
-t_10_L = c(12)
+t_10_L = c(10)
 
 t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
 cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
 
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_T103')
+generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_test')
 
 
 
