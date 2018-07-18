@@ -211,14 +211,14 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1
 					for (X1m in  X1){
 						par_PopLvl <- paste('X1m',X1m, sep="_")
 						
-						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
+						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=disc))
 						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
 
 						if(X1m==0){X1m=val0}
 						Dp2_trans1m2m <- exp(-(Nm-dmonthAE)*d1)*X1m/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1m))
 						Dp2m <- Dp2_trans1m2m*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans1m2m))
 						
-						for(xi in 1:(disc+1)){
+						for(xi in 1:(disc)){
 							DpAd <- XAdv[xi]*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdv[xi]))
 							
 							DpeAd_1m<-(DpAd+Dp2m)*exp(rnorm(n=samples, mean=0,sd=StdAd))  # Estimated StdAd for error on sum of 2+ and> 2+ -> Overestimated uncertainty envelope on this visualization
@@ -235,13 +235,13 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1
 					for (XAdm in  XAd){
 						par_PopLvl <- paste('XAdm',XAdm, sep="_")
 							
-						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=length(X0)))
+						FS_PopLvl[[par_PopLvl]] <- as.data.frame(matrix(NA,ncol=5,nrow=disc))
 						colnames(FS_PopLvl[[par_PopLvl]]) <- c('rAd_025','rAd_25','rAd_50','rAd_75','rAd_975')
 						
 						if(XAdm==0){XAdm=val0}
 						DpAdm <- XAdm*exp(-Nm*DAd)/(1+(GAd/DAd*(1-exp(-Nm*DAd))*XAdm))
 
-						for(xi in 1:(disc+1)){
+						for(xi in 1:(disc)){
 							Dp2_trans12 <- exp(-(Nm-dmonthAE)*d1)*X1v[xi]/(1+(G1/d1*(1-exp(-(Nm-dmonthAE)*d1))*X1v[xi]))
 							Dp2 <- Dp2_trans12*exp(-dmonthAE*DAd)/(1+(GAd/DAd*(1-exp(-dmonthAE*d1))*Dp2_trans12))
 							
@@ -256,15 +256,15 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1
 							}
 								
 						}
-						
+					
 					# Summary of FS_PopLvl
 					sumFSPop=as.data.frame(matrix(0,ncol=length(XAd),nrow=length(X1)))
 					colnames(sumFSPop)=XAd
 					rownames(sumFSPop)=X1
 					
-					for(xi in 1:(disc+1)){
+					for(xi in 1:(disc)){
 						x1=X1[xi]
-						for(xj in 1:(disc+1)){
+						for(xj in 1:(disc)){
 							xAd=XAd[xj]
 							sumFSPop[xi,xj]=FS_PopLvl[[paste('XAdm',xAd, sep="_")]][xi,'rAd_50']
 							}
@@ -356,9 +356,11 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1
 t_10_L = c(10)
 
 t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
+t_90_L = c(7)
+
 cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
 
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_test')
+generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0, Nm, existing_FS_data_path=NULL, name_suff='_test')
 
 
 
