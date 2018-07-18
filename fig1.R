@@ -6,13 +6,13 @@
 #########################################
 # ids : name of the station (used for the title)
 # FS : Data loaded (corresponding to the input parameter set)
-
-fig1 <- function(ids, FS, t_10, t_90, cache)
+# val0 : value taken for computation for x=0 (cannot be)
+fig1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
 {
     par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
     disc <- length(FS[["X0"]])
 	
-    x0 <- c(0.1, FS[["X0"]][c(2:disc)]) # x0 for survival estimates (cannot be 0)
+    x0 <- c(val0, FS[["X0"]][c(2:disc)]) # x0 for survival estimates (cannot be 0)
     s0_025 <- FS[[par_name]][,'r1_025']/x0
     s0_25 <- FS[[par_name]][,'r1_25']/x0
     s0_50 <- FS[[par_name]][,'r1_50']/x0
@@ -20,14 +20,14 @@ fig1 <- function(ids, FS, t_10, t_90, cache)
     s0_975 <- FS[[par_name]][,'r1_975']/x0
 
     
-	x1 <- c(0.1, FS[["X1"]][c(2:disc)])
+	x1 <- c(val0, FS[["X1"]][c(2:disc)])
     s1_025 <- FS[[par_name]][,'r2_025']/x1
     s1_25 <- FS[[par_name]][,'r2_25']/x1
     s1_50 <- FS[[par_name]][,'r2_50']/x1
     s1_75 <- FS[[par_name]][,'r2_75']/x1
     s1_975 <- FS[[par_name]][,'r2_975']/x1
 
-    xAd <- c(0.1, FS[["XAd"]][c(2:disc)])
+    xAd <- c(val0, FS[["XAd"]][c(2:disc)])
     sAd_025 <- FS[[par_name]][,'rAd_025']/xAd
     sAd_25 <- FS[[par_name]][,'rAd_25']/xAd
     sAd_50 <- FS[[par_name]][,'rAd_50']/xAd
