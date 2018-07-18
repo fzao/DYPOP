@@ -138,16 +138,19 @@ fig3_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 		xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
 		
 	# Values of heatmap
-	mat_XAdm=c(c(0,0), c(max(as.matrix(FS[[paste(par_name,'_2D',sep='')]])), max(as.matrix(FS[[paste(par_name,'_2D',sep='')]]))))
-	dim(mat_XAdm)=c(2,2)
+	mat_Zm=c(c(0,0), c(max(as.matrix(FS[[paste(par_name,'_2D',sep='')]])), max(as.matrix(FS[[paste(par_name,'_2D',sep='')]]))))
+	dim(mat_Zm)=c(2,2)
+	
 	HM <- plot_ly(z = as.matrix(FS[[paste(par_name,'_2D',sep='')]]),
 			x = colnames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
 			cauto = F, cmin = 0, cmax = 40,
 			type = "surface")%>%
-			#add_surface(z = ~mat_XAdm,
-			#	x=c(0,XAdm), y=c(0,max(FS[['XAd']])), opacity = 0.98)%>%
+			add_surface(z = ~mat_Zm,
+				x=c(XAdm,XAdm), y=c(0,max(FS[['X1']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
+			add_surface(z = ~mat_Zm,
+				y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.9, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
 			#add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'), name = 'Chosen D[>1+,y-1] for marginal view (right margin)')%>%
 			#add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'), name = 'Chosen D[1+,y-1] for marginal view (top margin)')%>%
 	  layout(title = paste('Expected densities of >1+ : ',ids,' (Shelter=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
