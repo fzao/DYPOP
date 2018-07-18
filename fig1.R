@@ -20,7 +20,7 @@ fig1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
     s0_975 <- FS[[par_name]][,'r1_975']/x0
 
     
-	x1 <- c(val0, FS[["X1"]][c(2:disc)])
+	  x1 <- c(val0, FS[["X1"]][c(2:disc)])
     s1_025 <- FS[[par_name]][,'r2_025']/x1
     s1_25 <- FS[[par_name]][,'r2_25']/x1
     s1_50 <- FS[[par_name]][,'r2_50']/x1
