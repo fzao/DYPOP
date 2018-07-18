@@ -31,8 +31,6 @@ fig2 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
                         d1l, d1m, d1h,
                         dAdl, dAdm, dAdh)
 
-    #### TEMP :
-    dataF <- dataF[dataF$x<60,]
 
     name_l <- "Low recruitment"
     name_m <- "Medium recruitment"
@@ -57,7 +55,7 @@ fig2 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
 
     pAd <- plot_ly(dataF, x = ~x, y = ~dAdl, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
             showlegend = FALSE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy',
+      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy', shape='spline', smoothing=1,
                 showlegend = FALSE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
       add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
                 showlegend = FALSE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
