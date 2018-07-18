@@ -15,6 +15,10 @@ pageWithSidebar(
     sliderInput("slider3", label = h3("% Cache"), min = 0., 
                 max = 7., value = 3., step = 1.),
     verbatimTextOutput("value"),
+    br(),
+    selectInput("dataset", h3("Choisir une figure:"),
+                choices = c("Figure 1.a", "Figure 1.b", "Figure 1.c"), width="100%"),
+    downloadButton("exportFigData",h5(strong("Download")), width="200%"),
     width = 2
   ),
   mainPanel(
