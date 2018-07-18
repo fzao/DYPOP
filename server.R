@@ -41,7 +41,7 @@ shinyServer(function(input, output, session) {
         paste(input$dataset, ".csv", sep = "")
       },
       content = function(file) {
-        DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3)
+        DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
         if(input$dataset=="Figure 1.a"){
           write.csv(DFish[,c("x0", "s0_025", "s0_25", "s0_50", "s0_75", "s0_975")], file, row.names = FALSE)
         }else if(input$dataset=="Figure 1.b"){
