@@ -358,7 +358,7 @@ t_10_L = c(10)
 t_90_L = seq(from=T90rg[1], to=T90rg[2], by=T90rg[3])
 cache_L= seq(from=Crg[1], to=Crg[2], by=Crg[3])
 
-generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, Nm, existing_FS_data_path=NULL, name_suff='_test')
+generation_data(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0, Nm, existing_FS_data_path=NULL, name_suff='_test')
 
 
 
