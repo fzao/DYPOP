@@ -25,15 +25,15 @@ shinyServer(function(input, output, session) {
     fig1(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
     })
   
-  output$plot2 <- renderPlotly({
-    fig2(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  output$plot3 <- renderPlotly({
+    fig3(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
   })
   
-  output$plot3_p0 <- renderPlotly({
-    fig3_p0(ids, FS, input$slider1, input$slider2, input$slider3, Dso=NULL)
+  output$plot2_p0 <- renderPlotly({
+    fig2_p0(ids, FS, input$slider1, input$slider2, input$slider3, Dso=NULL)
   })
-  output$plot3_hm <- renderPlotly({
-    fig3_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, Dso=NULL)
+  output$plot2_hm <- renderPlotly({
+    fig2_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, Dso=NULL)
   })
   
   output$exportFigData <- downloadHandler(

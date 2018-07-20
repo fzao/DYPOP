@@ -1,77 +1,222 @@
 #########################################
-###  FIGURE 2 : SURVIVAL RATE
-### Global prediction for the station
-### (what range of survival to expect based on
-### %Caches and T10/T50
+### Fonction de creation de la FIGURE 2 : RELATION type 'SR' : densité d'une classe d'âge l'année y en fonction des densités de la classe d'âge précédente l'année y-1
+#### Integration d'un niveau de densité 1+ ou Ad influençant la survie
 #########################################
-# ids : name of the station (used for the title)
-# FD : Data loaded (corresponding to the input parameter set)
-# XL = max length of abscissa
-# Dso : Data to plot
-
-fig2 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
+	# ids : nom de la station (utilisé pour le titre)
+	# FS : Données chargée (correspondant au set de paramètres en entrée)
+	# T10, T90, C : Valeur des paramètres d'entrées du modèle (caractéristiques de la station T10 annuel, T90 annuel et % de S de caches)
+	# X1m, XAdm : Valeur de 
+	# [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
+	# Dso : Données a afficher
+	
+fig2_p0 <- function(ids, FS, t_10, t_90, cache, Dso=NULL)
 {
-    par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
-    SEQstep <- FD[['xinf']][2]-FD[['xinf']][1]
+	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
+	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
+	disc=length(FS[["X0"]])
+	
+	
+	# Données à afficher?
+	if (!is.null(Dso)){
+		### On met en forme pour pouvoir faire rapidement appel aux années successives
+		Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
+		for (i in 1:nrow(Dso)){
+			yi<-as.numeric(Dso[i,'Year'])
+			if(nrow(Dso[Dso$Year==(yi-1),])==1){
+				Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
+				}
+			}
+		}
+	
+	# Mise en forme données
+	x0 <- FS[["X0"]]
+	s0_025 <- FS[[par_name]][,'r1_025']
+	s0_25 <- FS[[par_name]][,'r1_25']
+	s0_50 <- FS[[par_name]][,'r1_50']
+	s0_75 <- FS[[par_name]][,'r1_75']
+	s0_975 <- FS[[par_name]][,'r1_975']
+	
+	x1 <- FS[["X1"]]
 
-    x <- FD[['xinf']]+SEQstep/2
-    d0l <- FD[['X0l']]
-    d0m <- FD[['X0m']]
-    d0h <- FD[['X0h']]
+	dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975)
+		
+	## Subplots
+	p0 <- plot_ly(dataF, x = ~x0, y = ~s0_975, type = 'scatter', mode = 'lines',
+			line = list(color = 'black'),
+			showlegend = FALSE, name = 'Percentile 97.5') %>%
+	  add_trace(y = ~ s0_025, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(100,100,100,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 2.5') %>%
+	  add_trace(y = ~ s0_25, type = 'scatter', mode = 'lines',
+				line = list(color='black'),
+				showlegend = FALSE, name = 'Percentile 25') %>%
+	  add_trace(y = ~ s0_75, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(50,50,50,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 75') %>%
+	  add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
+				line = list(color='red'),
+				showlegend = FALSE, name = 'Percentile 25') %>%
+	  layout(title = paste('Expected densities of 1+ : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
+			 xaxis = list(title = "D[0+, y-1]",
+						  gridcolor = 'rgb(255,255,255)',
+						  showgrid = TRUE,
+						  showline = FALSE,
+						  showticklabels = TRUE,
+						  tickcolor = 'rgb(127,127,127)',
+						  ticks = 'outside',
+						  zeroline = FALSE,
+						  range=c(min(x0),max(x0))),
+			 yaxis = list(title = "D[1+, y]",
+						  gridcolor = 'rgb(255,255,255)',
+						  showgrid = TRUE,
+						  showline = FALSE,
+						  showticklabels = TRUE,
+						  tickcolor = 'rgb(127,127,127)',
+						  ticks = 'outside',
+						  zeroline = FALSE,
+						  range=c(min(x1),max(x1))))
 
-    d1l <- FD[[par_name]]$D1l
-    d1m <- FD[[par_name]]$D1m
-    d1h <- FD[[par_name]]$D1h
-
-    dAdl <- FD[[par_name]]$DAdl
-    dAdm <- FD[[par_name]]$DAdm
-    dAdh <- FD[[par_name]]$DAdh
-
-    dataF <- data.frame(x, d0l, d0m, d0h,
-                        d1l, d1m, d1h,
-                        dAdl, dAdm, dAdh)
+		
+	## Données dispo?
+	if (!is.null(Dso)){
+	p0 <- p0 %>% add_markers(x = c(10, 30, 25, 50), y = c(1, 2.5, 1.7, 0.9), mode='markers', showlegend = FALSE)
+		}
+		
+	return(p0)
+}
 
 
-    name_l <- "Low recruitment"
-    name_m <- "Medium recruitment"
-    name_h <- "High recruitment"
-    p0 <- plot_ly(dataF, x = ~x, y = ~d0l, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
-            fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~d0m, name = name_m, fill = 'tozeroy',
-                fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
-      add_trace(x = ~x, y = ~d0h, name = name_h, fill = 'tozeroy',
-                fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = 'D[0+,y]'),
-             yaxis = list(title = 'Densité de probabilité'))
+fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
+{
+	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
+	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
+	disc=length(FS[["X0"]])
+	
+	
+	# Données à afficher?
+	if (!is.null(Dso)){
+		### On met en forme pour pouvoir faire rapidement appel aux années successives
+		Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
+		for (i in 1:nrow(Dso)){
+			yi<-as.numeric(Dso[i,'Year'])
+			if(nrow(Dso[Dso$Year==(yi-1),])==1){
+				Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
+				}
+			}
+		}
+	
+	# Mise en forme données
+	x0 <- FS[["X0"]]
+	s0_025 <- FS[[par_name]][,'r1_025']
+	s0_25 <- FS[[par_name]][,'r1_25']
+	s0_50 <- FS[[par_name]][,'r1_50']
+	s0_75 <- FS[[par_name]][,'r1_75']
+	s0_975 <- FS[[par_name]][,'r1_975']
+	
+	
+	# loading FS_PopLvl
+	load(file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	
+	
+	x1 <- FS[["X1"]]
+	s1_025 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_025']
+	s1_25 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_25']
+	s1_50 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_50']
+	s1_75 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_75']
+	s1_975 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_975']
 
-    p1 <- plot_ly(dataF, x = ~x, y = ~d1l, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
-            showlegend = FALSE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~d1m, name = name_m, fill = 'tozeroy',
-                showlegend = FALSE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
-      add_trace(x = ~x, y = ~d1h, name = name_h, fill = 'tozeroy',
-                showlegend = FALSE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = 'D[1+, y+1]'),
-             yaxis = list(title = 'Densité de probabilité'))
+	xAd <- FS[["XAd"]]
+	sAd_025 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_025']
+	sAd_25 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_25']
+	sAd_50 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_50']
+	sAd_75 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_75']
+	sAd_975 <- FS_PopLvl[[paste("X1m_",X1m,sep='')]][,'rAd_975']
 
-    pAd <- plot_ly(dataF, x = ~x, y = ~dAdl, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
-            showlegend = FALSE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy', shape='spline', smoothing=1,
-                showlegend = FALSE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
-                showlegend = FALSE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = 'D[>1+, y+2]'),
-             yaxis = list(title = 'Densité de probabilité'))
+	dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975,
+		x1, s1_025,s1_25,s1_50,s1_75,s1_975, 
+		xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
+		
+	# Values of heatmap
+	mat_Zm=c(c(0,0), c(max(as.matrix(FS[[paste(par_name,'_2D',sep='')]])), max(as.matrix(FS[[paste(par_name,'_2D',sep='')]]))))
+	dim(mat_Zm)=c(2,2)
+	
+	HM <- plot_ly(z = as.matrix(FS[[paste(par_name,'_2D',sep='')]]),
+			x = colnames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
+			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
+			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
+			cauto = F, cmin = 0, cmax = 40,
+			type = "surface")%>%
+			add_surface(z = ~mat_Zm,
+				x=c(XAdm,XAdm), y=c(0,max(FS[['X1']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
+			add_surface(z = ~mat_Zm,
+				y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.9, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
+			#add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'), name = 'Chosen D[>1+,y-1] for marginal view (right margin)')%>%
+			#add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'), name = 'Chosen D[1+,y-1] for marginal view (top margin)')%>%
+	  layout(title = paste('Expected densities of >1+ : ',ids,' (Shelter=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
+			 #legend = list(orientation = 'h'),
+			 legend = list(x = 0, y=-0.1),
+			 xaxis = list(title = paste("D[>1+, y-1]"),
+						  gridcolor = 'rgb(255,255,255)',
+						  showgrid = TRUE,
+						  showline = FALSE,
+						  showticklabels = TRUE,
+						  tickcolor = 'rgb(127,127,127)',
+						  ticks = 'outside',
+						  zeroline = FALSE,
+						  range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))),
+			 yaxis = list(title = "D[1+, y-1]",
+						  gridcolor = 'rgb(255,255,255)',
+						  showgrid = TRUE,
+						  showline = FALSE,
+						  showticklabels = TRUE,
+						  tickcolor = 'rgb(127,127,127)',
+						  ticks = 'outside',
+						  zeroline = FALSE,
+						  range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
+	
+	# Marginal survival 1+ -> Ad (right margin : Rotated)
+	p1 <- plot_ly(dataF, x = ~s1_975, y = ~x1, type = 'scatter', mode = 'lines',
+			line = list(color = 'black'),
+			showlegend = FALSE, name = 'Percentile 97.5') %>%
+	  add_trace(x = ~ s1_025, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(100,100,100,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 2.5') %>%
+	  add_trace(x = ~ s1_25, type = 'scatter', mode = 'lines',
+				line = list(color='black'),
+				showlegend = FALSE, name = 'Percentile 25') %>%
+	  add_trace(x = ~ s1_75, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(50,50,50,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 75') %>%
+	  add_trace(x = ~ s1_50, type = 'scatter', mode = 'lines',
+				line = list(color='red'),
+				showlegend = FALSE, name = 'Percentile 25')%>%
+	  layout(plot_bordercolor='red', xaxis = list(title = paste("D[>1+, y]")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
 
-    m <- list(
-      l = 50,
-      r = 50,
-      b = 50,
-      t = 100,
-      pad = 2
-    )
 
-    p <- subplot(p0, p1, pAd, nrows=3, margin=0.05, titleX=TRUE, titleY=TRUE) %>%
-      layout(autosize = T, width = 1200, height = 1000, margin = m)
+	pAd <- plot_ly(dataF, x = ~xAd, y = ~sAd_975, type = 'scatter', mode = 'lines',
+			line = list(color = 'black'),
+			showlegend = FALSE, name = 'Percentile 97.5') %>%
+	  add_trace(y = ~ sAd_025, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(100,100,100,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 2.5') %>%
+	  add_trace(y = ~ sAd_25, type = 'scatter', mode = 'lines',
+				line = list(color='black'),
+				showlegend = FALSE, name = 'Percentile 25') %>%
+	  add_trace(y = ~ sAd_75, type = 'scatter', mode = 'lines',
+				fill = 'tonexty', fillcolor='rgba(50,50,50,0.2)', line = list(color = 'black'),
+				showlegend = FALSE, name = 'Percentile 75') %>%
+	  add_trace(y = ~ sAd_50, type = 'scatter', mode = 'lines',
+				line = list(color='red'),
+				showlegend = FALSE, name = 'Percentile 25')%>%
+	  layout(plot_bordercolor='orange', yaxis = list(title = paste("D[>1+, y]")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
 
-    return(p)
-    }
+				
+	# Heat map combined with marginal views
+	HMcomb <- subplot(pAd, plotly_empty(), HM, p1, nrows = 2, shareX=TRUE, shareY=TRUE, heights = c(0.2, 0.8), widths = c(0.8,0.2))
+	
+	
+	return(HMcomb)
+	}
+
