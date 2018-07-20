@@ -1,8 +1,12 @@
 library(shiny)
 library(plotly)
 source('fig1.R')
+source('fig1_p0.R')
+source('fig1_p1.R')
 source('fig2.R')
 source('fig3.R')
+source('fig3_p0.R')
+source('fig3_p1.R')
 source('fig1_export.R')
 
 ids='station_test'
@@ -21,9 +25,25 @@ shinyServer(function(input, output, session) {
 
   output$value <- renderPrint({ sliderValues() })
 
+  output$plot1_p0 <- renderPlotly({
+    fig1_p0(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+  })
+  
+  output$plot1_p1 <- renderPlotly({
+    fig1_p1(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+  })
+  
   output$plot1 <- renderPlotly({
     fig1(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
     })
+  
+  output$plot3_p0 <- renderPlotly({
+    fig3_p0(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  })
+  
+  output$plot3_p1 <- renderPlotly({
+    fig3_p1(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  })
   
   output$plot3 <- renderPlotly({
     fig3(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)

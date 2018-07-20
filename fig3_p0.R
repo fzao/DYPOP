@@ -9,7 +9,7 @@
 # XL = max length of abscissa
 # Dso : Data to plot
 
-fig3 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
+fig3_p0 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
 {
     par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
     SEQstep <- FD[['xinf']][2]-FD[['xinf']][1]
@@ -31,19 +31,20 @@ fig3 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
                         d1l, d1m, d1h,
                         dAdl, dAdm, dAdh)
 
+
     name_l <- "Low recruitment"
     name_m <- "Medium recruitment"
     name_h <- "High recruitment"
-
-    p <- plot_ly(dataF, x = ~x, y = ~dAdl, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
-            showlegend = TRUE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy', shape='spline', smoothing=1,
-                showlegend = TRUE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
-                showlegend = TRUE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = 'D[>1+, y+2]'),
+    p <- plot_ly(dataF, x = ~x, y = ~d0l, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
+            fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
+      add_trace(x = ~x, y = ~d0m, name = name_m, fill = 'tozeroy',
+                fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
+      add_trace(x = ~x, y = ~d0h, name = name_h, fill = 'tozeroy',
+                fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
+      layout(xaxis = list(title = 'D[0+,y]'),
              yaxis = list(title = 'Densité de probabilité')) %>%
       layout(legend = list(x = 0.9, y = 0.9))
 
+ 
     return(p)
     }

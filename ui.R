@@ -35,12 +35,14 @@ shinyUI(
                                                  br(),br(),br(),
                                                  tabsetPanel(
                                                              # Fig. 1 ---------------------------------------------------
-                                                             tabPanel(HTML('<h4 style="color: #005BBB; "><b>Survie</b></h4>'),
+                                                             tabPanel(HTML('<h4 style="color: #005BBB; "><b>Survie</b></h4>'), br(),
+                                                                      plotlyOutput('plot1_p0'),hr(),
+                                                                      plotlyOutput('plot1_p1'),hr(),
                                                                       plotlyOutput('plot1')
                                                              ),
                                                              # Fig. 2 ------------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #005BBB; "><b>Cohorte</b></h4>'),
-                                                                      plotlyOutput('plot2_p0'),
+                                                                      plotlyOutput('plot2_p0'), hr(),
                                                                       plotlyOutput('plot2_hm'),
                                                                       column(6, 
                                                                              sliderInput("slider_XAdm", label = h3("D[>1+, y-1]"), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
@@ -49,6 +51,8 @@ shinyUI(
                                                              ),
                                                              # Fig. 3 ------------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #005BBB; "><b>Densité</b></h4>'),
+                                                                      plotlyOutput('plot3_p0'),hr(),
+                                                                      plotlyOutput('plot3_p1'),hr(),
                                                                       plotlyOutput('plot3')
                                                              )
                                                  )
