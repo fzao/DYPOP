@@ -37,7 +37,7 @@ fig3 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
 
     p <- plot_ly(dataF, x = ~x, y = ~dAdl, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
             showlegend = TRUE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy', shape='spline', smoothing=1,
+      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
       add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
