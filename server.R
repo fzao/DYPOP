@@ -23,8 +23,6 @@ shinyServer(function(input, output, session) {
       Value = c(input$slider1, input$slider2, input$slider3))
   })
 
-  output$value <- renderPrint({ sliderValues() })
-
   output$plot1_p0 <- renderPlotly({
     fig1_p0(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
   })
