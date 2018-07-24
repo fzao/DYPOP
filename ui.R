@@ -26,18 +26,19 @@ shinyUI(
                                                  br(),br(),
                                                   wellPanel(h4(strong("PARAMETRES")),sliderInput("slider1", label = h3("T 10"), min = 9., max = 17., value = 10, step = 1.),
                                                   sliderInput("slider2", label = h3("T 90"), min = 1., max = 7., value = 5., step = 1.),
-                                                  sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 1.),
-                                                  br(),
-                                                  selectInput("dataset", h3("Choisir une figure:"), choices = c("Figure 1.a", "Figure 1.b", "Figure 1.c"), width="100%"),
-                                                  downloadButton("exportFigData",h5(strong("Download")), width="200%"))),
-                                          column(10, align = "center",
+                                                  sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 1.)
+                                                  )),
+                                          column(10, align = "left",
                                                  br(),br(),br(),
                                                  tabsetPanel(
                                                              # Fig. 1 ---------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #005BBB; "><b>Survie</b></h4>'), br(),
-                                                                      plotlyOutput('plot1_p0'),hr(),
-                                                                      plotlyOutput('plot1_p1'),hr(),
-                                                                      plotlyOutput('plot1')
+                                                                      plotlyOutput('plot1_p0'),
+                                                                      downloadButton("exportFigDataF1a","Download"),hr(),
+                                                                      plotlyOutput('plot1_p1'),
+                                                                      downloadButton("exportFigDataF1b","Download"),hr(),
+                                                                      plotlyOutput('plot1'),
+                                                                      downloadButton("exportFigDataF1c","Download")
                                                              ),
                                                              # Fig. 2 ------------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #005BBB; "><b>Cohorte</b></h4>'),
