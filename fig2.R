@@ -7,28 +7,15 @@
 	# T10, T90, C : Valeur des paramètres d'entrées du modèle (caractéristiques de la station T10 annuel, T90 annuel et % de S de caches)
 	# X1m, XAdm : Valeur de 
 	# [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
-	# Dso : Données a afficher
 	
-fig2_p0 <- function(ids, FS, t_10, t_90, cache, Dso=NULL)
+fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 {
 	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
 	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
 	disc=length(FS[["X0"]])
 	
 	
-	# Données à afficher?
-	if (!is.null(Dso)){
-		### On met en forme pour pouvoir faire rapidement appel aux années successives
-		Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
-		for (i in 1:nrow(Dso)){
-			yi<-as.numeric(Dso[i,'Year'])
-			if(nrow(Dso[Dso$Year==(yi-1),])==1){
-				Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
-				}
-			}
-		}
-	
-	# Mise en forme données
+	# Mise en forme donnees
 	x0 <- FS[["X0"]]
 	s0_025 <- FS[[par_name]][,'r1_025']
 	s0_25 <- FS[[par_name]][,'r1_25']
@@ -56,7 +43,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache, Dso=NULL)
 	  add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25') %>%
-	  layout(title = paste('Expected densities of 1+ : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+	  layout(title = 'Expected densities of 1+',
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 			 xaxis = list(title = "D[0+, y-1]",
 						  gridcolor = 'rgb(255,255,255)',
@@ -77,35 +64,21 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache, Dso=NULL)
 						  zeroline = FALSE,
 						  range=c(min(x1),max(x1))))
 
-		
-	## Données dispo?
-	if (!is.null(Dso)){
-	p0 <- p0 %>% add_markers(x = c(10, 30, 25, 50), y = c(1, 2.5, 1.7, 0.9), mode='markers', showlegend = FALSE)
-		}
-		
+	
 	return(p0)
 }
 
 
-fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
+# type = "heatmap" or "surface"
+
+fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type='heatmap')
 {
 	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
 	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
 	disc=length(FS[["X0"]])
 	
 	
-	# Données à afficher?
-	if (!is.null(Dso)){
-		### On met en forme pour pouvoir faire rapidement appel aux années successives
-		Dso[,c('D0y-1','D1y-1','DAdy-1')]<-NA
-		for (i in 1:nrow(Dso)){
-			yi<-as.numeric(Dso[i,'Year'])
-			if(nrow(Dso[Dso$Year==(yi-1),])==1){
-				Dso[Dso$Year==(yi),c('D0y-1','D1y-1','DAdy-1')]<-Dso[Dso$Year==(yi-1),c('D0','D1','DAd')]
-				}
-			}
-		}
-	
+
 	# Mise en forme données
 	x0 <- FS[["X0"]]
 	s0_025 <- FS[[par_name]][,'r1_025']
@@ -146,35 +119,50 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
 			cauto = F, cmin = 0, cmax = 40,
-			type = "surface")%>%
-			add_surface(z = ~mat_Zm,
-				x=c(XAdm,XAdm), y=c(0,max(FS[['X1']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
-			add_surface(z = ~mat_Zm,
-				y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.9, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")))%>%
-			#add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'), name = 'Chosen D[>1+,y-1] for marginal view (right margin)')%>%
-			#add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'), name = 'Chosen D[1+,y-1] for marginal view (top margin)')%>%
-	  layout(title = paste('Expected densities of >1+ : ',ids,' (Shelter=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
-			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
-			 #legend = list(orientation = 'h'),
-			 legend = list(x = 0, y=-0.1),
-			 xaxis = list(title = paste("D[>1+, y-1]"),
-						  gridcolor = 'rgb(255,255,255)',
-						  showgrid = TRUE,
-						  showline = FALSE,
-						  showticklabels = TRUE,
-						  tickcolor = 'rgb(127,127,127)',
-						  ticks = 'outside',
-						  zeroline = FALSE,
-						  range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))),
-			 yaxis = list(title = "D[1+, y-1]",
-						  gridcolor = 'rgb(255,255,255)',
-						  showgrid = TRUE,
-						  showline = FALSE,
-						  showticklabels = TRUE,
-						  tickcolor = 'rgb(127,127,127)',
-						  ticks = 'outside',
-						  zeroline = FALSE,
-						  range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
+			type = type, colorbar=list(title='D[>1+, y]'))
+	
+	if(type=='surface'){
+	  HM <- HM %>%
+	    add_surface(z = ~mat_Zm,
+	                x=c(XAdm,XAdm), y=c(0,max(FS[['X1']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")),showscale = FALSE)%>%
+	    add_surface(z = ~t(mat_Zm),
+	                y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")), showscale = FALSE)%>%
+	    layout(scene = list(
+	      xaxis=list(title = "D[>1+, y-1]"),
+	      yaxis=list(title = "D[1+, y-1]"),
+	      zaxis=list(title = "D[>1+, y]")))
+	  }
+	
+	if(type=='heatmap'){
+	  HM <- HM %>%
+	    add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'))%>%
+	    add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'))%>%
+	    layout(title = 'Expected densities of >1+',
+	           paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
+	           #legend = list(orientation = 'h'),
+	           legend = list(x = 0, y=-0.1),
+	           xaxis = list(title = "D[>1+, y-1]",
+	                        gridcolor = 'rgb(255,255,255)',
+	                        showgrid = TRUE,
+	                        showline = FALSE,
+	                        showticklabels = TRUE,
+	                        tickcolor = 'rgb(127,127,127)',
+	                        ticks = 'outside',
+	                        zeroline = FALSE,
+	                        range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))),
+	           yaxis = list(title = "D[1+, y-1]",
+	                        gridcolor = 'rgb(255,255,255)',
+	                        showgrid = TRUE,
+	                        showline = FALSE,
+	                        showticklabels = TRUE,
+	                        tickcolor = 'rgb(127,127,127)',
+	                        ticks = 'outside',
+	                        zeroline = FALSE,
+	                        range=c(min(FS[["X1"]]),max(FS[["X1"]]))),
+	           showlegend = FALSE)
+	  }
+	
+
 	
 	# Marginal survival 1+ -> Ad (right margin : Rotated)
 	p1 <- plot_ly(dataF, x = ~s1_975, y = ~x1, type = 'scatter', mode = 'lines',
@@ -192,7 +180,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 	  add_trace(x = ~ s1_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25')%>%
-	  layout(plot_bordercolor='red', xaxis = list(title = paste("D[>1+, y]")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
+	  layout(showlegend = FALSE, plot_bordercolor='red', xaxis = list(title = paste("D[>1+, y]")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
 
 
 	pAd <- plot_ly(dataF, x = ~xAd, y = ~sAd_975, type = 'scatter', mode = 'lines',
@@ -210,7 +198,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, Dso=NULL)
 	  add_trace(y = ~ sAd_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25')%>%
-	  layout(plot_bordercolor='orange', yaxis = list(title = paste("D[>1+, y]")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
+	  layout(showlegend = FALSE, plot_bordercolor='orange', yaxis = list(title = paste("D[>1+, y]")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
 
 				
 	# Heat map combined with marginal views

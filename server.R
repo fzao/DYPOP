@@ -47,10 +47,11 @@ shinyServer(function(input, output, session) {
   })
   
   output$plot2_p0 <- renderPlotly({
-    fig2_p0(ids, FS, input$slider1, input$slider2, input$slider3, Dso=NULL)
+    fig2_p0(ids, FS, input$slider1, input$slider2, input$slider3)
   })
+  
   output$plot2_hm <- renderPlotly({
-    fig2_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, Dso=NULL)
+    fig2_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, type='heatmap')
   })
   
   output$exportFigDataF1a <- downloadHandler(

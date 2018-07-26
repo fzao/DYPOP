@@ -20,23 +20,9 @@ fig1_p0 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
     s0_975 <- FS[[par_name]][,'r1_975']/x0
 
     
-	  x1 <- c(val0, FS[["X1"]][c(2:disc)])
-    s1_025 <- FS[[par_name]][,'r2_025']/x1
-    s1_25 <- FS[[par_name]][,'r2_25']/x1
-    s1_50 <- FS[[par_name]][,'r2_50']/x1
-    s1_75 <- FS[[par_name]][,'r2_75']/x1
-    s1_975 <- FS[[par_name]][,'r2_975']/x1
 
-    xAd <- c(val0, FS[["XAd"]][c(2:disc)])
-    sAd_025 <- FS[[par_name]][,'rAd_025']/xAd
-    sAd_25 <- FS[[par_name]][,'rAd_25']/xAd
-    sAd_50 <- FS[[par_name]][,'rAd_50']/xAd
-    sAd_75 <- FS[[par_name]][,'rAd_75']/xAd
-    sAd_975 <- FS[[par_name]][,'rAd_975']/xAd
 
-    dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975,
-        x1, s1_025,s1_25,s1_50,s1_75,s1_975,
-        xAd, sAd_025,sAd_25,sAd_50,sAd_75,sAd_975)
+    dataF <- data.frame(x0, s0_025,s0_25,s0_50,s0_75,s0_975)
 
     p <- plot_ly(dataF, x = ~x0, y = ~s0_975, type = 'scatter', mode = 'lines',
             line = list(color = 'black'),
@@ -53,7 +39,7 @@ fig1_p0 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
       add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
                 line = list(color='red'),
                 showlegend = FALSE, name = 'Median') %>%
-      layout(title = paste('Survival : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
+      layout(title = '0+ Survival',
              paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
              xaxis = list(title = "D[0+, y-1]",
                           gridcolor = 'rgb(255,255,255)',
@@ -63,7 +49,7 @@ fig1_p0 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
                           tickcolor = 'rgb(127,127,127)',
                           ticks = 'outside',
                           zeroline = FALSE),
-             yaxis = list(title = "12-months\napp. survival",
+             yaxis = list(title = "Survival rate",
                           gridcolor = 'rgb(255,255,255)',
                           showgrid = TRUE,
                           showline = FALSE,
