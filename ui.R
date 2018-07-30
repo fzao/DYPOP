@@ -7,16 +7,34 @@ load(file=paste('data/FS.RData',sep=''))
 shinyUI(
   fluidPage(title="DYPOP",
             fluidRow(
-                     column(2, align="left",
-                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;">DYPOP</h1>')),
-                     column(10, align="right",
+                     column(4, align="left",
+                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;">DYPOP</h1>'),
+                            HTML('<h5 style="color: #FFA02F; background-color: #FFFFFF;">Partage des résultats d\'un modèle de dynamique de population de truite</h5>')),
+                     column(8, align="right",
                             img(height=100, width=65, src="EDF_RetD.png"),
                             img(height=100, width=97, src="Irstea.png"))
             ),
             tabsetPanel(
                         # ACCUEIL ---------------------------------------------------
                         tabPanel(HTML('<h4 style="color: #005BBB; "><b>Accueil</b></h4>'),
+                                 br(),
                                  fluidRow(
+                                       column(12, align="left",
+                                                  includeMarkdown("accueil_1.md")
+                                       )
+                                 ), br(),
+                                 fluidRow(
+                                       column(6, align="center",
+                                                  img(src='Diapositive1.jpg', align = "center")
+                                       ),
+                                       column(6, align="center",
+                                                  img(src='Diapositive2.jpg', align = "center")
+                                       )
+                                   ), br(),
+                                 fluidRow(
+                                       column(12, align="left",
+                                              includeMarkdown("accueil_2.md")
+                                       )
                                  )
                         ),
                         # DATA ------------------------------------------------------
@@ -24,9 +42,9 @@ shinyUI(
                                  fluidRow(
                                           column(2, align = "left",
                                                  br(),br(),
-                                                  wellPanel(h4(strong("PARAMETERS")),sliderInput("slider1", label = h3("T 10"), min = 9., max = 17., value = 10, step = 1.),
-                                                  sliderInput("slider2", label = h3("T 90"), min = 1., max = 7., value = 5., step = 1.),
-                                                  sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 1.)
+                                                  wellPanel(h4(strong("PARAMETERS")),sliderInput("slider1", label = h3("T 10"), min = 9., max = 17., value = 10, step = 0.5),
+                                                  sliderInput("slider2", label = h3("T 90"), min = 1., max = 7., value = 5., step = 0.5),
+                                                  sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 0.5)
                                                   )),
                                           column(10, align = "left",
                                                  br(),br(),br(),
