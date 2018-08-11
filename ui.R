@@ -79,9 +79,33 @@ shinyUI(
                         ),
                         # A PROPOS ----------------------------------------------------
                         tabPanel(HTML('<h4 style="color: #005BBB; "><b>A propos</b></h4>'),
+                                 br(),
                                  fluidRow(
-                                         )
+                                   column(12, align="left",
+                                          includeMarkdown("a_propos_1.md")
+                                   )
+                                 ), br(),
+                                 fluidRow(
+                                   column(12, align="center",
+                                          img(src='Map.jpg', width=600, align = "center")
+                                   )
+                                 ), br(),
+                                 fluidRow(
+                                   column(12, align="left",
+                                          includeMarkdown("a_propos_2.md")
+                                   )
+                                 ),
+                                 fluidRow(
+                                   column(12, align="center",
+                                          img(src='Tab.jpg', width=800, align = "center")
+                                   )
+                                 ), br(),
+                                 fluidRow(
+                                   column(12, align="left",
+                                          includeMarkdown("a_propos_3.md")
+                                   )
+                                 )
+                              )
                         )
-          )
-    )
+  )
 )
