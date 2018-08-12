@@ -25,10 +25,10 @@ shinyUI(
                                  ), br(),
                                  fluidRow(
                                        column(6, align="center",
-                                                  img(src='Diapositive1.jpg', align = "center")
+                                                  img(src='Diapositive1.jpg', width = 800, align = "center")
                                        ),
                                        column(6, align="center",
-                                                  img(src='Diapositive2.jpg', align = "center")
+                                                  img(src='Diapositive2.jpg', width = 800, align = "center")
                                        )
                                    ), br(),
                                  fluidRow(
