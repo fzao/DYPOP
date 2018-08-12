@@ -42,9 +42,10 @@ shinyUI(
                                  fluidRow(
                                           column(2, align = "left",
                                                  br(),br(),
-                                                  wellPanel(h4(strong("PARAMETRES")),sliderInput("slider1", label = h3("T 10"), min = 9., max = 17., value = 10, step = 1.),
-                                                  sliderInput("slider2", label = h3("T 90"), min = 1., max = 7., value = 5., step = 1.),
-                                                  sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 1.)
+                                                  wellPanel(h4(strong("PARAMETRES")),
+                                                            sliderInput("slider1", label = h3("T 10"), min = 9., max = 17., value = 10, step = 1.),
+                                                            sliderInput("slider2", label = h3("T 90"), min = 1., max = 7., value = 5., step = 1.),
+                                                            sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 1.)
                                                   )),
                                           column(10, align = "left",
                                                  br(),br(),br(),
@@ -73,11 +74,14 @@ shinyUI(
                                                                                   plotlyOutput('plot2_p0')
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
-                                                                                  plotlyOutput('plot2_hm'),
-                                                                                  column(6, 
-                                                                                      sliderInput("slider_XAdm", label = h3('Chosen D[>1+,y-1] for marginal view (right margin)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
-                                                                                  column(6, 
-                                                                                      sliderInput("slider_X1m", label = h3('Chosen D[1+,y-1] for marginal view (top margin)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
+                                                                                  checkboxInput("checkbox", label = "vue 3D", value = FALSE),
+                                                                                  plotlyOutput('plot2_hm'),br(),
+                                                                                  column(5, align="center",
+                                                                                      sliderInput("slider_XAdm", label = h4('D[>1+,y-1] (right margin)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
+                                                                                 column(2,
+                                                                                        h4(helpText("MARGINAL VIEWS"))), 
+                                                                                 column(5, align="center",
+                                                                                      sliderInput("slider_X1m", label = h4('D[1+,y-1] (top margin)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
                                                                         )
                                                                       )
                                                              ),
