@@ -71,7 +71,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 
 # type = "heatmap" or "surface"
 
-fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type='heatmap')
+fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 {
 	par_name=paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
 	#par_name_full=paste('T10',t_10,'T90',t_90,'C',cache,'X1m',X1m,'XAdm',XAdm, sep="_")
@@ -119,9 +119,9 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type='heatmap')
 			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
 			cauto = F, cmin = 0, cmax = 40,
-			type = type, colorbar=list(title='D[>1+, y]'))
+			type = 'heatmap', colorbar=list(title='D[>1+, y]'))
 	
-	if(type=='surface'){
+	if(type3D==TRUE){
 	  HM <- HM %>%
 	    add_surface(z = ~mat_Zm,
 	                x=c(XAdm,XAdm), y=c(0,max(FS[['X1']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")),showscale = FALSE)%>%
@@ -133,7 +133,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type='heatmap')
 	      zaxis=list(title = "D[>1+, y]")))
 	  }
 	
-	if(type=='heatmap'){
+	if(type3D==FALSE){
 	  HM <- HM %>%
 	    add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'))%>%
 	    add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'))%>%
