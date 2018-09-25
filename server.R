@@ -84,8 +84,34 @@ shinyServer(function(input, output, session) {
     }
   )
     
-   # showModal(modalDialog(
-  #    title = "Important message",
-  #    "This is an important message!"))
+  modalTemp <- function(){
+    showModal(modalDialog(
+      h5("TEMPERATURES"), hr(),
+      h5(strong("Des moyennes de percentiles annuels de la température de l’eau (T10 et T90) sont utilisées pour synthétiser la gamme extrême du régime thermique de la station d’étude.")),
+      h5("T10 est un descripteur des températures chaudes et T90 des températures froides."),
+      tags$ol(
+        tags$li("T10 : moyenne interannuelle des températures supérieures au 10ème percentile (°C)"), 
+        tags$li("T90 : moyenne interannuelle des températures supérieures au 90ème percentile (°C)"))
+      , easyClose = TRUE, footer = NULL))
+  }
+  
+  observeEvent(input$link1, {
+    modalTemp()
+  })
+  
+  observeEvent(input$link2, {
+    modalTemp()
+  })
+  
+  observeEvent(input$link3, {
+    showModal(modalDialog(
+      h5("ABRIS"), hr(),
+      h5(strong("La disponibilité en cache est la somme des surfaces offrant un abri physique (berges et blocs), rapportée à la surface mouillée de la station.")),
+      h5("Cette variable est issue d’une mesure de terrain qui consiste à mesurer chaque cache d’un volume minimum de 20*10*10 cm (L*l*H). On ne conserve ensuite que la surface de la cache (hauteur non prise en compte), à 5 cm près en longueur et en largeur."),
+      h5("Cette surface peut être mesurée à l’aide d’un bâton gradué légèrement flexible (utilisation d’une goulotte cache-câbles par exemple). Le décompte par type de cache (20*20, 20*30, 25*30…) permet de faciliter la prise de note et de travailler ensuite sur la distribution des caches, leur taille moyenne etc.")
+      , easyClose = TRUE, footer = NULL))
+    
+  })
+  
   })
   
