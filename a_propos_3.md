@@ -13,4 +13,11 @@ Trois groupes d’âge ont été distingués (0+, 1+ et >1+) à partir des histo
 
 La distribution des 428 densités observées sont données à titre indicatif, pour permettre de visualiser la gamme de densités concernée par l’étude.
 
+### Version du logiciel
+Version 0.1 (septembre 2018)
 
+### Sources libres du logiciel
+[DYPOP](https://github.com/fzao/DYPOP)
+
+### Contact
+[Laurence Tissot](mailto:laurence.tissot@edf.fr)
