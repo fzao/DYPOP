@@ -105,13 +105,16 @@ shinyUI(
                                                                       includeMarkdown("densite.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
-                                                                                  plotlyOutput('plot3_p0')
+                                                                                  plotlyOutput('plot3_p0'),
+                                                                                  downloadButton("exportFigDataF3a","Télécharger les densités")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
-                                                                                  plotlyOutput('plot3_p1')
+                                                                                  plotlyOutput('plot3_p1'),
+                                                                                 downloadButton("exportFigDataF3b","Télécharger les densités")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
-                                                                                  plotlyOutput('plot3')
+                                                                                  plotlyOutput('plot3'),
+                                                                                 downloadButton("exportFigDataF3c","Télécharger les densités")
                                                                         )
                                                                       )
                                                              )

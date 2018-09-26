@@ -8,6 +8,7 @@ source('fig3.R')
 source('fig3_p0.R')
 source('fig3_p1.R')
 source('fig1_export.R')
+source('fig3_export.R')
 
 ids='station_test'
 load(file=paste('data/FS.RData',sep=''))
@@ -84,6 +85,36 @@ shinyServer(function(input, output, session) {
     }
   )
     
+  output$exportFigDataF3a <- downloadHandler(
+    filename = function() {
+      paste('dataFig3a-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      write.csv(DFish[,c("x", "d0l", "d0m", "d0h")], con, row.names = FALSE)
+    }
+  )
+  
+  output$exportFigDataF3b <- downloadHandler(
+    filename = function() {
+      paste('dataFig3b-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      write.csv(DFish[,c("x", "d1l", "d1m", "d1h")], con, row.names = FALSE)
+    }
+  )
+  
+  output$exportFigDataF3c <- downloadHandler(
+    filename = function() {
+      paste('dataFig3c-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      write.csv(DFish[,c("x", "dAdl", "dAdm", "dAdh")], con, row.names = FALSE)
+    }
+  )
+  
   modalTemp <- function(){
     showModal(modalDialog(
       h5("TEMPERATURES"), hr(),
