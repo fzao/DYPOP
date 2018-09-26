@@ -4,7 +4,7 @@
 #########################################
 	# ids : nom de la station (utilisé pour le titre)
 	# FS : Données chargée (correspondant au set de paramètres en entrée)
-	# T10, T90, C : Valeur des paramètres d'entrées du modèle (caractéristiques de la station T10 annuel, T90 annuel et % de S de caches)
+	# T10, T90, C : Valeur des paramètres d'entrées du modèle (caractéristiques de la station T10 annuelle, T90 annuelle et % de S de caches)
 	# X1m, XAdm : Valeur de 
 	# [temp] OS : type d'OS (adapte les commandes d'ouverture de fenetres graphique
 	

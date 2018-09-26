@@ -39,7 +39,7 @@ fig1_p0 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
       add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
                 line = list(color='red'),
                 showlegend = FALSE, name = 'Median') %>%
-      layout(title = "Survie apparente annuel des jeunes de l'année (0+)",
+      layout(title = "Survie apparente annuelle des jeunes de l'année (0+)",
              paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
              xaxis = list(title = "Densité de 0+ l'année précédente",
                           gridcolor = 'rgb(255,255,255)',

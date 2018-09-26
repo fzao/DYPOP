@@ -90,8 +90,8 @@ shinyServer(function(input, output, session) {
       h5(strong("Des moyennes de percentiles annuels de la température de l’eau (T10 et T90) sont utilisées pour synthétiser la gamme extrême du régime thermique de la station d’étude.")),
       h5("T10 est un descripteur des températures chaudes et T90 des températures froides."),
       tags$ol(
-        tags$li("T10 : moyenne interannuelle des températures supérieures au 10ème percentile (°C)"), 
-        tags$li("T90 : moyenne interannuelle des températures supérieures au 90ème percentile (°C)"))
+        tags$li("T10 : moyenne interannuelle des températures dépassées 10% du temps (°C)"), 
+        tags$li("T90 : moyenne interannuelle des températures dépassées 90% du temps (°C)"))
       , easyClose = TRUE, footer = NULL))
   }
   

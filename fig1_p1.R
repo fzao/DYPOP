@@ -37,7 +37,7 @@ fig1_p1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
                 line = list(color='red'),
                 showlegend = FALSE, name = 'Median') %>%
       layout(#title = paste('Survival : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
-             title = "Survie apparente annuel des truites de 1 an (1+)",
+             title = "Survie apparente annuelle des truites de 1 an (1+)",
              paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
              xaxis = list(title = "Densité de 1+ l'année précédente",
                           gridcolor = 'rgb(255,255,255)',
