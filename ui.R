@@ -93,7 +93,7 @@ shinyUI(
                                                                                   includeMarkdown("cohorte_4.md"),
                                                                                   checkboxInput("checkbox", label = "vue 3D", value = FALSE),
                                                                                   plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF2b","Télécharger les densités >1+"), downloadButton("exportFigDataF2bbis","Télécharger les densités 1+"), br(),
+                                                                                  downloadButton("exportFigDataF2b","Télécharger les densités"), br(),
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
                                                                                   column(2,
