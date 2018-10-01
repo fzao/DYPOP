@@ -1,4 +1,5 @@
 library(shiny)
+library(shinycssloaders)
 library(plotly)
 
 load(file=paste('data/FS.RData',sep=''))
@@ -64,15 +65,15 @@ shinyUI(
                                                                       includeMarkdown("survie_1.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
-                                                                                  plotlyOutput('plot1_p0'),
+                                                                                  plotlyOutput('plot1_p0') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF1a","Télécharger les taux de survie")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
-                                                                                  plotlyOutput('plot1_p1'),
+                                                                                  plotlyOutput('plot1_p1') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF1b","Télécharger les taux de survie")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
-                                                                                  plotlyOutput('plot1'),
+                                                                                  plotlyOutput('plot1') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF1c","Télécharger les taux de survie")
                                                                         )
                                                                       ), br(),
@@ -84,14 +85,14 @@ shinyUI(
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   includeMarkdown("cohorte_2.md"),
-                                                                                  plotlyOutput('plot2_p0'),
+                                                                                  plotlyOutput('plot2_p0') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2a","Télécharger les densités"), br(), br(),
                                                                                   includeMarkdown("cohorte_3.md")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
                                                                                   includeMarkdown("cohorte_4.md"),
                                                                                   checkboxInput("checkbox", label = "vue 3D", value = FALSE),
-                                                                                  plotlyOutput('plot2_hm'),
+                                                                                  plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2b","Télécharger les densités >1+"), downloadButton("exportFigDataF2bbis","Télécharger les densités 1+"), br(),
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
@@ -108,15 +109,15 @@ shinyUI(
                                                                       includeMarkdown("densite.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
-                                                                                  plotlyOutput('plot3_p0'),
+                                                                                  plotlyOutput('plot3_p0') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF3a","Télécharger les densités")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
-                                                                                  plotlyOutput('plot3_p1'),
+                                                                                  plotlyOutput('plot3_p1') %>% withSpinner(type=8, color="#A5C226"),
                                                                                  downloadButton("exportFigDataF3b","Télécharger les densités")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
-                                                                                  plotlyOutput('plot3'),
+                                                                                  plotlyOutput('plot3') %>% withSpinner(type=8, color="#A5C226"),
                                                                                  downloadButton("exportFigDataF3c","Télécharger les densités")
                                                                         )
                                                                       )
