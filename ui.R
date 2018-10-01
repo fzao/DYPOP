@@ -54,7 +54,7 @@ shinyUI(
                                                             actionLink(inputId = "link2", label=h5("LES TEMPERATURES FROIDES")),
                                                             sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = 0.5),br(),hr(),
                                                             actionLink(inputId = "link3", label=h5("LA DISPONIBILITE EN ABRIS")),
-                                                            sliderInput("slider3", label = h3("% Cache"), min = 0., max = 7., value = 3., step = 0.5)
+                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = 0.5)
                                                   )),
                                           column(10, align = "left",
                                                  br(),
@@ -92,11 +92,11 @@ shinyUI(
                                                                                   checkboxInput("checkbox", label = "vue 3D", value = FALSE),
                                                                                   plotlyOutput('plot2_hm'),br(),
                                                                                   column(5, align="center",
-                                                                                      sliderInput("slider_XAdm", label = h4('Densité >1+ année précédente (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
+                                                                                      sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
                                                                                  column(2,
                                                                                         h4(helpText("VUES MARGINALES"))), 
                                                                                  column(5, align="center",
-                                                                                      sliderInput("slider_X1m", label = h4('Densité de 1+ année précédente (n-1)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
+                                                                                      sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
                                                                         )
                                                                       )
                                                              ),

@@ -137,9 +137,9 @@ shinyServer(function(input, output, session) {
   observeEvent(input$link3, {
     showModal(modalDialog(
       h5("ABRIS"), hr(),
-      h5(strong("La disponibilité en cache est la somme des surfaces offrant un abri physique (berges et blocs), rapportée à la surface mouillée de la station.")),
-      h5("Cette variable est issue d’une mesure de terrain qui consiste à mesurer chaque cache d’un volume minimum de 20*10*10 cm (L*l*H). On ne conserve ensuite que la surface de la cache (hauteur non prise en compte), à 5 cm près en longueur et en largeur."),
-      h5("Cette surface peut être mesurée à l’aide d’un bâton gradué légèrement flexible (utilisation d’une goulotte cache-câbles par exemple). Le décompte par type de cache (20*20, 20*30, 25*30…) permet de faciliter la prise de note et de travailler ensuite sur la distribution des caches, leur taille moyenne etc.")
+      h5(strong("La disponibilité en abris est la somme des surfaces offrant un abri physique (berges et blocs), rapportée à la surface mouillée de la station.")),
+      h5("Cette variable est issue d’une mesure de terrain qui consiste à mesurer chaque abris d’un volume minimum de 20*10*10 cm (L*l*H). On ne conserve ensuite que la surface de l'abris (hauteur non prise en compte), à 5 cm près en longueur et en largeur."),
+      h5("Cette surface peut être mesurée à l’aide d’un bâton gradué légèrement flexible (utilisation d’une goulotte cache-câbles par exemple). Le décompte par type de cache (20*20, 20*30, 25*30…) permet de faciliter la prise de note et de travailler ensuite sur la distribution des abris, leur taille moyenne etc.")
       , easyClose = TRUE, footer = NULL))
     
   })

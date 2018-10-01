@@ -45,7 +45,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 				showlegend = FALSE, name = 'Percentile 25') %>%
 	  layout(title = 'Densités de 1+ attendues',
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
-			 xaxis = list(title = "Densité de 0+ l'année précédente (n-1)",
+			 xaxis = list(title = "Densité 0+ année (n-1)",
 						  gridcolor = 'rgb(255,255,255)',
 						  showgrid = TRUE,
 						  showline = FALSE,
@@ -54,7 +54,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 						  ticks = 'outside',
 						  zeroline = FALSE,
 						  range=c(min(x0),max(x0))),
-			 yaxis = list(title = "Densité de 1+ l'année (n)",
+			 yaxis = list(title = "Densité 1+ année (n)",
 						  gridcolor = 'rgb(255,255,255)',
 						  showgrid = TRUE,
 						  showline = FALSE,
@@ -128,8 +128,8 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	    add_surface(z = ~t(mat_Zm),
 	                y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")), showscale = FALSE)%>%
 	    layout(scene = list(
-	      xaxis=list(title = "Densité >1+\nannée précédente (n-1)"),
-	      yaxis=list(title = "Densité 1+\nannée précédente (n-1)"),
+	      xaxis=list(title = "Densité >1+\nannée (n-1)"),
+	      yaxis=list(title = "Densité 1+\nannée (n-1)"),
 	      zaxis=list(title = "Densité >1+\nannée (n)")))
 	  }
 	
@@ -141,7 +141,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	           paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 	           #legend = list(orientation = 'h'),
 	           legend = list(x = 0, y=-0.1),
-	           xaxis = list(title = "Densité >1+ année précédente (n-1)",
+	           xaxis = list(title = "Densité >1+ année (n-1)",
 	                        gridcolor = 'rgb(255,255,255)',
 	                        showgrid = TRUE,
 	                        showline = FALSE,
@@ -150,7 +150,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	                        ticks = 'outside',
 	                        zeroline = FALSE,
 	                        range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))),
-	           yaxis = list(title = "Densité 1+\nannée précédente (n-1)",
+	           yaxis = list(title = "Densité 1+\nannée (n-1)",
 	                        gridcolor = 'rgb(255,255,255)',
 	                        showgrid = TRUE,
 	                        showline = FALSE,

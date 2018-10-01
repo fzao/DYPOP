@@ -6,5 +6,5 @@ output: html_document
 
 
 
-Les tronçons sélectionnés recouvraient une large gamme de contexte physique, hydraulique et thermique :
+Les 40 tronçons sélectionnés recouvraient une large **gamme de contexte physique, hydraulique et thermique** :
 
