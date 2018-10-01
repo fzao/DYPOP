@@ -84,19 +84,22 @@ shinyUI(
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   includeMarkdown("cohorte_2.md"),
-                                                                                  plotlyOutput('plot2_p0'), br(),
+                                                                                  plotlyOutput('plot2_p0'),
+                                                                                  downloadButton("exportFigDataF2a","Télécharger les densités"), br(), br(),
                                                                                   includeMarkdown("cohorte_3.md")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
                                                                                   includeMarkdown("cohorte_4.md"),
                                                                                   checkboxInput("checkbox", label = "vue 3D", value = FALSE),
-                                                                                  plotlyOutput('plot2_hm'),br(),
+                                                                                  plotlyOutput('plot2_hm'),
+                                                                                  downloadButton("exportFigDataF2b","Télécharger les densités >1+"), downloadButton("exportFigDataF2bbis","Télécharger les densités 1+"), br(),
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
-                                                                                 column(2,
+                                                                                  column(2,
                                                                                         h4(helpText("VUES MARGINALES"))), 
-                                                                                 column(5, align="center",
+                                                                                  column(5, align="center",
                                                                                       sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
+
                                                                         )
                                                                       )
                                                              ),

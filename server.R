@@ -8,6 +8,7 @@ source('fig3.R')
 source('fig3_p0.R')
 source('fig3_p1.R')
 source('fig1_export.R')
+source('fig2_export.R')
 source('fig3_export.R')
 
 ids='station_test'
@@ -85,6 +86,36 @@ shinyServer(function(input, output, session) {
     }
   )
     
+  output$exportFigDataF2a <- downloadHandler(
+    filename = function() {
+      paste('dataFig2a-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig2_p0_export(ids, FS, input$slider1, input$slider2, input$slider3)
+      write.table(DFish[,c("x0", "s0_025", "s0_25", "s0_50", "s0_75", "s0_975")], con, dec = ".", sep =";", row.names = FALSE)
+    }
+  )
+  
+  output$exportFigDataF2b <- downloadHandler(
+    filename = function() {
+      paste('dataFig2b-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig2_hm_export(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, type3D=input$checkbox)
+      write.table(DFish[,c("xAd", "sAd_025", "sAd_25", "sAd_50", "sAd_75", "sAd_975")], con, dec = ".", sep =";", row.names = FALSE)
+    }
+  )
+  
+  output$exportFigDataF2bbis <- downloadHandler(
+    filename = function() {
+      paste('dataFig2bbis-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      DFish <- fig2_hm_export(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, type3D=input$checkbox)
+      write.table(DFish[,c("x1", "s1_025", "s1_25", "s1_50", "s1_75", "s1_975")], con, dec = ".", sep =";", row.names = FALSE)
+    }
+  )
+  
   output$exportFigDataF3a <- downloadHandler(
     filename = function() {
       paste('dataFig3a-', Sys.Date(), '.csv', sep='')
