@@ -68,7 +68,7 @@ shinyServer(function(input, output, session) {
   
   output$exportFigDataF1b <- downloadHandler(
     filename = function() {
-      paste('dataFig1b-', Sys.Date(), '.csv', sep=';')
+      paste('dataFig1b-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
       DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
