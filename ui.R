@@ -10,38 +10,30 @@ shinyUI(
             fluidRow(
                      column(10, align="left",
                             HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;">DYPOP</h1>'),
-                            HTML('<h4 style="color: #A5C226; background-color: #FFFFFF;">Partage des résultats d\'un modèle de dynamique de population de truite</h5>')),
+                            HTML('<h4 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h5>')),
                      column(2, align="right",
                             img(height=40, width=80, src="edf.jpg"),
                             img(height=80, width=77, src="Irstea.png"))
             ),
-            tabsetPanel(
+            tabsetPanel(id="tabs",
                         # ACCUEIL ---------------------------------------------------
-                        tabPanel(HTML('<h4 style="color: #005BBB; "><b>Accueil</b></h4>'),
+                        tabPanel(value="accueil", HTML('<h4 style="color: #005BBB; "><b>Accueil</b></h4>'),
                                  br(),
                                  fluidRow(
-                                       column(12, align="left",
-                                                  includeMarkdown("accueil_1.md")
-                                       )
-                                 ), br(),
-                                 fluidRow(
-                                       column(12, align="center",
-                                                  img(src='Diapositive1.jpg', align = "center")
-                                       )
-                                 ), br(),
-                                 fluidRow(
-                                   column(12, align="center",
-                                          img(src='Diapositive2.jpg', align = "center")
-                                   )
-                                 ), br(),
-                                 fluidRow(
-                                       column(12, align="left",
-                                              includeMarkdown("accueil_2.md")
-                                       )
-                                 )
+                                   column(4, align="left",
+                                          includeMarkdown("accueil_1.md"),
+                                          actionLink(inputId = "redir1", label=HTML('<h4 style="color: #005BBB; ">=> Pour en savoir plus, se rendre sur l\'onglet \"A propos\"</h4>')),
+                                          includeMarkdown("accueil_2.md"),
+                                          actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> Pour utiliser DYPOP, se rendre sur l\'onglet \"Visualisation\"</h4>')),
+                                          includeMarkdown("accueil_3.md")
+                                          ),
+                                   column(2, align="center",
+                                          img(width = 600, src='Diapositive1.jpg', align = "center"), br(),
+                                          img(width = 400, src='Diapositive2.jpg', align = "center")
+                                          ))
                         ),
                         # VISUALISATION ------------------------------------------------------
-                        tabPanel(HTML('<h4 style="color: #005BBB; "><b>Visualisation</b></h4>'),
+                        tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Visualisation</b></h4>'),
                                  fluidRow(
                                      includeMarkdown("visu_text_1.md")
                                      #includeMarkdown("visu_text_2.md")
@@ -127,7 +119,7 @@ shinyUI(
                                   )
                         ),
                         # A PROPOS ----------------------------------------------------
-                        tabPanel(HTML('<h4 style="color: #005BBB; "><b>A propos</b></h4>'),
+                        tabPanel(value="apropos", HTML('<h4 style="color: #005BBB; "><b>A propos</b></h4>'),
                                  br(),
                                  fluidRow(
                                    column(12, align="left",

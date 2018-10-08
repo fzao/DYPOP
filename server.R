@@ -176,5 +176,13 @@ shinyServer(function(input, output, session) {
     
   })
   
+  observeEvent(input$redir1, {
+    updateTabsetPanel(session, "tabs", selected = "apropos")
+  })
+
+  observeEvent(input$redir2, {
+    updateTabsetPanel(session, "tabs", selected = "visu")
+  })
+  
   })
   
