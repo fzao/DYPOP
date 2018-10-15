@@ -145,6 +145,16 @@ shinyUI(
                                    column(12, align="left",
                                           includeMarkdown("a_propos_3.md")
                                    )
+                                 ),
+                                 fluidRow(
+                                   column(12, align="center",
+                                          img(src='Densites.png', width=600, align = "center")
+                                   )
+                                 ),
+                                 fluidRow(
+                                   column(12, align="left",
+                                          includeMarkdown("a_propos_4.md")
+                                   )
                                  )
                               )
                         )
