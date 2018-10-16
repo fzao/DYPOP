@@ -1,6 +1,9 @@
 data
 savedata
+DYPOP.Rproj
+.gitignore
 .Rhistory
 .RData
 .gitignore
 .DS_Store
+.Rproj.user
