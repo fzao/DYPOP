@@ -27,9 +27,9 @@ shinyUI(
                                           actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> Pour utiliser DYPOP, se rendre sur l\'onglet \"Visualisation\"</h4>')),
                                           includeMarkdown("accueil_3.md")
                                           ),
-                                   column(2, align="center",
-                                          img(width = 600, src='Diapositive1.jpg', align = "center"), br(),
-                                          img(width = 400, src='Diapositive2.jpg', align = "center")
+                                   column(4, align="center",
+                                          img(width = 600, src='Diapositive1.jpg', align = "center"), br(),br(),br(),
+                                          img(width = 300, src='Diapositive2.jpg', align = "center")
                                           ))
                         ),
                         # VISUALISATION ------------------------------------------------------
