@@ -35,7 +35,6 @@ appCSS <- "
 
 shinyUI(
   fluidPage(title="DYPOP",
-            useShinyalert(),
             useShinyjs(),
             inlineCSS(appCSS),
             # Loading message
