@@ -35,6 +35,7 @@ appCSS <- "
 
 shinyUI(
   fluidPage(title="DYPOP",
+            useShinyalert(),
             useShinyjs(),
             inlineCSS(appCSS),
             # Loading message
@@ -69,7 +70,9 @@ shinyUI(
                                           includeMarkdown("accueil_3.md")
                                           ),
                                    column(4, align="center",
-                                          img(width = 600, src='Diapositive1.jpg', align = "center"), br(),br(),br(),
+                                          HTML('<a href="Diapositive1.jpg" target="new">
+                                            <img src="Diapositive1.jpg" alt="Life cycle" width="600" height="450">
+                                            </a>'),br(),br(),br(),
                                           img(width = 300, src='Diapositive2.jpg', align = "center")
                                           ))
                         ),
@@ -169,7 +172,9 @@ shinyUI(
                                  ), br(),
                                  fluidRow(
                                    column(12, align="center",
-                                          img(src='Map.jpg', width=600, align = "center")
+                                          HTML('<a href="Map.jpg" target="new">
+                                            <img src="Map.jpg" alt="Map" width="600" height="561">
+                                            </a>')
                                    )
                                  ), br(),
                                  fluidRow(
