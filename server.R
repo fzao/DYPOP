@@ -11,12 +11,14 @@ source('fig1_export.R')
 source('fig2_export.R')
 source('fig3_export.R')
 
-ids='station_test'
-load(file=paste('data/FS.RData',sep=''))
-load(file=paste('data/FD.RData',sep=''))
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
+
+  ids='station_test'
+  load(file=paste('data/FS.RData',sep=''))
+  load(file=paste('data/FD.RData',sep=''))
+  
   sliderValues <- reactive({
     data.frame(
       Name = c("t10",

@@ -3,7 +3,21 @@ library(shinycssloaders)
 library(shinyjs)
 library(plotly)
 
-load(file=paste('data/FS.RData',sep=''))
+# WARINING : Some constant values to change with new data !!!
+#load(file=paste('data/FS.RData',sep=''))
+#Amax <- max(FS[["XAd"]])
+Amax <- 35.
+#Avalue <- FS[["XAd"]][floor(length(FS[["XAd"]])/2)]
+Avalue <- 17.4
+#Astep <- FS[["XAd"]][3]-FS[["XAd"]][2]
+Astep <- 0.2
+#Bmax <- max(FS[["X1"]])
+Bmax <- 70.
+#Bvalue <- FS[["X1"]][floor(length(FS[["X1"]])/2)]
+Bvalue <- 34.8
+#Bstep <- FS[["X1"]][3]-FS[["X1"]][2]
+Bstep <- 0.4
+
 
 appCSS <- "
 #loading-content {
@@ -114,11 +128,11 @@ shinyUI(
                                                                                   plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2b","Télécharger les densités"), br(),
                                                                                   column(5, align="center",
-                                                                                      sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = max(FS[["XAd"]]), value = FS[["XAd"]][floor(length(FS[["XAd"]])/2)], step = FS[["XAd"]][3]-FS[["XAd"]][2])),
+                                                                                      sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
                                                                                   column(2,
                                                                                         h4(helpText("VUES MARGINALES"))), 
                                                                                   column(5, align="center",
-                                                                                      sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = max(FS[["X1"]]), value = FS[["X1"]][floor(length(FS[["X1"]])/2)], step = FS[["X1"]][3]-FS[["X1"]][2]))
+                                                                                      sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
 
                                                                         )
                                                                       )
