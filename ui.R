@@ -1,12 +1,39 @@
 library(shiny)
 library(shinycssloaders)
+library(shinyjs)
 library(plotly)
 
 load(file=paste('data/FS.RData',sep=''))
 
+appCSS <- "
+#loading-content {
+  position: absolute;
+  background: #FFFFFF;
+  opacity: 0.9;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  height: 100%;
+  text-align: center;
+  color: #FFA02F;
+}
+"
 
 shinyUI(
   fluidPage(title="DYPOP",
+            useShinyjs(),
+            inlineCSS(appCSS),
+            # Loading message
+            div(
+              id = "loading-content",
+              h1("Chargement DYPOP...") %>% withSpinner(type=8, color="#A5C226")
+
+            ),
+            
+            hidden(
+              div(
+                id = "app-content",
+            
             fluidRow(
                      column(10, align="left",
                             HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;">DYPOP</h1>'),
@@ -158,5 +185,6 @@ shinyUI(
                                  )
                               )
                         )
+              ))
   )
 )
