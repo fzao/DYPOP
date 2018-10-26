@@ -175,7 +175,7 @@ shinyUI(
                                             </a>')
                                    )
                                  ), 
-                                 br(),
+                                 hr(),
                                  fluidRow(
                                    column(12, align="left",
                                           includeMarkdown("a_propos_2.md"),
@@ -185,6 +185,8 @@ shinyUI(
                                  fluidRow(
                                    column(6, align="left",
                                           includeMarkdown("a_propos_3.md"),
+                                          hr(),
+                                          includeMarkdown("a_propos_3bis.md"),
                                           actionLink(inputId = "gamme", label=HTML('<h4 style="color: #005BBB; ">Détails de la gamme de densités du jeu de données</h4>'))
                                    )
                                  ),
