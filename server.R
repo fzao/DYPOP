@@ -186,6 +186,18 @@ shinyServer(function(input, output, session) {
     updateTabsetPanel(session, "tabs", selected = "visu")
   })
   
+  observeEvent(input$details, {
+    showModal(modalDialog(
+      img(src='Tab.jpg', width=580, align = "center"),
+      easyClose = TRUE, footer = NULL))
+  })
+  
+  observeEvent(input$gamme, {
+    showModal(modalDialog(
+      img(src='Densites.png', width=580, align = "center"),
+      easyClose = TRUE, footer = NULL))
+  })
+  
   # Hide the loading message when the rest of the server function has executed
   hide(id = "loading-content", anim = TRUE, animType = "fade")    
   show("app-content")

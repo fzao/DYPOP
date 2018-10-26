@@ -165,39 +165,31 @@ shinyUI(
                         tabPanel(value="apropos", HTML('<h4 style="color: #005BBB; "><b>A propos</b></h4>'),
                                  br(),
                                  fluidRow(
-                                   column(12, align="left",
+                                   column(4, align="left",
                                           includeMarkdown("a_propos_1.md")
-                                   )
-                                 ), br(),
-                                 fluidRow(
-                                   column(12, align="center",
+                                   ),
+                                   column(2, align="center",
+                                          br(), br(),
                                           HTML('<a href="Map.jpg" target="new">
-                                            <img src="Map.jpg" alt="Map" width="600" height="561">
+                                            <img src="Map.jpg" alt="Map" width="300" height="281">
                                             </a>')
                                    )
-                                 ), br(),
+                                 ), 
+                                 br(),
                                  fluidRow(
                                    column(12, align="left",
-                                          includeMarkdown("a_propos_2.md")
+                                          includeMarkdown("a_propos_2.md"),
+                                          actionLink(inputId = "details", label=HTML('<h4 style="color: #005BBB; ">Voir les détails</h4>'))
                                    )
                                  ),
                                  fluidRow(
-                                   column(12, align="center",
-                                          img(src='Tab.jpg', width=800, align = "center")
-                                   )
-                                 ), br(),
-                                 fluidRow(
-                                   column(12, align="left",
-                                          includeMarkdown("a_propos_3.md")
+                                   column(6, align="left",
+                                          includeMarkdown("a_propos_3.md"),
+                                          actionLink(inputId = "gamme", label=HTML('<h4 style="color: #005BBB; ">Détails de la gamme de densités du jeu de données</h4>'))
                                    )
                                  ),
                                  fluidRow(
-                                   column(12, align="center",
-                                          img(src='Densites.png', width=600, align = "center")
-                                   )
-                                 ),
-                                 fluidRow(
-                                   column(12, align="left",
+                                   column(6, align="left",
                                           includeMarkdown("a_propos_4.md")
                                    )
                                  )
