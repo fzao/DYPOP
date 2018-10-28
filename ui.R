@@ -1,6 +1,7 @@
 library(shiny)
 library(shinycssloaders)
 library(shinyjs)
+library(shinyWidgets)
 library(plotly)
 
 # WARINING : Some constant values to change with new data !!!
@@ -16,7 +17,7 @@ Bmax <- 70.
 #Bvalue <- FS[["X1"]][floor(length(FS[["X1"]])/2)]
 Bvalue <- 34.8
 #Bstep <- FS[["X1"]][3]-FS[["X1"]][2]
-Bstep <- 0.4
+sBstep <- 0.4
 
 
 appCSS <- "
@@ -86,11 +87,11 @@ shinyUI(
                                                   br(),
                                                   wellPanel(h4(strong("DONNEES D'ENTREE")),hr(),
                                                             actionLink(inputId = "link1", label=h5("LES TEMPERATURES CHAUDES")),
-                                                            sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = 0.5),br(),hr(),
+                                                            sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = 1.),br(),hr(),
                                                             actionLink(inputId = "link2", label=h5("LES TEMPERATURES FROIDES")),
-                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = 0.5),br(),hr(),
+                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = 1.),br(),hr(),
                                                             actionLink(inputId = "link3", label=h5("LA DISPONIBILITE EN ABRIS")),
-                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = 0.5)
+                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = 1.)
                                                   )),
                                           column(10, align = "left",
                                                  br(),
@@ -126,15 +127,18 @@ shinyUI(
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
                                                                                   includeMarkdown("cohorte_4.md"),
-                                                                                  checkboxInput("checkbox", label = "vue 3D", value = FALSE),
+                                                                                  #checkboxInput("checkbox", label = "vue 3D", value = FALSE),
+                                                                                  switchInput(inputId = "checkbox", label = "Vue 3D", value = FALSE, handleWidth = 50, size = 'mini'),
                                                                                   plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2b","Télécharger les densités"), br(),
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
+                                                                                      #knobInput(inputId = "slider_XAdm", label = h4('Densité >1+ année (n-1)'),min = 0., max = Amax, value = Avalue, step =Astep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA")),
                                                                                   column(2,
                                                                                         h4(helpText("VUES MARGINALES"))), 
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
+                                                                                      #knobInput(inputId = "slider_X1m", label = h4('Densité 1+ année (n-1)'),min = 0., max = Bmax, value = Bvalue, step =Bstep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA"))
 
                                                                         )
                                                                       )
