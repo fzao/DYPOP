@@ -17,7 +17,7 @@ Bmax <- 70.
 #Bvalue <- FS[["X1"]][floor(length(FS[["X1"]])/2)]
 Bvalue <- 34.8
 #Bstep <- FS[["X1"]][3]-FS[["X1"]][2]
-sBstep <- 0.4
+Bstep <- 0.4
 
 
 appCSS <- "
