@@ -27,47 +27,25 @@ fig3_p0 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdm <- FD[[par_name]]$DAdm
     dAdh <- FD[[par_name]]$DAdh
 
-    # bad values and smoothing
-    #d0l[is.na(d0l)] <- 0.
-    #d0l[d0l<1.e-6] <- 0.
-    #smoothing <- lm(d0l ~ poly(x, 5))
-    #print(summary(smoothing))
-    #d0l <- smoothing$fitted
-    
-    #d0m[is.na(d0m)] <- 0.
-    #d0m[d0m<1.e-6] <- 0.
-    #smoothing <- loess(d0m ~ x, span = 0.5)
-    #d0m <- smoothing$fitted
-    #d0h[is.na(d0h)] <- 0.
-    #d0h[d0h<1.e-6] <- 0.
-    
-
-    #smoothing <- loess(d0h ~ x, span = 0.5)
-    #d0h <- smoothing$fitted
-    #d1l[is.na(d1l)] <- 0.
-    #d1l[d1l<1.e-6] <- 0.
-    #smoothing <- loess(d1l ~ x)
-    #d1l <- smoothing$fitted
-    #d1m[is.na(d1m)] <- 0.
-    #d1m[d1m<1.e-6] <- 0.
-    #smoothing <- loess(d1m ~ x)
-    #d1m <- smoothing$fitted
-    #d1h[is.na(d1h)] <- 0.
-    #d1h[d1h<1.e-6] <- 0.
-    #smoothing <- loess(d1h ~ x)
-    #d1h <- smoothing$fitted
-    #dAdl[is.na(dAdl)] <- 0.
-    #dAdl[dAdl<1.e-6] <- 0.
-    #smoothing <- loess(dAdl ~ x)
-    #dAdl <- smoothing$fitted
-    #dAdm[is.na(dAdm)] <- 0.
-    #dAdm[dAdm<1.e-6] <- 0.
-    #smoothing <- loess(dAdm ~ x)
-    #dAdm <- smoothing$fitted
-    #dAdh[is.na(dAdh)] <- 0.
-    #dAdh[dAdh<1.e-6] <- 0.
-    #smoothing <- loess(dAdh ~ x)
-    #dAdh <- smoothing$fitted
+    # bad values
+    d0l[is.na(d0l)] <- 0.
+    d0l[d0l<1.e-6] <- 0.
+    d0m[is.na(d0m)] <- 0.
+    d0m[d0m<1.e-6] <- 0.
+    d0h[is.na(d0h)] <- 0.
+    d0h[d0h<1.e-6] <- 0.
+    d1l[is.na(d1l)] <- 0.
+    d1l[d1l<1.e-6] <- 0.
+    d1m[is.na(d1m)] <- 0.
+    d1m[d1m<1.e-6] <- 0.
+    d1h[is.na(d1h)] <- 0.
+    d1h[d1h<1.e-6] <- 0.
+    dAdl[is.na(dAdl)] <- 0.
+    dAdl[dAdl<1.e-6] <- 0.
+    dAdm[is.na(dAdm)] <- 0.
+    dAdm[dAdm<1.e-6] <- 0.
+    dAdh[is.na(dAdh)] <- 0.
+    dAdh[dAdh<1.e-6] <- 0.
     
     dataF <- data.frame(x, d0l, d0m, d0h,
                         d1l, d1m, d1h,
