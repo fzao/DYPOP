@@ -60,6 +60,31 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdm <- dAdm[1:lenx]
     dAdh <- dAdh[1:lenx]
     
+    # spline smoothing
+    cstep <- 0.2
+    dstep <- x[2] - x[1]
+    nstep <- cstep * dstep
+    xs <- seq(x[1], x[lenx], nstep)
+    smoothing <- splinefun(x, d0l)
+    d0l <- smoothing(xs)
+    smoothing <- splinefun(x, d0m)
+    d0m <- smoothing(xs)
+    smoothing <- splinefun(x, d0h)
+    d0h <- smoothing(xs)
+    smoothing <- splinefun(x, d1l)
+    d1l <- smoothing(xs)
+    smoothing <- splinefun(x, d1m)
+    d1m <- smoothing(xs)
+    smoothing <- splinefun(x, d1h)
+    d1h <- smoothing(xs)
+    smoothing <- splinefun(x, dAdl)
+    dAdl <- smoothing(xs)
+    smoothing <- splinefun(x, dAdm)
+    dAdm <- smoothing(xs)
+    smoothing <- splinefun(x, dAdh)
+    dAdh <- smoothing(xs)
+    x <- xs
+    
     dataF <- data.frame(x, d0l, d0m, d0h,
                         d1l, d1m, d1h,
                         dAdl, dAdm, dAdh)
