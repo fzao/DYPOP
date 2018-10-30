@@ -6,6 +6,7 @@ library(plotly)
 
 
 # WARINING : Some constant values to change with new data !!!
+tstep = 0.25
 #load(file=paste('data/FS.RData',sep=''))
 #Amax <- max(FS[["XAd"]])
 Amax <- 35.
@@ -19,6 +20,7 @@ Bmax <- 70.
 Bvalue <- 34.
 #Bstep <- FS[["X1"]][3]-FS[["X1"]][2]
 Bstep <- 2.
+
 
 appCSS <- "
 #loading-content {
@@ -87,11 +89,11 @@ shinyUI(
                                                   br(),
                                                   wellPanel(h4(strong("DONNEES D'ENTREE")),hr(),
                                                             actionLink(inputId = "link1", label=h5("LES TEMPERATURES CHAUDES")),
-                                                            sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = 0.5),br(),hr(),
+                                                            sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = tstep),br(),hr(),
                                                             actionLink(inputId = "link2", label=h5("LES TEMPERATURES FROIDES")),
-                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = 0.5),br(),hr(),
+                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = tstep),br(),hr(),
                                                             actionLink(inputId = "link3", label=h5("LA DISPONIBILITE EN ABRIS")),
-                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = 0.5)
+                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = tstep)
                                                   )),
                                           column(10, align = "left",
                                                  br(),
