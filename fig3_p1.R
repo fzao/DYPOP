@@ -47,6 +47,19 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdh[is.na(dAdh)] <- 0.
     dAdh[dAdh<1.e-6] <- 0.
     
+    # threshold at xmax = 100
+    x <- x[x<101.]
+    lenx <- length(x)
+    d0l <- d0l[1:lenx]
+    d0m <- d0m[1:lenx]
+    d0h <- d0h[1:lenx]
+    d1l <- d1l[1:lenx]
+    d1m <- d1m[1:lenx]
+    d1h <- d1h[1:lenx]
+    dAdl <- dAdl[1:lenx]
+    dAdm <- dAdm[1:lenx]
+    dAdh <- dAdh[1:lenx]
+    
     dataF <- data.frame(x, d0l, d0m, d0h,
                         d1l, d1m, d1h,
                         dAdl, dAdm, dAdh)

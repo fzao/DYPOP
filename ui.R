@@ -10,16 +10,15 @@ library(plotly)
 #Amax <- max(FS[["XAd"]])
 Amax <- 35.
 #Avalue <- FS[["XAd"]][floor(length(FS[["XAd"]])/2)]
-Avalue <- 17.4
+Avalue <- 17.
 #Astep <- FS[["XAd"]][3]-FS[["XAd"]][2]
-Astep <- 0.2
+Astep <- 1.
 #Bmax <- max(FS[["X1"]])
 Bmax <- 70.
 #Bvalue <- FS[["X1"]][floor(length(FS[["X1"]])/2)]
-Bvalue <- 34.8
+Bvalue <- 34.
 #Bstep <- FS[["X1"]][3]-FS[["X1"]][2]
-Bstep <- 0.4
-
+Bstep <- 2.
 
 appCSS <- "
 #loading-content {

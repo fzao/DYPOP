@@ -136,6 +136,8 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	
 	
 	x1 <- FS[["X1"]]
+	print(x1)
+	print(paste("XAdm_",XAdm,sep=''))
 	s1_025 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_025']
 	s1_25 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_25']
 	s1_50 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_50']
