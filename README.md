@@ -6,7 +6,7 @@
   <img src="./www/dypop.gif" width="800"/>
 </p>
 <p align="center">
-   <b>DYPOP est une Shiny app</b> 
+   <b>DYPOP (Shiny app)</b> 
 </p>
 
 # Bibliographie
