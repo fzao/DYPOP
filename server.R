@@ -16,16 +16,16 @@
 #
 #
 
-source('fig1.R')
-source('fig1_p0.R')
-source('fig1_p1.R')
-source('fig2.R')
-source('fig3.R')
-source('fig3_p0.R')
-source('fig3_p1.R')
-source('fig1_export.R')
-source('fig2_export.R')
-source('fig3_export.R')
+source('src/fig1.R')
+source('src/fig1_p0.R')
+source('src/fig1_p1.R')
+source('src/fig2.R')
+source('src/fig3.R')
+source('src/fig3_p0.R')
+source('src/fig3_p1.R')
+source('src/fig1_export.R')
+source('src/fig2_export.R')
+source('src/fig3_export.R')
 
 
 # Define server logic required to draw a histogram
