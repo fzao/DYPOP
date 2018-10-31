@@ -3,7 +3,7 @@
 **DYPOP** est un logiciel SaaS libre développé par EDF. Il est le fruit d'un travail de thèse soutenue en mai 2016 par Victor Bret (Ecole Doctorale E2M2, Université de Lyon), financée par l'équipe commune de recherche HYNES (Irstea-EDF).
 
 <p align="center">
-  <img src="./www/dypop.gif" width="800"/>
+  <img src="./www/dypop.png" width="800"/>
 </p>
 <p align="center">
    <b>DYPOP (Shiny app)</b> 
