@@ -1,5 +1,21 @@
-library(shiny)
-library(plotly)
+#
+#  _______     _______   ____  _____
+# |  __ \ \   / /  __ \ / __ \|  __ \
+# | |  | \ \_/ /| |__) | |  | | |__) |
+# | |  | |\   / |  ___/| |  | |  ___/
+# | |__| | | |  | |    | |__| | |
+# |_____/  |_|  |_|     \____/|_|
+#
+# Un outil d'aide au diagnostic de l'etat des populations de truite fario
+#
+# Copyright (c) EDF-IRSTEA 2018
+#
+# Auteurs : Fabrice Zaoui - Victor Bret
+#
+# Licence CeCILL v2.1
+#
+#
+
 source('fig1.R')
 source('fig1_p0.R')
 source('fig1_p1.R')

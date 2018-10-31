@@ -1,3 +1,20 @@
+#
+#  _______     _______   ____  _____
+# |  __ \ \   / /  __ \ / __ \|  __ \
+# | |  | \ \_/ /| |__) | |  | | |__) |
+# | |  | |\   / |  ___/| |  | |  ___/
+# | |__| | | |  | |    | |__| | |
+# |_____/  |_|  |_|     \____/|_|
+#
+# Un outil d'aide au diagnostic de l'etat des populations de truite fario
+#
+# Copyright (c) EDF-IRSTEA 2018
+#
+# Auteurs : Fabrice Zaoui - Victor Bret
+#
+# Licence CeCILL v2.1
+#
+#
 #########################################
 ### Fonction de creation de la FIGURE 2 : RELATION type 'SR' : densité d'une classe d'âge l'année y en fonction des densités de la classe d'âge précédente l'année y-1
 #### Integration d'un niveau de densité 1+ ou Ad influençant la survie
