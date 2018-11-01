@@ -37,24 +37,25 @@ fig1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
     sAd_975 <- FS[[par_name]][,'rAd_975']/xAd
 
     # bad values and smoothing
+    threshold <- 1.e-8
     sAd_025[is.na(sAd_025)] <- 0.
-    sAd_025[sAd_025<1.e-6] <- 0.
+    sAd_025[sAd_025<threshold] <- 0.
     smoothing <- loess(sAd_025 ~ xAd)
     sAd_025 <- smoothing$fitted
     sAd_25[is.na(sAd_25)] <- 0.
-    sAd_25[sAd_25<1.e-6] <- 0.
+    sAd_25[sAd_25<threshold] <- 0.
     smoothing <- loess(sAd_25 ~ xAd)
     sAd_25 <- smoothing$fitted
     sAd_50[is.na(sAd_50)] <- 0.
-    sAd_50[sAd_50<1.e-6] <- 0.
+    sAd_50[sAd_50<threshold] <- 0.
     smoothing <- loess(sAd_50 ~ xAd)
     sAd_50 <- smoothing$fitted
     sAd_75[is.na(sAd_75)] <- 0.
-    sAd_75[sAd_75<1.e-6] <- 0.
+    sAd_75[sAd_75<threshold] <- 0.
     smoothing <- loess(sAd_75 ~ xAd)
     sAd_75 <- smoothing$fitted
     sAd_975[is.na(sAd_975)] <- 0.
-    sAd_975[sAd_975<1.e-6] <- 0.
+    sAd_975[sAd_975<threshold] <- 0.
     smoothing <- loess(sAd_975 ~ xAd)
     sAd_975 <- smoothing$fitted
     

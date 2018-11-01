@@ -45,24 +45,25 @@ fig3_p0 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdh <- FD[[par_name]]$DAdh
 
     # bad values
+    threshold <- 1.e-8
     d0l[is.na(d0l)] <- 0.
-    d0l[d0l<1.e-6] <- 0.
+    d0l[d0l<threshold] <- 0.
     d0m[is.na(d0m)] <- 0.
-    d0m[d0m<1.e-6] <- 0.
+    d0m[d0m<threshold] <- 0.
     d0h[is.na(d0h)] <- 0.
-    d0h[d0h<1.e-6] <- 0.
+    d0h[d0h<threshold] <- 0.
     d1l[is.na(d1l)] <- 0.
-    d1l[d1l<1.e-6] <- 0.
+    d1l[d1l<threshold] <- 0.
     d1m[is.na(d1m)] <- 0.
-    d1m[d1m<1.e-6] <- 0.
+    d1m[d1m<threshold] <- 0.
     d1h[is.na(d1h)] <- 0.
-    d1h[d1h<1.e-6] <- 0.
+    d1h[d1h<threshold] <- 0.
     dAdl[is.na(dAdl)] <- 0.
-    dAdl[dAdl<1.e-6] <- 0.
+    dAdl[dAdl<threshold] <- 0.
     dAdm[is.na(dAdm)] <- 0.
-    dAdm[dAdm<1.e-6] <- 0.
+    dAdm[dAdm<threshold] <- 0.
     dAdh[is.na(dAdh)] <- 0.
-    dAdh[dAdh<1.e-6] <- 0.
+    dAdh[dAdh<threshold] <- 0.
     
     # threshold at xmax = 100
     x <- x[x<101.]
@@ -103,23 +104,23 @@ fig3_p0 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     x <- xs
     
     # new bad values
-    d0l[d0l<1.e-6] <- 0.
+    d0l[d0l<threshold] <- 0.
     d0m[is.na(d0m)] <- 0.
-    d0m[d0m<1.e-6] <- 0.
+    d0m[d0m<threshold] <- 0.
     d0h[is.na(d0h)] <- 0.
-    d0h[d0h<1.e-6] <- 0.
+    d0h[d0h<threshold] <- 0.
     d1l[is.na(d1l)] <- 0.
-    d1l[d1l<1.e-6] <- 0.
+    d1l[d1l<threshold] <- 0.
     d1m[is.na(d1m)] <- 0.
-    d1m[d1m<1.e-6] <- 0.
+    d1m[d1m<threshold] <- 0.
     d1h[is.na(d1h)] <- 0.
-    d1h[d1h<1.e-6] <- 0.
+    d1h[d1h<threshold] <- 0.
     dAdl[is.na(dAdl)] <- 0.
-    dAdl[dAdl<1.e-6] <- 0.
+    dAdl[dAdl<threshold] <- 0.
     dAdm[is.na(dAdm)] <- 0.
-    dAdm[dAdm<1.e-6] <- 0.
+    dAdm[dAdm<threshold] <- 0.
     dAdh[is.na(dAdh)] <- 0.
-    dAdh[dAdh<1.e-6] <- 0.
+    dAdh[dAdh<threshold] <- 0.
     
     dataF <- data.frame(x, d0l, d0m, d0h,
                         d1l, d1m, d1h,

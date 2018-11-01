@@ -37,24 +37,25 @@ fig1_p0 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
     s0_975 <- FS[[par_name]][,'r1_975']/x0
 
     # bad values and smoothing
+    threshold <- 1.e-8
     s0_025[is.na(s0_025)] <- 0.
-    s0_025[s0_025<1.e-6] <- 0.
+    s0_025[s0_025<threshold] <- 0.
     smoothing <- loess(s0_025 ~ x0)
     s0_025 <- smoothing$fitted
     s0_25[is.na(s0_25)] <- 0.
-    s0_25[s0_25<1.e-6] <- 0.
+    s0_25[s0_25<threshold] <- 0.
     smoothing <- loess(s0_25 ~ x0)
     s0_25 <- smoothing$fitted
     s0_50[is.na(s0_50)] <- 0.
-    s0_50[s0_50<1.e-6] <- 0.
+    s0_50[s0_50<threshold] <- 0.
     smoothing <- loess(s0_50 ~ x0)
     s0_50 <- smoothing$fitted
     s0_75[is.na(s0_75)] <- 0.
-    s0_75[s0_75<1.e-6] <- 0.
+    s0_75[s0_75<threshold] <- 0.
     smoothing <- loess(s0_75 ~ x0)
     s0_75 <- smoothing$fitted
     s0_975[is.na(s0_975)] <- 0.
-    s0_975[s0_975<1.e-6] <- 0.
+    s0_975[s0_975<threshold] <- 0.
     smoothing <- loess(s0_975 ~ x0)
     s0_975 <- smoothing$fitted
 
