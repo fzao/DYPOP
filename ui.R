@@ -109,7 +109,7 @@ shinyUI(
                                                             actionLink(inputId = "link1", label=h5("LES TEMPERATURES CHAUDES")),
                                                             sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = tstep),br(),hr(),
                                                             actionLink(inputId = "link2", label=h5("LES TEMPERATURES FROIDES")),
-                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 7., value = 5., step = tstep),br(),hr(),
+                                                            sliderInput("slider2", label = h3("T90"), min = 1., max = 8., value = 5., step = tstep),br(),hr(),
                                                             actionLink(inputId = "link3", label=h5("LA DISPONIBILITE EN ABRIS")),
                                                             sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = tstep)
                                                   )),
