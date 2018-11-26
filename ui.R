@@ -25,7 +25,7 @@ library(plotly)
 
 # WARINING : Some constant values to change with new data !!!
 tstep = 0.25
-#load(file=paste('data/FS.RData',sep=''))
+#load(file=paste('/home/dypop/data/FS.RData',sep=''))
 #Amax <- max(FS[["XAd"]])
 Amax <- 35.
 #Avalue <- FS[["XAd"]][floor(length(FS[["XAd"]])/2)]
