@@ -151,7 +151,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	s0_975 <- smoothing$fitted
 	
 	# loading FS_PopLvl
-	load(file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	load(file=paste('/home/dypop/data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
 	
 	x1 <- FS[["X1"]]
 	s1_025 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_025']
@@ -220,13 +220,17 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	# Values of heatmap
 	mat_Zm=c(c(0,0), c(max(as.matrix(FS[[paste(par_name,'_2D',sep='')]])), max(as.matrix(FS[[paste(par_name,'_2D',sep='')]]))))
 	dim(mat_Zm)=c(2,2)
-	
+	if(type3D==TRUE){
+            type='surface'
+        }else{
+            type='heatmap'
+        }
 	HM <- plot_ly(z = as.matrix(FS[[paste(par_name,'_2D',sep='')]]),
 			x = colnames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
 			cauto = F, cmin = 0, cmax = 40,
-			type = 'heatmap', colorbar=list(title='Densité >+1\nannée(n)'))
+			type = type, colorbar=list(title='Densité >+1\nannée(n)'))
 	
 	if(type3D==TRUE){
 	  HM <- HM %>%

@@ -107,7 +107,7 @@ fig2_hm_export <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	s0_975 <- smoothing$fitted
 	
 	# loading FS_PopLvl
-	load(file=paste('data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	load(file=paste('/home/dypop/data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
 	
 	
 	x1 <- FS[["X1"]]
