@@ -137,7 +137,7 @@ fig3 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
       add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
       layout(xaxis = list(title = "Densité de >1+ l'année (n+2)"),
-             yaxis = list(title = 'Densité')) %>%
+             yaxis = list(title = 'Probabilité')) %>%
       layout(legend = list(x = 0.9, y = 0.9))
 
     return(p)

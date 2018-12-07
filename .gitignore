@@ -1,4 +1,5 @@
-app/data
-app/savedata
-app/DYPOP.Rproj
+.gitignore
+data
+DYPOP.Rproj
 .*
+.Rproj.user
