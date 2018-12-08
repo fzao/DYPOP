@@ -1,6 +1,6 @@
 # DYPOP : DYnamique POPulation (de la truite fario)
 
-**DYPOP** est un logiciel SaaS libre développé par EDF. Il est le fruit d'un travail de thèse soutenue en mai 2016 par Victor Bret (Ecole Doctorale E2M2, Université de Lyon), financée par l'équipe commune de recherche HYNES (Irstea-EDF).
+[**DYPOP**](https://dypop.pam-retd.fr) est un logiciel SaaS libre développé par EDF. Il est le fruit d'un travail de thèse soutenue en mai 2016 par Victor Bret (Ecole Doctorale E2M2, Université de Lyon), financée par l'équipe commune de recherche HYNES (Irstea-EDF).
 
 <p align="center">
   <img src="./app/www/dypop.png" width="800"/>
@@ -20,6 +20,6 @@
 
 # Contribution
 
-Pour toute demande veuillez consulter la page d'aide du logiciel.
+Pour toute demande veuillez consulter la page d'aide du [logiciel](https://dypop.pam-retd.fr).
 
 
