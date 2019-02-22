@@ -74,14 +74,14 @@ shinyUI(
               h1("Chargement DYPOP...") %>% withSpinner(type=8, color="#A5C226")
 
             ),
-            
+
             hidden(
               div(
                 id = "app-content",
-            
+
             fluidRow(
                      column(10, align="left",
-                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;">DYPOP</h1>'),
+                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;"><b>DYPOP</b></h1>'),
                             HTML('<h4 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h5>')),
                      column(2, align="right",
                             img(height=40, width=80, src="edf.jpg"),
@@ -165,7 +165,7 @@ shinyUI(
                                                                                       sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
                                                                                       #knobInput(inputId = "slider_XAdm", label = h4('Densité >1+ année (n-1)'),min = 0., max = Amax, value = Avalue, step =Astep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA")),
                                                                                   column(2,
-                                                                                        h4(helpText("VUES MARGINALES"))), 
+                                                                                        h4(helpText("VUES MARGINALES"))),
                                                                                   column(5, align="center",
                                                                                       sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
                                                                                       #knobInput(inputId = "slider_X1m", label = h4('Densité 1+ année (n-1)'),min = 0., max = Bmax, value = Bvalue, step =Bstep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA"))
@@ -208,7 +208,7 @@ shinyUI(
                                             <img src="Map.jpg" alt="Map" width="300" height="281">
                                             </a>')
                                    )
-                                 ), 
+                                 ),
                                  hr(),
                                  fluidRow(
                                    column(12, align="left",
