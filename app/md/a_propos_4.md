@@ -17,5 +17,8 @@ output: html_document
 ### **Sources libres du logiciel**
 <font size="4">Les sources du logiciel DYPOP sont libres. Elles sont téléchargeables [<font style="color: #005BBB">ici</font>](https://github.com/fzao/DYPOP)</font>
 
+### **Auteurs**
+<font size="4">Victor Bret & Fabrice Zaoui</font>
+
 ### **Contacts**
 <font size="4">[<font style="color: #005BBB">Véronique Gouraud</font>](mailto:veronique.gouraud@edf.fr), [<font style="color: #005BBB">Laurence Tissot</font>](mailto:laurence.tissot@edf.fr)</font>
