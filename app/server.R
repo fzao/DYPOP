@@ -34,7 +34,7 @@ shinyServer(function(input, output, session) {
   ids='station_test'
   load(file=paste('/home/dypop/data/FS.RData',sep=''))
   load(file=paste('/home/dypop/data/FD.RData',sep=''))
-  
+
   sliderValues <- reactive({
     data.frame(
       Name = c("t10",

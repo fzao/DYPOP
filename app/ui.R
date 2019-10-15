@@ -81,12 +81,12 @@ shinyUI(
 
             fluidRow(
                      column(10, align="left",
-                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF;"><b>DYPOP</b></h1>'),
-                            HTML('<h4 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h5>')),
+                            HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF; font-size:400%"><b>DYPOP</b></h1>'),
+                            HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h2>')),
                      column(2, align="right",
                             img(height=40, width=80, src="edf.jpg"),
                             img(height=80, width=77, src="Irstea.png"))
-            ),
+            ), br(),
             tabsetPanel(id="tabs",
                         # ACCUEIL ---------------------------------------------------
                         tabPanel(value="accueil", HTML('<h4 style="color: #005BBB; "><b>Accueil</b></h4>'),

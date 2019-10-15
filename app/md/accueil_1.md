@@ -4,7 +4,7 @@ author: "Victor Bret & Fabrice Zaoui"
 output: html_document
 ---
 
-<font size="4">**DYPOP est une interface informatique pour évaluer les survies et les densités attendues des populations de truite (_Salmo trutta_) en fonction des paramètres du milieu. Il se base sur les résultats d'un modèle hiérarchique Bayésien de dynamique de population de truite.**</font>
+<font size="4">**DYPOP est une interface informatique pour évaluer les survies et les densités attendues des populations de truite (_Salmo trutta_) en fonction des paramètres du milieu. Il se base sur les résultats d'un modèle de dynamique de population de truite.**</font>
 
 * * *
 
