@@ -32,8 +32,13 @@ source('src/fig3_export.R')
 shinyServer(function(input, output, session) {
 
   ids='station_test'
-  load(file=paste('/home/dypop/data/FS.RData',sep=''))
-  load(file=paste('/home/dypop/data/FD.RData',sep=''))
+  if(Sys.info()["sysname"] == "Darwin"){
+    load(file=paste('../data/FS.RData',sep=''))
+    load(file=paste('../data/FD.RData',sep=''))
+  }else{
+    load(file=paste('/home/dypop/data/FS.RData',sep=''))
+    load(file=paste('/home/dypop/data/FD.RData',sep=''))
+  }
 
   sliderValues <- reactive({
     data.frame(

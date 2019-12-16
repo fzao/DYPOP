@@ -151,7 +151,11 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	s0_975 <- smoothing$fitted
 	
 	# loading FS_PopLvl
-	load(file=paste('/home/dypop/data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	if(Sys.info()["sysname"] == "Darwin"){
+	  load(file=paste('../data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	}else{
+	  load(file=paste('/home/dypop/data/FS_PopLvl/FS_PopLvl_',par_name,'.RData',sep=''))
+	}
 	
 	x1 <- FS[["X1"]]
 	s1_025 <- FS_PopLvl[[paste("XAdm_",XAdm,sep='')]][,'rAd_025']
