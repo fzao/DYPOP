@@ -71,7 +71,7 @@ shinyUI(
             # Loading message
             div(
               id = "loading-content",
-              h1("Chargement DYPOP...") %>% withSpinner(type=8, color="#A5C226")
+              h1("Loading DYPOP...") %>% withSpinner(type=8, color="#A5C226")
 
             ),
 
@@ -82,21 +82,21 @@ shinyUI(
             fluidRow(
                      column(10, align="left",
                             HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF; font-size:400%"><b>DYPOP</b></h1>'),
-                            HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h2>')),
+                            HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">A tool to help diagnose the state of brown trout populations</h2>')),
                      column(2, align="right",
                             img(height=40, width=80, src="edf.jpg"),
                             img(height=80, width=77, src="Irstea.png"))
             ), br(),
             tabsetPanel(id="tabs",
                         # ACCUEIL ---------------------------------------------------
-                        tabPanel(value="accueil", HTML('<h4 style="color: #005BBB; "><b>Accueil</b></h4>'),
+                        tabPanel(value="accueil", HTML('<h4 style="color: #005BBB; "><b>Welcome</b></h4>'),
                                  br(),
                                  fluidRow(
                                    column(4, align="left",
-                                          includeMarkdown("md/accueil_1.md"),
-                                          actionLink(inputId = "redir1", label=HTML('<h4 style="color: #005BBB; ">=> Pour en savoir plus, se rendre sur l\'onglet \"A propos\"</h4>')),
+                                          includeMarkdown("md/accueil_1_en.md"),
+                                          actionLink(inputId = "redir1", label=HTML('<h4 style="color: #005BBB; ">=> To find out more, go to the \"About\" tab."</h4>')),
                                           includeMarkdown("md/accueil_2.md"),
-                                          actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> Pour utiliser DYPOP, se rendre sur l\'onglet \"Visualisation\"</h4>')),
+                                          actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> To use DYPOP, go to the \"Visualization\" tab"</h4>')),
                                           includeMarkdown("md/accueil_3.md")
                                           ),
                                    column(4, align="center",
@@ -107,7 +107,7 @@ shinyUI(
                                           ))
                         ),
                         # VISUALISATION ------------------------------------------------------
-                        tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Visualisation</b></h4>'),
+                        tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Vizualisation</b></h4>'),
                                  fluidRow(
                                      includeMarkdown("md/visu_text_1.md")
                                      #includeMarkdown("md/visu_text_2.md")
@@ -115,44 +115,44 @@ shinyUI(
                                  fluidRow(
                                           column(2, align = "left",
                                                   br(),
-                                                  wellPanel(h4(strong("DONNEES D'ENTREE")),hr(),
-                                                            actionLink(inputId = "link1", label=h5("LES TEMPERATURES CHAUDES")),
+                                                  wellPanel(h4(strong("INPUT DATA")),hr(),
+                                                            actionLink(inputId = "link1", label=h5("HOT TEMPERATURES")),
                                                             sliderInput("slider1", label = h3("T10"), min = 9., max = 17., value = 10, step = tstep),br(),hr(),
-                                                            actionLink(inputId = "link2", label=h5("LES TEMPERATURES FROIDES")),
+                                                            actionLink(inputId = "link2", label=h5("COLD TEMPERATURES")),
                                                             sliderInput("slider2", label = h3("T90"), min = 1., max = 8., value = 5., step = tstep),br(),hr(),
-                                                            actionLink(inputId = "link3", label=h5("LA DISPONIBILITE EN ABRIS")),
-                                                            sliderInput("slider3", label = h3("% Abris"), min = 0., max = 7., value = 3., step = tstep)
+                                                            actionLink(inputId = "link3", label=h5("SHELTER AVAILABILITY")),
+                                                            sliderInput("slider3", label = h3("% Shelter"), min = 0., max = 7., value = 3., step = tstep)
                                                   )),
                                           column(10, align = "left",
                                                  br(),
                                                  tabsetPanel(
                                                              # Fig. 1 ---------------------------------------------------
-                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Survie</b></h4>'),
+                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Survival</b></h4>'),
                                                                       includeMarkdown("md/survie_1.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
                                                                                   plotlyOutput('plot1_p0') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF1a","Télécharger les taux de survie")
+                                                                                  downloadButton("exportFigDataF1a","Download survival rates")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   plotlyOutput('plot1_p1') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF1b","Télécharger les taux de survie")
+                                                                                  downloadButton("exportFigDataF1b","Download survival rates")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
                                                                                   plotlyOutput('plot1') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF1c","Télécharger les taux de survie")
+                                                                                  downloadButton("exportFigDataF1c","Download survival rates")
                                                                         )
                                                                       ), br(),
                                                                       includeMarkdown("md/survie_2.md")
                                                              ),
                                                              # Fig. 2 ------------------------------------------------------
-                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Cohorte</b></h4>'),
+                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Cohort</b></h4>'),
                                                                       includeMarkdown("md/cohorte_1.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   includeMarkdown("md/cohorte_2.md"),
                                                                                   plotlyOutput('plot2_p0') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF2a","Télécharger les densités"), br(), br(),
+                                                                                  downloadButton("exportFigDataF2a","Download densities"), br(), br(),
                                                                                   includeMarkdown("md/cohorte_3.md")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
@@ -160,34 +160,34 @@ shinyUI(
                                                                                   #checkboxInput("checkbox", label = "vue 3D", value = FALSE),
                                                                                   switchInput(inputId = "checkbox", label = "Vue 3D", value = FALSE, handleWidth = 50, size = 'mini'),
                                                                                   plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF2b","Télécharger les densités"), br(),
+                                                                                  downloadButton("exportFigDataF2b","Download densities"), br(),
                                                                                   column(5, align="center",
-                                                                                      sliderInput("slider_XAdm", label = h4('Densité >1+ année (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
+                                                                                      sliderInput("slider_XAdm", label = h4('Density >1+ year (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
                                                                                       #knobInput(inputId = "slider_XAdm", label = h4('Densité >1+ année (n-1)'),min = 0., max = Amax, value = Avalue, step =Astep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA")),
                                                                                   column(2,
-                                                                                        h4(helpText("VUES MARGINALES"))),
+                                                                                        h4(helpText("MARGINAL VIEWS"))),
                                                                                   column(5, align="center",
-                                                                                      sliderInput("slider_X1m", label = h4('Densité 1+ année (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
+                                                                                      sliderInput("slider_X1m", label = h4('Density 1+ year (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
                                                                                       #knobInput(inputId = "slider_X1m", label = h4('Densité 1+ année (n-1)'),min = 0., max = Bmax, value = Bvalue, step =Bstep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA"))
 
                                                                         )
                                                                       )
                                                              ),
                                                              # Fig. 3 ------------------------------------------------------
-                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Densité</b></h4>'),
+                                                             tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Density</b></h4>'),
                                                                       includeMarkdown("md/densite.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
                                                                                   plotlyOutput('plot3_p0') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF3a","Télécharger les densités")
+                                                                                  downloadButton("exportFigDataF3a","Dowload densities")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   plotlyOutput('plot3_p1') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                 downloadButton("exportFigDataF3b","Télécharger les densités")
+                                                                                 downloadButton("exportFigDataF3b","Dowload densities")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
                                                                                   plotlyOutput('plot3') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                 downloadButton("exportFigDataF3c","Télécharger les densités")
+                                                                                 downloadButton("exportFigDataF3c","Dowload densities")
                                                                         )
                                                                       )
                                                              )
@@ -196,7 +196,7 @@ shinyUI(
                                   )
                         ),
                         # A PROPOS ----------------------------------------------------
-                        tabPanel(value="apropos", HTML('<h4 style="color: #005BBB; "><b>A propos</b></h4>'),
+                        tabPanel(value="apropos", HTML('<h4 style="color: #005BBB; "><b>About</b></h4>'),
                                  br(),
                                  fluidRow(
                                    column(4, align="left",
@@ -213,7 +213,7 @@ shinyUI(
                                  fluidRow(
                                    column(12, align="left",
                                           includeMarkdown("md/a_propos_2.md"),
-                                          actionLink(inputId = "details", label=HTML('<h4 style="color: #005BBB; ">Voir les détails</h4>'))
+                                          actionLink(inputId = "details", label=HTML('<h4 style="color: #005BBB; ">See the details</h4>'))
                                    )
                                  ),
                                  fluidRow(
@@ -221,7 +221,7 @@ shinyUI(
                                           includeMarkdown("md/a_propos_3.md"),
                                           hr(),
                                           includeMarkdown("md/a_propos_3bis.md"),
-                                          actionLink(inputId = "gamme", label=HTML('<h4 style="color: #005BBB; ">Détails de la gamme de densités du jeu de données</h4>'))
+                                          actionLink(inputId = "gamme", label=HTML('<h4 style="color: #005BBB; ">Details of the dataset density range</h4>'))
                                    )
                                  ),
                                  fluidRow(
