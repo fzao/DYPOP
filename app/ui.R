@@ -95,9 +95,9 @@ shinyUI(
                                    column(4, align="left",
                                           includeMarkdown("md/accueil_1_en.md"),
                                           actionLink(inputId = "redir1", label=HTML('<h4 style="color: #005BBB; ">=> To find out more, go to the \"About\" tab."</h4>')),
-                                          includeMarkdown("md/accueil_2.md"),
+                                          includeMarkdown("md/accueil_2_en.md"),
                                           actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> To use DYPOP, go to the \"Visualization\" tab"</h4>')),
-                                          includeMarkdown("md/accueil_3.md")
+                                          includeMarkdown("md/accueil_3_en.md")
                                           ),
                                    column(4, align="center",
                                           HTML('<a href="Diapositive1.jpg" target="new">
@@ -109,7 +109,7 @@ shinyUI(
                         # VISUALISATION ------------------------------------------------------
                         tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Vizualisation</b></h4>'),
                                  fluidRow(
-                                     includeMarkdown("md/visu_text_1.md")
+                                     includeMarkdown("md/visu_text_1_en.md")
                                      #includeMarkdown("md/visu_text_2.md")
                                  ),
                                  fluidRow(
@@ -128,7 +128,7 @@ shinyUI(
                                                  tabsetPanel(
                                                              # Fig. 1 ---------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Survival</b></h4>'),
-                                                                      includeMarkdown("md/survie_1.md"),
+                                                                      includeMarkdown("md/survie_1_en.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
                                                                                   plotlyOutput('plot1_p0') %>% withSpinner(type=8, color="#A5C226"),
@@ -143,22 +143,22 @@ shinyUI(
                                                                                   downloadButton("exportFigDataF1c","Download survival rates")
                                                                         )
                                                                       ), br(),
-                                                                      includeMarkdown("md/survie_2.md")
+                                                                      includeMarkdown("md/survie_2_en.md")
                                                              ),
                                                              # Fig. 2 ------------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Cohort</b></h4>'),
-                                                                      includeMarkdown("md/cohorte_1.md"),
+                                                                      includeMarkdown("md/cohorte_1_en.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
-                                                                                  includeMarkdown("md/cohorte_2.md"),
+                                                                                  includeMarkdown("md/cohorte_2_en.md"),
                                                                                   plotlyOutput('plot2_p0') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2a","Download densities"), br(), br(),
-                                                                                  includeMarkdown("md/cohorte_3.md")
+                                                                                  includeMarkdown("md/cohorte_3_en.md")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">>1+</h4>'), br(),
-                                                                                  includeMarkdown("md/cohorte_4.md"),
+                                                                                  includeMarkdown("md/cohorte_4_en.md"),
                                                                                   #checkboxInput("checkbox", label = "vue 3D", value = FALSE),
-                                                                                  switchInput(inputId = "checkbox", label = "Vue 3D", value = FALSE, handleWidth = 50, size = 'mini'),
+                                                                                  switchInput(inputId = "checkbox", label = "3D view", value = FALSE, handleWidth = 50, size = 'mini'),
                                                                                   plotlyOutput('plot2_hm') %>% withSpinner(type=8, color="#A5C226"),
                                                                                   downloadButton("exportFigDataF2b","Download densities"), br(),
                                                                                   column(5, align="center",
@@ -175,11 +175,11 @@ shinyUI(
                                                              ),
                                                              # Fig. 3 ------------------------------------------------------
                                                              tabPanel(HTML('<h4 style="color: #FFA02F; "><b>Density</b></h4>'),
-                                                                      includeMarkdown("md/densite.md"),
+                                                                      includeMarkdown("md/densite_en.md"),
                                                                       tabsetPanel(
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">0+</h4>'), br(),
                                                                                   plotlyOutput('plot3_p0') %>% withSpinner(type=8, color="#A5C226"),
-                                                                                  downloadButton("exportFigDataF3a","Dowload densities")
+                                                                                  downloadButton("exportFigDataF3a","Download densities")
                                                                         ),
                                                                         tabPanel(HTML('<h4 style="color: #A5C226; ">1+</h4>'), br(),
                                                                                   plotlyOutput('plot3_p1') %>% withSpinner(type=8, color="#A5C226"),
@@ -200,7 +200,7 @@ shinyUI(
                                  br(),
                                  fluidRow(
                                    column(4, align="left",
-                                          includeMarkdown("md/a_propos_1.md")
+                                          includeMarkdown("md/a_propos_1_en.md")
                                    ),
                                    column(2, align="center",
                                           br(), br(),
@@ -212,21 +212,21 @@ shinyUI(
                                  hr(),
                                  fluidRow(
                                    column(12, align="left",
-                                          includeMarkdown("md/a_propos_2.md"),
+                                          includeMarkdown("md/a_propos_2_en.md"),
                                           actionLink(inputId = "details", label=HTML('<h4 style="color: #005BBB; ">See the details</h4>'))
                                    )
                                  ),
                                  fluidRow(
                                    column(6, align="left",
-                                          includeMarkdown("md/a_propos_3.md"),
+                                          includeMarkdown("md/a_propos_3_en.md"),
                                           hr(),
-                                          includeMarkdown("md/a_propos_3bis.md"),
+                                          includeMarkdown("md/a_propos_3bis_en.md"),
                                           actionLink(inputId = "gamme", label=HTML('<h4 style="color: #005BBB; ">Details of the dataset density range</h4>'))
                                    )
                                  ),
                                  fluidRow(
                                    column(6, align="left",
-                                          includeMarkdown("md/a_propos_4.md")
+                                          includeMarkdown("md/a_propos_4_en.md")
                                    )
                                  )
                               )
