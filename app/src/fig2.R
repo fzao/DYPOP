@@ -83,9 +83,9 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 	  add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25') %>%
-	  layout(title = 'Densités de 1+ attendues',
+	  layout(title = '1+ densities expected',
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
-			 xaxis = list(title = "Densité 0+ année (n-1)",
+			 xaxis = list(title = "Density 0+ year (n-1)",
 						  gridcolor = 'rgb(255,255,255)',
 						  showgrid = TRUE,
 						  showline = FALSE,
@@ -94,7 +94,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 						  ticks = 'outside',
 						  zeroline = FALSE,
 						  range=c(min(x0),max(x0))),
-			 yaxis = list(title = "Densité 1+ année (n)",
+			 yaxis = list(title = "Density 1+ year (n)",
 						  gridcolor = 'rgb(255,255,255)',
 						  showgrid = TRUE,
 						  showline = FALSE,
@@ -234,7 +234,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 			y = rownames(as.matrix(FS[[paste(par_name,'_2D',sep='')]])),
 			colorscale = list(c(0, "rgb(255, 0, 0)"), list(1, "rgb(0, 255, 0)")),
 			cauto = F, cmin = 0, cmax = 40,
-			type = type, colorbar=list(title='Densité >+1\nannée(n)'))
+			type = type, colorbar=list(title='Density >+1\nyear(n)'))
 	
 	if(type3D==TRUE){
 	  HM <- HM %>%
@@ -243,20 +243,20 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	    add_surface(z = ~t(mat_Zm),
 	                y=c(X1m,X1m), x=c(0,max(FS[['XAd']])), opacity = 0.7, colorscale = list(c(0,0),c("rgb(255,112,184)","rgb(255,112,184)")), showscale = FALSE)%>%
 	    layout(scene = list(
-	      xaxis=list(title = "Densité >1+\nannée (n-1)"),
-	      yaxis=list(title = "Densité 1+\nannée (n-1)"),
-	      zaxis=list(title = "Densité >1+\nannée (n)")))
+	      xaxis=list(title = "Density >1+\nyear (n-1)"),
+	      yaxis=list(title = "Density 1+\nyear (n-1)"),
+	      zaxis=list(title = "Density >1+\nyear (n)")))
 	  }
 	
 	if(type3D==FALSE){
 	  HM <- HM %>%
 	    add_segments(x = XAdm, xend = XAdm, y = -100, yend = 1000, line = list(color = 'red'))%>%
 	    add_segments(x = -100, xend = 1000, y = X1m, yend = X1m, line = list(color = 'orange'))%>%
-	    layout(title = "Densités de >1+ attendues",
+	    layout(title = "Densities of >1+ expected",
 	           paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 	           #legend = list(orientation = 'h'),
 	           legend = list(x = 0, y=-0.1),
-	           xaxis = list(title = "Densité >1+ année (n-1)",
+	           xaxis = list(title = "Density >1+ year (n-1)",
 	                        gridcolor = 'rgb(255,255,255)',
 	                        showgrid = TRUE,
 	                        showline = FALSE,
@@ -265,7 +265,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	                        ticks = 'outside',
 	                        zeroline = FALSE,
 	                        range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))),
-	           yaxis = list(title = "Densité 1+\nannée (n-1)",
+	           yaxis = list(title = "Density 1+\nyear (n-1)",
 	                        gridcolor = 'rgb(255,255,255)',
 	                        showgrid = TRUE,
 	                        showline = FALSE,
@@ -295,7 +295,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	  add_trace(x = ~ s1_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25')%>%
-	  layout(showlegend = FALSE, plot_bordercolor='red', xaxis = list(title = paste("Densité >1+ année (n)")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
+	  layout(showlegend = FALSE, plot_bordercolor='red', xaxis = list(title = paste("Density >1+ year (n)")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
 
 
 	pAd <- plot_ly(dataF, x = ~xAd, y = ~sAd_975, type = 'scatter', mode = 'lines',
@@ -313,7 +313,7 @@ fig2_hm <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 	  add_trace(y = ~ sAd_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
 				showlegend = FALSE, name = 'Percentile 25')%>%
-	  layout(showlegend = FALSE, plot_bordercolor='orange', yaxis = list(title = paste("Densité >1+\nannée (n)")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
+	  layout(showlegend = FALSE, plot_bordercolor='orange', yaxis = list(title = paste("Density >1+\nyear (n)")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
 
 				
 	# Heat map combined with marginal views

@@ -129,10 +129,10 @@ shinyServer(function(input, output, session) {
       tmpdir <- tempdir()
       workdir <- getwd()
       setwd(tmpdir)
-      path <- "Densite_Sup_1_Plus.csv"
+      path <- "Density_Sup_1_Plus.csv"
       write.table(DFish[,c("xAd", "sAd_025", "sAd_25", "sAd_50", "sAd_75", "sAd_975")], path, dec = ".", sep =";", row.names = FALSE)
       fs <- c(fs, path)
-      path <- "Densite_1_Plus.csv"
+      path <- "Density_1_Plus.csv"
       write.table(DFish[,c("x1", "s1_025", "s1_25", "s1_50", "s1_75", "s1_975")], path, dec = ".", sep =";", row.names = FALSE)
       fs <- c(fs, path)
       zip(zipfile = con, files = fs)

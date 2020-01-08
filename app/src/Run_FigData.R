@@ -151,7 +151,7 @@ generation_data <- function(disc, X0, X1, XAd, t_10_L, t_90_L, cache_L, val0=0.1
 		length(t_90_L)*
 		length(cache_L)
 
-	pb <- txtProgressBar(min=0, max=Nx, initial=0, title='Generation des données', label='Generation data', style=3)
+	pb <- txtProgressBar(min=0, max=Nx, initial=0, title='Data generation', label='Data generation', style=3)
 	nrun=0
 	
 	
