@@ -209,13 +209,13 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$details, {
     showModal(modalDialog(
-      img(src='Tab.jpg', width=580, align = "center"),
+      img(src='Tab_en.jpg', width=580, align = "center"),
       easyClose = TRUE, footer = NULL))
   })
   
   observeEvent(input$gamme, {
     showModal(modalDialog(
-      img(src='Densites.png', width=580, align = "center"),
+      img(src='Density.png', width=580, align = "center"),
       easyClose = TRUE, footer = NULL))
   })
   

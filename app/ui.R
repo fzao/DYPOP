@@ -100,10 +100,10 @@ shinyUI(
                                           includeMarkdown("md/accueil_3_en.md")
                                           ),
                                    column(4, align="center",
-                                          HTML('<a href="Diapositive1.jpg" target="new">
-                                            <img src="Diapositive1.jpg" alt="Life cycle" width="600" height="450">
+                                          HTML('<a href="Diapositive1_en.jpg" target="new">
+                                            <img src="Diapositive1_en.jpg" alt="Life cycle" width="600" height="450">
                                             </a>'),br(),br(),br(),
-                                          img(width = 300, src='Diapositive2.jpg', align = "center")
+                                          img(width = 300, src='Diapositive2_en.jpg', align = "center")
                                           ))
                         ),
                         # VISUALISATION ------------------------------------------------------
@@ -204,8 +204,8 @@ shinyUI(
                                    ),
                                    column(2, align="center",
                                           br(), br(),
-                                          HTML('<a href="Map.jpg" target="new">
-                                            <img src="Map.jpg" alt="Map" width="300" height="281">
+                                          HTML('<a href="Map_en.jpg" target="new">
+                                            <img src="Map_en.jpg" alt="Map" width="300" height="281">
                                             </a>')
                                    )
                                  ),
