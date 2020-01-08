@@ -173,11 +173,11 @@ shinyServer(function(input, output, session) {
   modalTemp <- function(){
     showModal(modalDialog(
       h5("TEMPERATURES"), hr(),
-      h5(strong("Des moyennes de percentiles annuels de la température de l’eau (T10 et T90) sont utilisées pour synthétiser la gamme extrême du régime thermique de la station d’étude.")),
-      h5("T10 est un descripteur des températures chaudes et T90 des températures froides."),
+      h5(strong("Annual water temperature percentile means (T10 and T90) are used to synthesize the extreme range of the thermal regime of the study station.")),
+      h5("T10 is a descriptor of hot temperatures and T90 of cold temperatures."),
       tags$ol(
-        tags$li("T10 : moyenne interannuelle des températures dépassées 10% du temps (°C)"), 
-        tags$li("T90 : moyenne interannuelle des températures dépassées 90% du temps (°C)"))
+        tags$li("T10: interannual average of temperatures exceeded 10% of the time (°C)"), 
+        tags$li("T90: interannual average of temperatures exceeded 90% of the time (°C)"))
       , easyClose = TRUE, footer = NULL))
   }
   
@@ -191,10 +191,10 @@ shinyServer(function(input, output, session) {
   
   observeEvent(input$link3, {
     showModal(modalDialog(
-      h5("ABRIS"), hr(),
-      h5(strong("La disponibilité en abris est la somme des surfaces offrant un abri physique (berges et blocs), rapportée à la surface mouillée de la station.")),
-      h5("Cette variable est issue d’une mesure de terrain qui consiste à mesurer chaque abris d’un volume minimum de 20*10*10 cm (L*l*H). On ne conserve ensuite que la surface de l'abris (hauteur non prise en compte), à 5 cm près en longueur et en largeur."),
-      h5("Cette surface peut être mesurée à l’aide d’un bâton gradué légèrement flexible (utilisation d’une goulotte cache-câbles par exemple). Le décompte par type de cache (20*20, 20*30, 25*30…) permet de faciliter la prise de note et de travailler ensuite sur la distribution des abris, leur taille moyenne etc.")
+      h5("SHELTERS"), hr(),
+      h5(strong("Shelter availability is the sum of the areas offering physical shelter (banks and blocks), relative to the wet area of the station.")),
+      h5("This variable comes from a field measurement which consists of measuring each shelter with a minimum volume of 20*10*10 cm (L*W*H). We then only keep the surface of the shelter (height not taken into account), to within 5 cm in length and width."),
+      h5("This surface can be measured using a slightly flexible graduated stick (use of a cable cover chute, for example). The count by type of cache (20*20, 20*30, 25*30, etc.) makes it easier to take notes and then work on the distribution of shelters, their average size, etc.")
       , easyClose = TRUE, footer = NULL))
     
   })
