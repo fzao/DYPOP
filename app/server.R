@@ -47,84 +47,84 @@ shinyServer(function(input, output, session) {
                "cache"))
   })
   
-  output$plot1_p0 <- renderPlotly({
-    fig1_p0(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+  output$plot1_p0_en <- renderPlotly({
+    fig1_p0(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
   })
   
-  output$plot1_p1 <- renderPlotly({
-    fig1_p1(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+  output$plot1_p1_en <- renderPlotly({
+    fig1_p1(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
   })
   
-  output$plot1 <- renderPlotly({
-    fig1(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+  output$plot1_en <- renderPlotly({
+    fig1(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
     })
   
-  output$plot3_p0 <- renderPlotly({
-    fig3_p0(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  output$plot3_p0_en <- renderPlotly({
+    fig3_p0(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
   })
   
-  output$plot3_p1 <- renderPlotly({
-    fig3_p1(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  output$plot3_p1_en <- renderPlotly({
+    fig3_p1(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
   })
   
-  output$plot3 <- renderPlotly({
-    fig3(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+  output$plot3_en <- renderPlotly({
+    fig3(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
   })
   
-  output$plot2_p0 <- renderPlotly({
-    fig2_p0(ids, FS, input$slider1, input$slider2, input$slider3)
+  output$plot2_p0_en <- renderPlotly({
+    fig2_p0(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en)
   })
   
-  output$plot2_hm <- renderPlotly({
-    fig2_hm(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, type3D=input$checkbox)
+  output$plot2_hm_en <- renderPlotly({
+    fig2_hm(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, X1m=input$slider_X1m_en, XAdm=input$slider_XAdm_en, type3D=input$checkbox_en)
   })
   
-  output$exportFigDataF1a <- downloadHandler(
+  output$exportFigDataF1a_en <- downloadHandler(
     filename = function() {
       paste('dataFig1a-', Sys.Date(), '.csv', sep='')
     },
       content = function(con) {
-        DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+        DFish <- fig1_export(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
         write.table(DFish[,c("x0", "s0_025", "s0_25", "s0_50", "s0_75", "s0_975")], con, dec = ".", sep =";", row.names = FALSE)
         }
     )
   
-  output$exportFigDataF1b <- downloadHandler(
+  output$exportFigDataF1b_en <- downloadHandler(
     filename = function() {
       paste('dataFig1b-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+      DFish <- fig1_export(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
       write.table(DFish[,c("x1", "s1_025", "s1_25", "s1_50", "s1_75", "s1_975")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
   
-  output$exportFigDataF1c <- downloadHandler(
+  output$exportFigDataF1c_en <- downloadHandler(
     filename = function() {
       paste('dataFig1c-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig1_export(ids, FS, input$slider1, input$slider2, input$slider3, val0=0.1)
+      DFish <- fig1_export(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, val0=0.1)
       write.table(DFish[,c("xAd", "sAd_025", "sAd_25", "sAd_50", "sAd_75", "sAd_975")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
     
-  output$exportFigDataF2a <- downloadHandler(
+  output$exportFigDataF2a_en <- downloadHandler(
     filename = function() {
       paste('dataFig2a-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig2_p0_export(ids, FS, input$slider1, input$slider2, input$slider3)
+      DFish <- fig2_p0_export(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en)
       write.table(DFish[,c("x0", "s0_025", "s0_25", "s0_50", "s0_75", "s0_975")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
   
-  output$exportFigDataF2b <- downloadHandler(
+  output$exportFigDataF2b_en <- downloadHandler(
     filename = function() {
       paste('dataFig2b-', Sys.Date(), '.zip', sep='')
     },
     content = function(con) {
-      DFish <- fig2_hm_export(ids, FS, input$slider1, input$slider2, input$slider3, X1m=input$slider_X1m, XAdm=input$slider_XAdm, type3D=input$checkbox)
+      DFish <- fig2_hm_export(ids, FS, input$slider1_en, input$slider2_en, input$slider3_en, X1m=input$slider_X1m_en, XAdm=input$slider_XAdm_en, type3D=input$checkbox_en)
       fs <- c()
       tmpdir <- tempdir()
       workdir <- getwd()
@@ -140,32 +140,32 @@ shinyServer(function(input, output, session) {
     }
   )
   
-  output$exportFigDataF3a <- downloadHandler(
+  output$exportFigDataF3a_en <- downloadHandler(
     filename = function() {
       paste('dataFig3a-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      DFish <- fig3_export(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
       write.table(DFish[,c("x", "d0l", "d0m", "d0h")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
   
-  output$exportFigDataF3b <- downloadHandler(
+  output$exportFigDataF3b_en <- downloadHandler(
     filename = function() {
       paste('dataFig3b-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      DFish <- fig3_export(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
       write.table(DFish[,c("x", "d1l", "d1m", "d1h")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
   
-  output$exportFigDataF3c <- downloadHandler(
+  output$exportFigDataF3c_en <- downloadHandler(
     filename = function() {
       paste('dataFig3c-', Sys.Date(), '.csv', sep='')
     },
     content = function(con) {
-      DFish <- fig3_export(ids, FD, input$slider1, input$slider2, input$slider3, XL=40, Dso=NULL)
+      DFish <- fig3_export(ids, FD, input$slider1_en, input$slider2_en, input$slider3_en, XL=40, Dso=NULL)
       write.table(DFish[,c("x", "dAdl", "dAdm", "dAdh")], con, dec = ".", sep =";", row.names = FALSE)
     }
   )
@@ -181,15 +181,15 @@ shinyServer(function(input, output, session) {
       , easyClose = TRUE, footer = NULL))
   }
   
-  observeEvent(input$link1, {
+  observeEvent(input$link1_en, {
     modalTemp()
   })
   
-  observeEvent(input$link2, {
+  observeEvent(input$link2_en, {
     modalTemp()
   })
   
-  observeEvent(input$link3, {
+  observeEvent(input$link3_en, {
     showModal(modalDialog(
       h5("SHELTERS"), hr(),
       h5(strong("Shelter availability is the sum of the areas offering physical shelter (banks and blocks), relative to the wet area of the station.")),
@@ -199,21 +199,21 @@ shinyServer(function(input, output, session) {
     
   })
   
-  observeEvent(input$redir1, {
-    updateTabsetPanel(session, "tabs", selected = "apropos")
+  observeEvent(input$redir1_en, {
+    updateTabsetPanel(session, "tabs_en", selected = "apropos_en")
   })
 
-  observeEvent(input$redir2, {
-    updateTabsetPanel(session, "tabs", selected = "visu")
+  observeEvent(input$redir2_en, {
+    updateTabsetPanel(session, "tabs_en", selected = "visu_en")
   })
   
-  observeEvent(input$details, {
+  observeEvent(input$details_en, {
     showModal(modalDialog(
       img(src='Tab_en.jpg', width=580, align = "center"),
       easyClose = TRUE, footer = NULL))
   })
   
-  observeEvent(input$gamme, {
+  observeEvent(input$gamme_en, {
     showModal(modalDialog(
       img(src='Density.png', width=580, align = "center"),
       easyClose = TRUE, footer = NULL))
