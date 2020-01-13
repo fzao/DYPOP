@@ -26,7 +26,7 @@
 # XL = max length of abscissa
 # Dso : Data to plot
 
-fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
+fig3_en <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
 {
     par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
     SEQstep <- FD[['xinf']][2]-FD[['xinf']][1]
@@ -64,7 +64,7 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdm[dAdm<threshold] <- 0.
     dAdh[is.na(dAdh)] <- 0.
     dAdh[dAdh<threshold] <- 0.
-    
+
     # threshold at xmax = 100
     x <- x[x<101.]
     lenx <- length(x)
@@ -77,7 +77,7 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdl <- dAdl[1:lenx]
     dAdm <- dAdm[1:lenx]
     dAdh <- dAdh[1:lenx]
-    
+
     # spline smoothing
     cstep <- 0.2
     dstep <- x[2] - x[1]
@@ -102,7 +102,7 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     smoothing <- splinefun(x, dAdh)
     dAdh <- smoothing(xs)
     x <- xs
-    
+
     # new bad values
     d0l[d0l<threshold] <- 0.
     d0m[is.na(d0m)] <- 0.
@@ -121,23 +121,23 @@ fig3_p1 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
     dAdm[dAdm<threshold] <- 0.
     dAdh[is.na(dAdh)] <- 0.
     dAdh[dAdh<threshold] <- 0.
-    
+
     dataF <- data.frame(x, d0l, d0m, d0h,
                         d1l, d1m, d1h,
                         dAdl, dAdm, dAdh)
 
-    name_l <- "Recrutement faible"
-    name_m <- "Recrutement moyen"
-    name_h <- "Recrutement fort"
- 
-    p <- plot_ly(dataF, x = ~x, y = ~d1l, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
+    name_l <- "Low recruitment"
+    name_m <- "Medium recruitment"
+    name_h <- "High recruitment"
+
+    p <- plot_ly(dataF, x = ~x, y = ~dAdl, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
             showlegend = TRUE, fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
-      add_trace(x = ~x, y = ~d1m, name = name_m, fill = 'tozeroy',
+      add_trace(x = ~x, y = ~dAdm, name = name_m, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
-      add_trace(x = ~x, y = ~d1h, name = name_h, fill = 'tozeroy',
+      add_trace(x = ~x, y = ~dAdh, name = name_h, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = "Densité de 1+ l'année (n+1)"),
-             yaxis = list(title = 'Probabilité')) %>%
+      layout(xaxis = list(title = "Density of> 1+ the year (n + 2)"),
+             yaxis = list(title = 'Probability')) %>%
       layout(legend = list(x = 0.9, y = 0.9))
 
     return(p)

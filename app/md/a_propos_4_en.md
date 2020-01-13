@@ -12,7 +12,7 @@ output: html_document
 <font size="4">**DYPOP** is free software distributed under the license [CeCILL] (http://cecill.info/licences/Licence_CeCILL_V2.1-en.html).</font>
 
 ### **Software version**
-<font size="4">Beta Version 0.1 (2020 january)</font>
+<font size="4">Version 0.2 (2020 january)</font>
 
 ### **Open source software**
 <font size="4">DYPOP software sources are free. They can be downloaded [<font style = "color: # 005BBB"> here </font>] (https://github.com/fzao/DYPOP)</font>

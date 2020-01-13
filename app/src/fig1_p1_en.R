@@ -24,11 +24,11 @@
 # ids : name of the station (used for the title)
 # FS : Data loaded (corresponding to the input parameter set)
 # val0 : value taken for computation for x=0 (cannot be)
-fig1_p1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
+fig1_p1_en <- function(ids, FS, t_10, t_90, cache, val0=0.1)
 {
     par_name <- paste('T10',t_10,'T90',t_90,'C',cache, sep="_")
     disc <- length(FS[["X0"]])
-	
+
     x1 <- c(val0, FS[["X1"]][c(2:disc)])
     s1_025 <- FS[[par_name]][,'r2_025']/x1
     s1_25 <- FS[[par_name]][,'r2_25']/x1
@@ -58,7 +58,7 @@ fig1_p1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
     s1_975[s1_975<threshold] <- 0.
     smoothing <- loess(s1_975 ~ x1)
     s1_975 <- smoothing$fitted
-    
+
     dataF <- data.frame(x1, s1_025,s1_25,s1_50,s1_75,s1_975)
 
     p <- plot_ly(dataF, x = ~x1, y = ~s1_975, type = 'scatter', mode = 'lines',
@@ -77,9 +77,9 @@ fig1_p1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
                 line = list(color='red'),
                 showlegend = FALSE, name = 'Median') %>%
       layout(#title = paste('Survival : ',ids,' (Caches=',cache,'%; T10=',t_10,'°C; T90=',t_90,'°C)',sep=''),
-             title = "Survie apparente annuelle des truites de 1 an (1+)",
+             title = "Annual apparent survival of 1 year trout (1+)",
              paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
-             xaxis = list(title = "Densité de 1+ l'année précédente",
+             xaxis = list(title = "Density of 1+ the previous year",
                           gridcolor = 'rgb(255,255,255)',
                           showgrid = TRUE,
                           showline = FALSE,
@@ -87,7 +87,7 @@ fig1_p1 <- function(ids, FS, t_10, t_90, cache, val0=0.1)
                           tickcolor = 'rgb(127,127,127)',
                           ticks = 'outside',
                           zeroline = FALSE),
-             yaxis = list(title = "Taux de survie",
+             yaxis = list(title = "Survival rate",
                           gridcolor = 'rgb(255,255,255)',
                           showgrid = TRUE,
                           showline = FALSE,

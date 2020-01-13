@@ -127,17 +127,17 @@ fig3_p0 <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
                         dAdl, dAdm, dAdh)
 
 
-    name_l <- "Low recruitment"
-    name_m <- "Medium recruitment"
-    name_h <- "High recruitment"
+    name_l <- "Recrutement faible"
+    name_m <- "Recrutement moyen"
+    name_h <- "Recrutement fort"
     p <- plot_ly(dataF, x = ~x, y = ~d0l, type = 'scatter', mode = 'none', name = name_l, fill = 'tozeroy',
             fillcolor = 'rgba(50, 185, 50, 0.5)') %>%
       add_trace(x = ~x, y = ~d0m, name = name_m, fill = 'tozeroy',
                 fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
       add_trace(x = ~x, y = ~d0h, name = name_h, fill = 'tozeroy',
                 fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = "Density of 0+ the year (n)"),
-             yaxis = list(title = 'Probability')) %>%
+      layout(xaxis = list(title = "Densité de 0+ l'année (n)"),
+             yaxis = list(title = 'Probabilité')) %>%
       layout(legend = list(x = 0.9, y = 0.9))
 
  

@@ -12,7 +12,7 @@ output: html_document
 <font size="4">**DYPOP** est un logiciel libre distribué sous la licence [CeCILL](http://cecill.info/licences/Licence_CeCILL_V2.1-fr.html).</font>
 
 ### **Version du logiciel**
-<font size="4">Version Beta 0.1 (novembre 2018)</font>
+<font size="4">Version 0.2 (janvier 2020)</font>
 
 ### **Sources libres du logiciel**
 <font size="4">Les sources du logiciel DYPOP sont libres. Elles sont téléchargeables [<font style="color: #005BBB">ici</font>](https://github.com/fzao/DYPOP)</font>
