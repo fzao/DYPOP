@@ -6,10 +6,10 @@ output: html_document
 
 
 ### **Acknowledgement**
-<font size="4">The modeling work on which this interface is based comes from a long-standing collaboration between EDF R&D, Irstea and the French Agency for Biodiversity. This collaboration involved the funding of long-term monitoring as well as in-depth statistical analyzes of the acquired data set. This work also benefited from significant expertise from the organizations responsible for sampling.</font>
+<font size="4">The development of the model resulted of a historical collaboration between EDF R&D, INRAE and the French Office of the Biodiversity. This collaboration provided funding for long-term monitoring as well as reliable statistical analysis of the dataset. Expertise from numerous people who contributed to electrofishing and habitat measurements were also mobilized.</font>
 
 ### **License**
-<font size="4">**DYPOP** is free software distributed under the license [CeCILL] (http://cecill.info/licences/Licence_CeCILL_V2.1-en.html).</font>
+<font size="4">**DYPOP** is a free software distributed under the license [CeCILL] (http://cecill.info/licences/Licence_CeCILL_V2.1-en.html).</font>
 
 ### **Software version**
 <font size="4">Version 0.2 (2020 january)</font>

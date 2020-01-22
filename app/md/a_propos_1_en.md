@@ -4,9 +4,10 @@ author: "Victor Bret & Fabrice Zaoui"
 output: html_document
 ---
 
-### **Details on the dataset used to build the model**
+### **Details on the model dataset**
 
-<font size="4">The development of the trout population dynamics model, the results of which we share here, was based on **428 fish samplings, carried out on 40 sections of French watercourses** including 19 in a short-circuited section downstream a hydroelectric dam. The details of these samplings are given below.</font>
+<font size="4">The development of the trout population dynamics model  was based on **428 fish samplings, carried out on 40 sections of French rivers** including 19 in bypassed sections of hydroelectric dam. Details of these sampling reaches are given below.</font>
 
-<font size="4">The 40 study stretches were sampled 4 to 20 times between 1990 and 2013, in summer or early fall (the median date for sampling is September 10). The **geographic distribution** of these sections is presented opposite.</font>
+<font size="4">Between 4 and 20 surveys were conducted per reach in summer or early fall between 1990 and 2013. The location of the 40 reaches is presented opposite.</font>
+
 

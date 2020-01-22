@@ -4,20 +4,21 @@ author: "Victor Bret & Fabrice Zaoui"
 output: html_document
 ---
 
-<font size="4">**DYPOP is a web app to assess the survival and the densities expected from trout (_Salmo trutta_) populations according to the parameters of the environment. It is based on the results of a population dynamics model for trout.**</font>
+<font size="4">**DYPOP is a web app to estimate the expected survival and densities of a trout (_Salmo trutta_) populations according to environmental drivers. It is based on the results of a trout population dynamics model.**</font>
 
 * * *
 
 ### **Operating principle**
 
 
-<font size="4">A **high variability in densities** of trout is observed depending on the year of inventory, the type of environment and the different stages of development (fry, juvenile, adult). This makes it difficult to diagnose the state of a population. Also, a population dynamics model has been developed to explain this variability in densities between sites.</font>
+<font size="4">A **high variability in trout densities** is generally observed among sampling years depending on the physical context and the development stage (fry, juvenile, adult). This makes difficult to estimate a population status. Then, a population dynamics model was built to explain this density variability by assessing the relative influence of local and global drivers of mortality in brown trout populations.</font>
 
 
 <font size="4">The life cycle of trout has been modeled by representing the processes linking the different stages of development.</font>
 
+<font size="4">The model is based on a complete representation of the brown trout life cycle, in which demographic processes operate on the different development stages.</font>
 
-<font size="4">The **hierarchical model** made it possible to estimate the common processes of population dynamics (at the scale of France), but also to identify the origin of the variations observed at the level of each watercourse studied.</font>
+<font size="4">The ***hierarchical model** provided an estimation of the common processes of population dynamics (in France), and identified the drivers  of the variability at the level of each studied reach.</font>
 
 
-<font size="4">In addition, the **Bayesian** framework in which the model was developed made it possible to take explicit account of uncertainty (linked to sampling, estimated parameters, predictions).</font>
+<font size="4">In addition, the Bayesian framework of the model can account for multiple source of uncertainty (linked to sampling, estimated parameters, predictions).</font>

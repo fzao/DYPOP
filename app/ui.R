@@ -108,7 +108,7 @@ shinyUI(
                                                       ))
                                     ),
                                     # VISUALISATION ------------------------------------------------------
-                                    tabPanel(value="visu_en", HTML('<h4 style="color: #005BBB; "><b>Vizualisation</b></h4>'),
+                                    tabPanel(value="visu_en", HTML('<h4 style="color: #005BBB; "><b>Visualization</b></h4>'),
                                              fluidRow(
                                                  includeMarkdown("md/visu_text_1_en.md")
                                                  #includeMarkdown("md/visu_text_2.md")
