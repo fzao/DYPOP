@@ -18,7 +18,7 @@ output: html_document
 
 <font size="4">The model is based on a complete representation of the brown trout life cycle, in which demographic processes operate on the different development stages.</font>
 
-<font size="4">The ***hierarchical model** provided an estimation of the common processes of population dynamics (in France), and identified the drivers  of the variability at the level of each studied reach.</font>
+<font size="4">The **hierarchical model** provided an estimation of the common processes of population dynamics (in France), and identified the drivers  of the variability at the level of each studied reach.</font>
 
 
 <font size="4">In addition, the Bayesian framework of the model can account for multiple source of uncertainty (linked to sampling, estimated parameters, predictions).</font>

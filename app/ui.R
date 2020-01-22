@@ -85,8 +85,8 @@ shinyUI(
                                         HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF; font-size:400%"><b>DYPOP</b></h1>'),
                                         HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">A tool to help diagnose the state of brown trout populations</h2>')),
                                  column(2, align="right",
-                                        img(height=40, width=80, src="edf.jpg"),
-                                        img(height=80, width=77, src="Irstea.png"))
+                                        img(height=40, width=80, src="edf.jpg"), HTML('<h4> </h4>'),
+                                        img(height=30, width=114, src="Inrae.jpg"))
                         ), br(),
                         tabsetPanel(id="tabs_en",
                                     # ACCUEIL ---------------------------------------------------
@@ -239,8 +239,8 @@ shinyUI(
                                       HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF; font-size:400%"><b>DYPOP</b></h1>'),
                                       HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">Un outil d\'aide au diagnostic de l\'état des populations de truite fario</h2>')),
                                column(2, align="right",
-                                      img(height=40, width=80, src="edf.jpg"),
-                                      img(height=80, width=77, src="Irstea.png"))
+                                      img(height=40, width=80, src="edf.jpg"), HTML('<h4> </h4>'),
+                                      img(height=30, width=114, src="Inrae.jpg"))
                              ), br(),
                              tabsetPanel(id="tabs",
                                          # ACCUEIL ---------------------------------------------------
