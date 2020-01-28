@@ -24,7 +24,7 @@ figAP_hist_p0 <- function(binwidth=2)
 {
   D <- read.table("data/DATA TRF_AllY.csv", sep=";", dec=',', header=TRUE)
   p <- plot_ly(D, x = ~N100m2_0, type = "histogram", nbinsx=ceiling(max(D$N100m2_0, na.rm=TRUE)/binwidth), hoverinfo="x+y") %>%
-        layout(xaxis = list(title = 'Density of 0+ (N/100m2)'),
+        layout(xaxis = list(title = '0+ density (N/100m2)'),
            yaxis = list(title = 'Number'))
 
 	return(p)
@@ -35,7 +35,7 @@ figAP_hist_p1 <- function(binwidth=2)
 {
   D <- read.table("data/DATA TRF_AllY.csv", sep=";", dec=',', header=TRUE)
   p <- plot_ly(D, x = ~N100m2_1, type = "histogram", nbinsx=ceiling(max(D$N100m2_1, na.rm=TRUE)/binwidth), hoverinfo="x+y") %>%
-    layout(xaxis = list(title = 'Density of 1+ (N/100m2)'),
+    layout(xaxis = list(title = '1+ density (N/100m2)'),
            yaxis = list(title = 'Number'))
 
   return(p)

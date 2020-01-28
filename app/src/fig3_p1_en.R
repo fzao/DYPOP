@@ -136,7 +136,7 @@ fig3_p1_en <- function(ids, FD, t_10, t_90, cache, XL=40, Dso=NULL)
                 showlegend = TRUE, fillcolor = 'rgba(50, 50, 185, 0.5)') %>%
       add_trace(x = ~x, y = ~d1h, name = name_h, fill = 'tozeroy',
                 showlegend = TRUE, fillcolor = 'rgba(185, 50, 50, 0.5)') %>%
-      layout(xaxis = list(title = "Density of 1+ the year (n + 1)"),
+      layout(xaxis = list(title = "1+ density the year (n + 1)"),
              yaxis = list(title = 'Probability')) %>%
       layout(legend = list(x = 0.9, y = 0.9))
 

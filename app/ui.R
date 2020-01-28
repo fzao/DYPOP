@@ -163,12 +163,12 @@ shinyUI(
                                                                                               plotlyOutput('plot2_hm_en') %>% withSpinner(type=8, color="#A5C226"),
                                                                                               downloadButton("exportFigDataF2b_en","Download densities"), br(),
                                                                                               column(5, align="center",
-                                                                                                  sliderInput("slider_XAdm_en", label = h4('Density >1+ year (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
+                                                                                                  sliderInput("slider_XAdm_en", label = h4('>1+ density year (n-1)'), min = 0., max = Amax, value = Avalue, step =Astep)),
                                                                                                   #knobInput(inputId = "slider_XAdm", label = h4('Densité >1+ année (n-1)'),min = 0., max = Amax, value = Avalue, step =Astep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA")),
                                                                                               column(2,
                                                                                                     h4(helpText("MARGINAL VIEWS"))),
                                                                                               column(5, align="center",
-                                                                                                  sliderInput("slider_X1m_en", label = h4('Density 1+ year (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
+                                                                                                  sliderInput("slider_X1m_en", label = h4('1+ density year (n-1)'), min = 0, max = Bmax, value = Bvalue, step = Bstep))
                                                                                                   #knobInput(inputId = "slider_X1m", label = h4('Densité 1+ année (n-1)'),min = 0., max = Bmax, value = Bvalue, step =Bstep, displayPrevious = TRUE, lineCap = "round",fgColor = "#428BCA",inputColor = "#428BCA"))
             
                                                                                     )

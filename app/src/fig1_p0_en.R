@@ -78,7 +78,7 @@ fig1_p0_en <- function(ids, FS, t_10, t_90, cache, val0=0.1)
                 showlegend = FALSE, name = 'Median') %>%
       layout(title = "Annual apparent survival of the young of the year (0+)",
              paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
-             xaxis = list(title = "Density of 0+ the previous year",
+             xaxis = list(title = "0+ density the previous year",
                           gridcolor = 'rgb(255,255,255)',
                           showgrid = TRUE,
                           showline = FALSE,
