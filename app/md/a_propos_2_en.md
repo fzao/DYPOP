@@ -6,5 +6,4 @@ output: html_document
 
 
 
-<font size="4">The 40 studied reaches covered a wide **range of physical, hydraulic and thermal context**.</font>
-
+<font size="4">The 40 reaches cover a wide **range of physical, hydraulic and thermal contexts**.</font>

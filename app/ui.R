@@ -8,7 +8,7 @@
 #
 # Un outil d'aide au diagnostic de l'etat des populations de truite fario
 #
-# Copyright (c) EDF-IRSTEA 2018
+# Copyright (c) EDF-INRAE 2018-2020
 #
 # Auteurs : Fabrice Zaoui - Victor Bret
 #
@@ -83,7 +83,7 @@ shinyUI(
                         fluidRow(
                                  column(10, align="left",
                                         HTML('<h1 style="color: #FFA02F; background-color: #FFFFFF; font-size:400%"><b>DYPOP</b></h1>'),
-                                        HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">A tool to estimate the brown trout population status</h2>')),
+                                        HTML('<h2 style="color: #A5C226; background-color: #FFFFFF;">A tool to estimate brown trout population status</h2>')),
                                  column(2, align="right",
                                         img(height=40, width=80, src="edf.jpg"), HTML('<h4> </h4>'),
                                         img(height=30, width=114, src="Inrae.jpg"))

@@ -8,7 +8,7 @@
 #
 # Un outil d'aide au diagnostic de l'etat des populations de truite fario
 #
-# Copyright (c) EDF-IRSTEA 2018
+# Copyright (c) EDF-INRAE 2018-2020
 #
 # Auteurs : Fabrice Zaoui - Victor Bret
 #
