@@ -97,7 +97,7 @@ shinyUI(
                                                       includeMarkdown("md/accueil_1_en.md"),
                                                       actionLink(inputId = "redir1_en", label=HTML('<h4 style="color: #005BBB; ">=> To find out more, go to the \"About\" tab</h4>')),
                                                       includeMarkdown("md/accueil_2_en.md"),
-                                                      actionLink(inputId = "redir2_en", label=HTML('<h4 style="color: #005BBB; ">=> To use DYPOP, go to the \"Visualization\" tab</h4>')),
+                                                      actionLink(inputId = "redir2_en", label=HTML('<h4 style="color: #005BBB; ">=> To use DYPOP, go to the \"Analysis\" tab</h4>')),
                                                       includeMarkdown("md/accueil_3_en.md")
                                                       ),
                                                column(4, align="center",
@@ -107,8 +107,8 @@ shinyUI(
                                                       img(width = 300, src='Diapositive2_en.jpg', align = "center")
                                                       ))
                                     ),
-                                    # VISUALISATION ------------------------------------------------------
-                                    tabPanel(value="visu_en", HTML('<h4 style="color: #005BBB; "><b>Visualization</b></h4>'),
+                                    # ANALYSIS ------------------------------------------------------
+                                    tabPanel(value="visu_en", HTML('<h4 style="color: #005BBB; "><b>Analysis</b></h4>'),
                                              fluidRow(
                                                  includeMarkdown("md/visu_text_1_en.md")
                                                  #includeMarkdown("md/visu_text_2.md")
@@ -251,7 +251,7 @@ shinyUI(
                                                            includeMarkdown("md/accueil_1.md"),
                                                            actionLink(inputId = "redir1", label=HTML('<h4 style="color: #005BBB; ">=> Pour en savoir plus, se rendre sur l\'onglet \"A propos\"</h4>')),
                                                            includeMarkdown("md/accueil_2.md"),
-                                                           actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> Pour utiliser DYPOP, se rendre sur l\'onglet\"Visualisation\"</h4>')),
+                                                           actionLink(inputId = "redir2", label=HTML('<h4 style="color: #005BBB; ">=> Pour utiliser DYPOP, se rendre sur l\'onglet\"Analyse\"</h4>')),
                                                            includeMarkdown("md/accueil_3.md")
                                                     ),
                                                     column(4, align="center",
@@ -261,8 +261,8 @@ shinyUI(
                                                            img(width = 300, src='Diapositive2.jpg', align = "center")
                                                     ))
                                          ),
-                                         # VISUALISATION ------------------------------------------------------
-                                         tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Visualisation</b></h4>'),
+                                         # ANALYSE ------------------------------------------------------
+                                         tabPanel(value="visu", HTML('<h4 style="color: #005BBB; "><b>Analyse</b></h4>'),
                                                    fluidRow(
                                                      includeMarkdown("md/visu_text_1.md")
                                                      #includeMarkdown("md/visu_text_2.md")
