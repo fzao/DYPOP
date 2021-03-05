@@ -56,6 +56,7 @@ appCSS <- "
 
 shinyUI(
   fluidPage(title="DYPOP",
+            tags$head(tags$link(rel="shortcut icon", href="Dypop_icon.png")),
             tags$head(HTML(
               "<!-- Global site tag (gtag.js) - Google Analytics -->
                 <script async src='https://www.googletagmanager.com/gtag/js?id=UA-129686408-1'></script>
