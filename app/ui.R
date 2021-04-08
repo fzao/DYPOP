@@ -57,23 +57,12 @@ appCSS <- "
 shinyUI(
   fluidPage(title="DYPOP",
             tags$head(tags$link(rel="shortcut icon", href="Dypop_icon.png")),
-            tags$head(HTML(
-              "<!-- Global site tag (gtag.js) - Google Analytics -->
-                <script async src='https://www.googletagmanager.com/gtag/js?id=UA-129686408-1'></script>
-                <script>
-                window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'UA-129686408-1');
-              </script>"
-            )),
             useShinyjs(),
             inlineCSS(appCSS),
             # Loading message
             div(
               id = "loading-content",
               h1("Loading DYPOP...") %>% withSpinner(type=8, color="#A5C226")
-
             ),
 
             hidden(
