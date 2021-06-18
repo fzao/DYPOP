@@ -82,7 +82,7 @@ fig2_p0 <- function(ids, FS, t_10, t_90, cache)
 				showlegend = FALSE, name = 'Percentile 75') %>%
 	  add_trace(y = ~ s0_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
-				showlegend = FALSE, name = 'Percentile 25') %>%
+				showlegend = FALSE, name = 'Median') %>%
 	  layout(title = 'Densités de 1+ attendues',
 			 paper_bgcolor='rgb(255,255,255)', plot_bgcolor='rgb(239,239,239)',
 			 xaxis = list(title = "Densité 0+ année (n-1)",
