@@ -34,18 +34,18 @@ source('src/fig1_export.R')
 source('src/fig2_export.R')
 source('src/fig3_export.R')
 
+if(Sys.info()["sysname"] == "Darwin"){
+  load(file=paste('../data/FS.RData',sep=''))
+  load(file=paste('../data/FD.RData',sep=''))
+}else{
+  load(file=paste('/home/dypop/data/FS.RData',sep=''))
+  load(file=paste('/home/dypop/data/FD.RData',sep=''))
+}
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
   ids='station_test'
-  if(Sys.info()["sysname"] == "Darwin"){
-    load(file=paste('../data/FS.RData',sep=''))
-    load(file=paste('../data/FD.RData',sep=''))
-  }else{
-    load(file=paste('/home/dypop/data/FS.RData',sep=''))
-    load(file=paste('/home/dypop/data/FD.RData',sep=''))
-  }
 
   sliderValues <- reactive({
     data.frame(
