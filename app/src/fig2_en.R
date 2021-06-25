@@ -294,7 +294,7 @@ fig2_hm_en <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 				showlegend = FALSE, name = 'Percentile 75') %>%
 	  add_trace(x = ~ s1_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
-				showlegend = FALSE, name = 'Percentile 25')%>%
+				showlegend = FALSE, name = 'Median')%>%
 	  layout(showlegend = FALSE, plot_bordercolor='red', xaxis = list(title = paste(">1+ density year (n)")), xaxis = list(range=c(min(FS[["X1"]]),max(FS[["X1"]]))))
 
 
@@ -312,7 +312,7 @@ fig2_hm_en <- function(ids, FS, t_10, t_90, cache, X1m, XAdm, type3D=FALSE)
 				showlegend = FALSE, name = 'Percentile 75') %>%
 	  add_trace(y = ~ sAd_50, type = 'scatter', mode = 'lines',
 				line = list(color='red'),
-				showlegend = FALSE, name = 'Percentile 25')%>%
+				showlegend = FALSE, name = 'Median')%>%
 	  layout(showlegend = FALSE, plot_bordercolor='orange', yaxis = list(title = paste(">1+ density\nyear (n)")), yaxis = list(range=c(min(FS[["XAd"]]),max(FS[["XAd"]]))))
 
 
